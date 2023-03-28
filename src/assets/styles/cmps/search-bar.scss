@@ -1,0 +1,35 @@
+.searchbar {
+    display: flex;
+    align-items: center;
+    background-color: $white;
+    border-bottom: 1px solid lightgray;
+    // padding: 10px;
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        border-radius: 0.5rem;
+        width: 100%;
+        background-color: $light-gray;
+        height: 1.7rem;
+        margin: 0.4375rem 0.75rem;
+
+        >input {
+            border: none;
+            margin-left: 10px;
+            background: none;
+            outline: none;
+        }
+
+        >input::placeholder {
+            font-size: 0.67rem;
+        }
+
+        >.MuiSvgIcon-root {
+            margin: 10px;
+            color: gray;
+            font-size: 1rem;
+        }
+    }
+
+}

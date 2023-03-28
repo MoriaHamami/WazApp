@@ -1,0 +1,39 @@
+.chat-list {
+    flex: 1;
+    overflow: auto;
+    background-color: $white;
+
+    .chat-preview {
+        display: flex;
+        cursor: pointer;
+
+        .preview-info {
+            width: 100%;
+            border-bottom: 1px solid lightgray;
+        }
+
+        &:hover {
+            background-color: $light-gray;
+        }
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
