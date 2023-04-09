@@ -1,3 +1,4 @@
+import Chat from "./cmps/chat";
 import Sidebar from "./cmps/sidebar";
 
 function App() {
@@ -5,6 +6,7 @@ function App() {
     <div className="app">
       <main className='app-body'>
         <Sidebar />
+        <Chat />
       </main>
     </div>
   )

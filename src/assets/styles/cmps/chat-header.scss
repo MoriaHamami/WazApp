@@ -1,0 +1,37 @@
+.chat-header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid $white-smoke;
+    background-color: $light-gray;
+    padding: 0.26rem 0.8rem;
+
+    .profile {
+        height: 1.9rem;
+        width: 1.9rem;
+        margin-inline-end: 15px;
+    }
+
+    .chat-icons {
+        display: flex;
+        justify-content: space-between;
+        min-width: 100px;
+        .MuiSvgIcon-root {
+            margin-right: 0.8vw;
+            font-size: 1.1rem !important;
+        }
+    }
+
+    .chat-info{
+        flex-grow: 1;
+    }
+
+    .user-name{
+        font-size: 16px;
+    }
+
+    p{
+        font-size: 13px;
+        color: $light-blue;
+    }
+}
+

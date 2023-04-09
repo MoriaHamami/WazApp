@@ -1,0 +1,22 @@
+.chat-body{
+    flex:1;
+    // background-image:url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+    background-image:linear-gradient(rgba(239, 234, 226, 0.5), rgba(239, 234, 226, 0.5)), url("../../imgs/bg.png");
+    background-color: $beige;
+    background-repeat: repeat;
+    background-position: center;
+    overflow: auto;
+    padding: 15px;
+
+    .chat-msg{
+        // font-size: 12.8px;
+        position: relative;
+        font-size: 14.2px;
+        padding: 9px;
+        background-color: $white;
+        border-radius: 10px;
+        width: fit-content;
+        max-width: 60%;
+        margin-bottom: 2px;
+    }
+}

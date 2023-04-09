@@ -3,19 +3,40 @@
     overflow: auto;
     background-color: $white;
 
-    .chat-preview {
-        display: flex;
+    .add-btn{
+        padding: 8px 0 8px 60px;
+        background-color: $light-gray;
         cursor: pointer;
-
-        .preview-info {
-            width: 100%;
-            border-bottom: 1px solid lightgray;
-        }
-
+        font-size: 15px;
         &:hover {
             background-color: $light-gray;
         }
     }
+
+    .chat-preview {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 15px;
+        padding: 5px 0 0 15px;
+
+        &:hover {
+            background-color: $light-gray;
+        }
+
+    }
+
+    .preview-info {
+        padding: 0 0 8px 15px;
+        width: 100%;
+        border-bottom: 1px solid $white-smoke;
+    }
+
+    .user-name {
+        font-size: 18px;
+        font-weight: 600;
+    }
+
 
     /* width */
     ::-webkit-scrollbar {
