@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Avatar, IconButton } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { AttachFile, SearchOutlined } from "@mui/icons-material";
+import { SearchOutlined } from "@mui/icons-material";
 
 function ChatHeader() {
 
@@ -21,9 +21,6 @@ function ChatHeader() {
             <div className="chat-icons">
                 <IconButton>
                     <SearchOutlined />
-                </IconButton>
-                <IconButton>
-                    <AttachFile />
                 </IconButton>
                 <IconButton>
                     <MoreVertIcon />

@@ -9,14 +9,30 @@
     padding: 15px;
 
     .chat-msg{
-        // font-size: 12.8px;
         position: relative;
-        font-size: 14.2px;
         padding: 9px;
         background-color: $white;
         border-radius: 10px;
         width: fit-content;
         max-width: 60%;
         margin-bottom: 2px;
+    }
+
+    .reciever{
+        margin-left: auto;
+        background-color: $light-green;
+    }
+
+    .content{
+        font-size: 14.2px;
+    }
+
+    .username{
+        font-size: 12.8px;
+    }
+
+    .timestamp {
+        font-size: 11px;
+        text-align: end;
     }
 }

@@ -1,12 +1,16 @@
 function ChatBody() {
     return (
         <article className="chat-body">
-            <p className="chat-msg">
-                hey guys!
-            </p>
-            <p className="chat-msg">
-                Hey Guys!
-            </p>
+            <div className="chat-msg">
+                <p className="username">Moria Hamami</p>
+                <p className="content">Hey Guys!</p>
+                <p className="timestamp">03:52</p>
+            </div>
+            <div className={`chat-msg ${true && 'reciever'}`}>
+                <p className="username">Moria Hamami</p>
+                <p className="content">Hey Guys!</p>
+                <p className="timestamp">03:52</p>
+            </div>
         </article>
     )
 }
