@@ -1,4 +1,5 @@
-function ChatBody() {
+function ChatBody({roomId}) {
+    
     return (
         <article className="chat-body">
             <div className="chat-msg">

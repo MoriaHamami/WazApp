@@ -1,10 +1,14 @@
 import ChatPreview from "./chat-preview"
 
-function ChatList() {
+function ChatList({rooms, createChat}) {
+
     return (
         <article className="chat-list">
-            <ChatPreview addNewChat/>
-            <ChatPreview />
+            <ChatPreview addNewChat createChat={createChat}/>
+            {/* <ChatPreview /> */}
+            {rooms?.map(room => (
+                <ChatPreview key={room.id} id={room.id} name={room.data.name}/>
+            ))}
         </article>
     )
 }

@@ -8,6 +8,8 @@ function ChatFooter() {
 
     function sendMsg(ev) {
         ev.preventDefault()
+        console.log('input:', input)
+        setInput('')
     }
 
     return (
@@ -19,7 +21,7 @@ function ChatFooter() {
                 <AttachFile />
             </IconButton>
             <form onSubmit={sendMsg}>
-                <input type="text" placeholder="Type a message" value={value}/>
+                <input type="text" placeholder="Type a message" value={input} onChange={ev => setInput(ev.target.value)}/>
             </form>
             <IconButton>
                 <Mic />
