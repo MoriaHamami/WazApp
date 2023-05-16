@@ -4,7 +4,7 @@ function MsgList({msgs}) {
 
     return (
         <article className="msg-list">
-            {msgs?.map(msg => (
+            {msgs.length && msgs.map(msg => (
                 <MsgPreview name={msg.name} msg={msg.msg} timestamp={msg.timestamp} />
             ))}
         </article>

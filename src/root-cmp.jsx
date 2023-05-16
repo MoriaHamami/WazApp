@@ -9,18 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 function App() {
 
-  const [user, setUser] = useState(null)
   const loggedInUser = useSelector(storeState => storeState.userModule.user)
   
   return (
     <div className="app">
     {!loggedInUser ? (
-      <LoginPage setUser={setUser}/>
+      <LoginPage/>
     ) : (
       <main className='app-body'>
         <Routes>
             <Route element={<HomePage />} path="/" />
-            <Route element={<MainPage />} path="rooms/:roomId?" />
+            <Route element={<MainPage loggedInUser={loggedInUser}/>} path="rooms/:roomId?" />
             {/* <Route element={<Sidebar />} path="rooms" />
             <Route element={<Chat />} path="rooms/:roomId" /> */}
         </Routes>

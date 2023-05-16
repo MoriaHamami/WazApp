@@ -1,11 +1,11 @@
 import Chat from "../cmps/chat"
 import Sidebar from "../cmps/sidebar"
 
-function MainPage() {
+function MainPage({loggedInUser}) {
     return (
         <article className="main-page">
             <Sidebar />
-            <Chat />
+            <Chat loggedInUser={loggedInUser}/>
         </article>
     )
 }

@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore/lite';
+import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import { GoogleAuthProvider } from 'firebase/auth';
 // import firebase from 'firebase';
@@ -16,7 +16,8 @@ const firebaseConfig = {
     storageBucket: "wazapp-fc40f.appspot.com",
     messagingSenderId: "472922232251",
     appId: "1:472922232251:web:047c5413282f94e848209e",
-    measurementId: "G-0008QY6TLF"
+    measurementId: "G-0008QY6TLF",
+    databaseURL: "https://wazapp-fc40f-default-rtdb.firebaseio.com/"
 }
 
 const firebaseApp = initializeApp(firebaseConfig)
