@@ -1,6 +1,13 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    flex: 0.45;
+    // flex: 0.45;
+    // flex-grow: 0.45;
     color: $dark-gray;
+    // height: 100vh;
+
+    a{
+        text-decoration: none !important;
+        color: $black;
+    }
 }

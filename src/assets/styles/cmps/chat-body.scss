@@ -5,7 +5,8 @@
     background-color: $beige;
     background-repeat: repeat;
     background-position: center;
-    overflow: auto;
+    overflow-y: auto;
+    // overflow-x: hidden;
     padding: 15px;
 
     .chat-msg{
@@ -16,6 +17,7 @@
         width: fit-content;
         max-width: 60%;
         margin-bottom: 2px;
+        overflow-wrap: anywhere;
     }
 
     .reciever{

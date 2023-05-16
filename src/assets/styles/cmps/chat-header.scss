@@ -4,7 +4,9 @@
     border-bottom: 1px solid $white-smoke;
     background-color: $light-gray;
     padding: 0.26rem 0.8rem;
-
+//     overflow: hidden;
+// white-space: nowrap;
+// text-overflow: ellipsis;
     .profile {
         height: 1.9rem;
         width: 1.9rem;
@@ -31,6 +33,10 @@
     p{
         font-size: 13px;
         color: $light-blue;
+        overflow: hidden;
+white-space: nowrap;
+max-width: calc(100vw - $sidebar-width - 8rem);
+        text-overflow: ellipsis;
     }
 }
 

@@ -14,7 +14,7 @@ function ChatPreview({ addNewChat, createChat, name, id }) {
         return () => {
             unsub.current && unsub.current()
         }
-    }, [])
+    }, [id])
 
     async function loadLastMsg(roomId) {
         const roomRef = doc(db, "rooms", roomId);

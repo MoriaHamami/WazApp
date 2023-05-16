@@ -20,6 +20,11 @@
         outline: none;
         padding-inline-start: 10px;
         font-size: 0.71rem;
+
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100vw - $sidebar-width - 8rem);
+                text-overflow: ellipsis;
     }
 
     .MuiSvgIcon-root {

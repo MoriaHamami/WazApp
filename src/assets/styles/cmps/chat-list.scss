@@ -3,11 +3,12 @@
     overflow: auto;
     background-color: $white;
 
-    .add-btn{
+    .add-btn {
         padding: 8px 0 8px 60px;
         background-color: $light-gray;
         cursor: pointer;
         font-size: 15px;
+
         &:hover {
             background-color: $light-gray;
         }
@@ -30,6 +31,17 @@
         padding: 0 0 8px 15px;
         width: 100%;
         border-bottom: 1px solid $white-smoke;
+
+        // height: 100%;
+        p {
+            max-width: calc($sidebar-width - 6rem);
+            overflow: hidden;
+            white-space: nowrap;
+            // max-width: calc(100vw - $sidebar-width - 8rem);
+            text-overflow: ellipsis;
+            height: 1rem;
+        }
+
     }
 
     .user-name {
@@ -37,24 +49,4 @@
         font-weight: 600;
     }
 
-
-    /* width */
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: #888;
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
 }
