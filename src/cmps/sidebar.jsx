@@ -1,7 +1,7 @@
 import ChatList from "./chat-list"
 import SearchBar from "./search-bar"
 import SidebarHeader from "./sidebar-header"
-import db from "../firebase"
+import db from "../services/firebase"
 import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
 import { useEffect, useState } from "react"
 

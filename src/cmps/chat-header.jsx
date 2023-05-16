@@ -5,15 +5,15 @@ import { SearchOutlined } from "@mui/icons-material";
 
 function ChatHeader({roomName}) {
 
-    const [seed, setSeed] = useState('')
+    // const [seed, setSeed] = useState('')
 
-    useEffect(() => {
-        setSeed(Math.floor(Math.random() * 5000))
-    }, [])
+    // useEffect(() => {
+    //     setSeed(Math.floor(Math.random() * 5000))
+    // }, [])
 
     return (
         <header className="chat-header">
-            <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${seed}`} />
+            <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} />
             <div className="chat-info">
                 <div className="user-name">{roomName}</div>
                 <p>Last seen at...</p>

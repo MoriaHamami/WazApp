@@ -4,25 +4,27 @@ import ChatFooter from "./chat-footer"
 import ChatHeader from "./chat-header"
 import { useState } from "react"
 import { useEffect } from "react"
-import db from "../firebase"
-import { doc, getDoc } from "firebase/firestore";
+import db from "../services/firebase"
+import { collection, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore/lite";
 
 function Chat() {
 
     const { roomId } = useParams()
-    const { roomName, setRoomName } = useState("")
+    const [ roomName, setRoomName ] = useState("")
 
 
     useEffect(() => {
-    //    s()
+        loadRoom()
     }, [roomId])
 
-    async function s(){
+    async function loadRoom(){
         if (roomId) {
             // const roomsCol = collection(db, 'rooms')
+            // const roomRef = doc(roomsCol, roomId);
             const roomRef = doc(db, "rooms", roomId);
-            const roomsSnapshot = await getDoc(roomRef)
-            setRoomName(roomsSnapshot.data().name)
+            const roomSnapshot = await getDoc(roomRef)
+            setRoomName(roomSnapshot.data().name)
+
         }
     }
 
