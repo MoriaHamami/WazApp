@@ -3,7 +3,7 @@ import { Avatar, IconButton } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { SearchOutlined } from "@mui/icons-material";
 
-function ChatHeader({roomName}) {
+function ChatHeader({roomName, msgs}) {
 
     // const [seed, setSeed] = useState('')
 
@@ -16,7 +16,7 @@ function ChatHeader({roomName}) {
             <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} />
             <div className="chat-info">
                 <div className="user-name">{roomName}</div>
-                <p>Last seen at...</p>
+                <p>Last seen at {new Date(msgs[msgs.length-1]?.timestamp?.toDate()).toUTCString()}</p>
             </div>
             <div className="chat-icons">
                 <IconButton>

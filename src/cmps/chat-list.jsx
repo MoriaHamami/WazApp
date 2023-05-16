@@ -6,8 +6,8 @@ function ChatList({rooms, createChat}) {
         <article className="chat-list">
             <ChatPreview addNewChat createChat={createChat}/>
             {/* <ChatPreview /> */}
-            {rooms.length && rooms.map(room => (
-                <ChatPreview key={room.id} id={room.id} name={room.data.name}/>
+            {rooms && rooms.map(room => (
+                <ChatPreview key={room.id} id={room.id} name={room.data.name} />
             ))}
         </article>
     )

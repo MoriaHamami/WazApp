@@ -47,6 +47,8 @@ function Sidebar() {
         })
     }
 
+
+
     async function createChat() {
 
         const roomName = prompt('Please enter name for chat')

@@ -76,7 +76,7 @@ function Chat({ loggedInUser }) {
 
     return (
         <article className="chat">
-            <ChatHeader roomName={roomName} />
+            <ChatHeader roomName={roomName} msgs={msgs} />
             <ChatBody msgs={msgs} />
             <ChatFooter saveMsg={saveMsg} />
         </article>

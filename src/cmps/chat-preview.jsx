@@ -1,13 +1,30 @@
+import { collection, doc, limit, onSnapshot, orderBy, query } from "@firebase/firestore"
 import { Avatar } from "@mui/material"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
+import db from "../services/firebase"
 
 function ChatPreview({ addNewChat, createChat, name, id }) {
     // const [seed, setSeed] = useState('')
-    
-    // useEffect(() => {
-    //     setSeed(Math.floor(Math.random() * 5000))
-    // }, [])
+    const [lastMsg, setLastMsg] = useState("")
+    const unsub = useRef(null)
+
+    useEffect(() => {
+        loadLastMsg(id)
+        return () => {
+            unsub.current && unsub.current()
+        }
+    }, [])
+
+    async function loadLastMsg(roomId) {
+        const roomRef = doc(db, "rooms", roomId);
+        const msgsCol = collection(roomRef, "msgs");
+        const lastMsg = query(msgsCol, orderBy("timestamp", "desc"), limit(1))
+        unsub.current = onSnapshot(lastMsg, msg => {
+            // console.log('msg:', msg)
+            setLastMsg(msg?.docs ? msg.docs[0]?.data().msg : "")
+        })
+    }
 
 
 
@@ -19,7 +36,7 @@ function ChatPreview({ addNewChat, createChat, name, id }) {
                 <article className="preview-info">
                     <div className="user-name">{name}</div>
                     {/* <div className="user-name">hi</div> */}
-                    <p>last message...</p>
+                    <p>{lastMsg}</p>
                 </article>
             </section>
         </Link>
