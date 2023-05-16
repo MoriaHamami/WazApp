@@ -1,6 +1,6 @@
 import { collection, doc, getDocs, orderBy, query } from "firebase/firestore/lite";
 import MsgList from "./msg-list"
-import db from "../services/firebase";
+import db from "../../services/firebase";
 import { useEffect, useState } from "react";
 
 function ChatBody({msgs}) {

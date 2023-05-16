@@ -1,15 +1,18 @@
 import ChatList from "./chat-list"
 import SearchBar from "./search-bar"
 import SidebarHeader from "./sidebar-header"
-import db from "../services/firebase"
+// import db from "../services/firebase"
 // import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
 import { useEffect, useRef, useState } from "react"
 import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp } from "firebase/firestore";
+import db from "../../services/firebase";
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
 
     const [rooms, setRooms] = useState([])
     const unsub = useRef(null)
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadRooms()
@@ -25,7 +28,7 @@ function Sidebar() {
         // ))
     }, [])
 
-    async function loadRooms() {
+    function loadRooms() {
         // db.collection('rooms').onSnapshot(snapshot => (
         //     setRooms(snapshot.docs.map(doc=>
         //     ({
@@ -38,6 +41,7 @@ function Sidebar() {
         const roomsCol = query(collection(db, 'rooms'), orderBy('timestamp', "desc"))
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
+            navigate(`/rooms/${rooms.docs[0].id}`);
             setRooms(rooms.docs.length ?
                 rooms.docs.map(doc =>
                 ({
@@ -45,6 +49,7 @@ function Sidebar() {
                     data: doc.data()
                 })) : [])
         })
+
     }
 
 
@@ -54,9 +59,9 @@ function Sidebar() {
         const roomName = prompt('Please enter name for chat')
         if (roomName) {
             const roomsCol = collection(db, 'rooms')
-            await addDoc(roomsCol, { 
+            await addDoc(roomsCol, {
                 name: roomName,
-                timestamp:serverTimestamp()
+                timestamp: serverTimestamp()
             })
             // loadRooms()
             // db.collection('rooms').add({

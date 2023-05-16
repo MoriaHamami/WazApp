@@ -2,7 +2,7 @@ import { collection, doc, limit, onSnapshot, orderBy, query } from "@firebase/fi
 import { Avatar } from "@mui/material"
 import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
-import db from "../services/firebase"
+import db from "../../services/firebase"
 
 function ChatPreview({ addNewChat, createChat, name, id }) {
     // const [seed, setSeed] = useState('')

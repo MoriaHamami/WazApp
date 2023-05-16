@@ -1,7 +1,6 @@
 // import Sidebar from "./cmps/sidebar";
 // import Chat from "./cmps/chat";
 import { useState } from "react";
-import HomePage from "./views/home-page";
 import MainPage from "./views/main-page";
 import { Routes, Route  } from 'react-router'
 import LoginPage from "./views/login-page";
@@ -18,7 +17,6 @@ function App() {
     ) : (
       <main className='app-body'>
         <Routes>
-            <Route element={<HomePage />} path="/" />
             <Route element={<MainPage loggedInUser={loggedInUser}/>} path="rooms/:roomId?" />
             {/* <Route element={<Sidebar />} path="rooms" />
             <Route element={<Chat />} path="rooms/:roomId" /> */}

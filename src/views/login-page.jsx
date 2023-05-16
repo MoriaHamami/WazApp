@@ -2,6 +2,7 @@ import { Button } from "@mui/material"
 import { auth, provider } from "../services/firebase"
 import { onAuthStateChanged, signInWithPopup } from "firebase/auth"
 import { login } from "../services/user.actions"
+import { Link } from "react-router-dom"
 
 function LoginPage({ setUser }) {
 
@@ -31,9 +32,11 @@ function LoginPage({ setUser }) {
                 <div className="login-txt">
                     <h1>Sign in to WazApp</h1>
                 </div>
+                <Link to="rooms">
                 <Button onClick={signIn}>
                     Sign in with Google
                 </Button>
+                </Link>
             </div>
         </div>
     )

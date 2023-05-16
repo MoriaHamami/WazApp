@@ -1,5 +1,5 @@
-import Chat from "../cmps/chat"
-import Sidebar from "../cmps/sidebar"
+import Chat from "../cmps/chat/chat"
+import Sidebar from "../cmps/sidebar/sidebar.jsx"
 
 function MainPage({loggedInUser}) {
     return (

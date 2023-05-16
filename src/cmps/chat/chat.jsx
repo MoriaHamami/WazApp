@@ -4,7 +4,7 @@ import ChatFooter from "./chat-footer"
 import ChatHeader from "./chat-header"
 import { useRef, useState } from "react"
 import { useEffect } from "react"
-import db from "../services/firebase"
+import db from "../../services/firebase"
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
 import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp } from "firebase/firestore";
@@ -30,8 +30,8 @@ function Chat({ loggedInUser }) {
             // const roomsCol = collection(db, 'rooms')
             // const roomRef = doc(roomsCol, roomId);
             const roomRef = doc(db, "rooms", roomId);
-            roomsUnsub.current = onSnapshot(roomRef, room=>{
-// console.log('room:', room)
+            roomsUnsub.current = onSnapshot(roomRef, room => {
+                // console.log('room:', room)
                 setRoomName(room.data().name)
             })
             loadMsgs()
@@ -42,7 +42,7 @@ function Chat({ loggedInUser }) {
         const roomRef = doc(db, "rooms", roomId);
         const msgsCol = collection(roomRef, "msgs");
         const msgsQuery = query(msgsCol, orderBy("timestamp"))
-        msgsUnsub.current = onSnapshot(msgsQuery, msgs=>{
+        msgsUnsub.current = onSnapshot(msgsQuery, msgs => {
 
             setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
         })
