@@ -4,9 +4,10 @@
     border-bottom: 1px solid $white-smoke;
     background-color: $light-gray;
     padding: 0.26rem 0.8rem;
-//     overflow: hidden;
-// white-space: nowrap;
-// text-overflow: ellipsis;
+
+    //     overflow: hidden;
+    // white-space: nowrap;
+    // text-overflow: ellipsis;
     .profile {
         height: 1.9rem;
         width: 1.9rem;
@@ -16,27 +17,31 @@
     .chat-icons {
         display: flex;
         justify-content: space-between;
+
         .MuiSvgIcon-root {
             margin-left: 0.8vw;
             font-size: 1.2rem !important;
         }
     }
 
-    .chat-info{
+    .chat-info {
         flex-grow: 1;
     }
 
-    .user-name{
+    .user-name {
         font-size: 16px;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100vw - $sidebar-width - 8rem);
+        text-overflow: ellipsis;
     }
 
-    p{
+    p {
         font-size: 13px;
         color: $light-blue;
         overflow: hidden;
-white-space: nowrap;
-max-width: calc(100vw - $sidebar-width - 8rem);
+        white-space: nowrap;
+        max-width: calc(100vw - $sidebar-width - 8rem);
         text-overflow: ellipsis;
     }
 }
-

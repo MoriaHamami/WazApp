@@ -18,11 +18,9 @@ function App() {
       <main className='app-body'>
         <Routes>
             <Route element={<MainPage loggedInUser={loggedInUser}/>} path="rooms/:roomId?" />
-            {/* <Route element={<Sidebar />} path="rooms" />
-            <Route element={<Chat />} path="rooms/:roomId" /> */}
         </Routes>
       </main>
-    )}
+     )}
     </div>
   )
 }
