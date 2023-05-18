@@ -7,7 +7,7 @@
     background-position: center;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 15px;
+    padding: 4px 15px;
 
     .chat-msg {
         position: relative;
@@ -69,12 +69,40 @@
     }
 
 
+    // .rect:not(.reciever) {
+    //     margin-right: auto;
+    //     // background-color: $white;
+    //     position: absolute;
+    //     left: -11px;
+    //     top: 0px;
+    //     // transform: rotate(-15deg);
+    //     width: 0;
+    //     height: 0;
+    //     border-top: 20px solid $white;
+    //     border-left: 20px solid transparent;
+    //     z-index: 2;
+    //     box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
+    // }
+    // .rect:not(.reciever) {
+    //     margin-right: auto;
+    //     // background-color: $white;
+    //     position: absolute;
+    //     left: -11px;
+    //     top: 19.8px;
+    //     // transform: rotate(-15deg);
+    //     width: 0;
+    //     height: 0;
+    //     border-top: 20px solid $white;
+    //     border-left: 20px solid transparent;
+    //     z-index: 2;
+    //     box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
+    // }
     .rect:not(.reciever) {
         margin-right: auto;
         // background-color: $white;
-        position: relative;
+        position: absolute;
         left: -11px;
-        top: 19.8px;
+        top: 0;
         // transform: rotate(-15deg);
         width: 0;
         height: 0;
@@ -87,9 +115,9 @@
     .rect.reciever {
         margin-left: auto;
         // background-color: $white;
-        position: relative;
-        left: 11px;
-        top: 19.8px;
+        position: absolute;
+        right: -11px;
+        top: 0;
         // transform: rotate(15deg);
         width: 0;
         height: 0;
@@ -100,6 +128,23 @@
         // box-shadow: 0px -1px 1px #b1b1b169;
         box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
     }
+
+    // .rect.reciever {
+    //     margin-left: auto;
+    //     // background-color: $white;
+    //     position: absolute;
+    //     left: 11px;
+    //     top: 19.8px;
+    //     // transform: rotate(15deg);
+    //     width: 0;
+    //     height: 0;
+    //     border-top: 20px solid $light-green;
+    //     // border-bottom: 20px solid red;
+    //     border-right: 20px solid transparent;
+    //     z-index: 2;
+    //     // box-shadow: 0px -1px 1px #b1b1b169;
+    //     box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
+    // }
     // .circle:not(.reciever) {
     //     background-color: $beige;
     //     // background-color: $white;
@@ -149,4 +194,11 @@
     //     // border-bottom: 20px solid red;
     //     border-right: 20px solid transparent;
     // }
+}
+
+.msg-preview{
+    position: relative;
+    // margin: 0;
+    // padding: 0;
+    // height: calc(100% - 20px);
 }
