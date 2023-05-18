@@ -24,7 +24,18 @@
         overflow: hidden;
         white-space: nowrap;
         max-width: calc(100vw - $sidebar-width - 8rem);
-                text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+aside.EmojiPickerReact.epr-main {
+    // .picker-container {
+        position: absolute;
+        bottom: 60px;
+        // left:-5px;
+        width: calc(100vw - $sidebar-width - 50px) !important;
+        max-width: 500px!important;
+        height: 70vh !important;
+        max-height: 600px!important;
+        // width: 100%;
     }
 
     .MuiSvgIcon-root {

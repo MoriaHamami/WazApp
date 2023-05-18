@@ -1,13 +1,14 @@
 import { collection, doc, limit, onSnapshot, orderBy, query } from "@firebase/firestore"
 import { Avatar } from "@mui/material"
 import { useState, useEffect, useRef } from "react"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import db from "../../services/firebase"
 
 function ChatPreview({ addNewChat, createChat, name, id }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
     const unsub = useRef(null)
+    const { roomId } = useParams()
 
     useEffect(() => {
         loadLastMsg(id)
@@ -30,7 +31,8 @@ function ChatPreview({ addNewChat, createChat, name, id }) {
 
     return !addNewChat ? (
         <Link to={`/rooms/${id}`}>
-            <section className="chat-preview">
+            <section className={`chat-preview ${id===roomId && 'active'}`}>
+                {/* {console.log('id, roomId:', id, roomId)} */}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
                 <Avatar src={`https://i.pravatar.cc/150?u=${name}`} />
                 <article className="preview-info">
@@ -41,11 +43,11 @@ function ChatPreview({ addNewChat, createChat, name, id }) {
             </section>
         </Link>
     ) : (
-        <div onClick={createChat}>
-            <div className="add-btn">
+        // <div >
+            <div className="add-btn" onClick={createChat}>
                 Add new chat
             </div>
-        </div>
+        // </div>
     )
 }
 

@@ -16,7 +16,7 @@
         border-radius: 10px;
         width: fit-content;
         max-width: 60%;
-        margin-bottom: 2px;
+        margin-bottom: 4px;
         overflow-wrap: anywhere;
     }
 
@@ -36,5 +36,15 @@
     .timestamp {
         font-size: 11px;
         text-align: end;
+    }
+
+    .circle{
+        background-color: $white;
+
+    }
+
+    .rect{
+        background-color: $white;
+
     }
 }
