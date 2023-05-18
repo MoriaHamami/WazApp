@@ -1,15 +1,15 @@
-.chat-body{
-    flex:1;
+.chat-body {
+    flex: 1;
     // background-image:url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
-    background-image:linear-gradient(rgba(239, 234, 226, 0.5), rgba(239, 234, 226, 0.5)), url("../../imgs/bg.png");
+    background-image: linear-gradient(rgba(239, 234, 226, 0.5), rgba(239, 234, 226, 0.5)), url("../../imgs/bg.png");
     background-color: $beige;
     background-repeat: repeat;
     background-position: center;
     overflow-y: auto;
-    // overflow-x: hidden;
+    overflow-x: hidden;
     padding: 15px;
 
-    .chat-msg{
+    .chat-msg {
         position: relative;
         padding: 9px;
         background-color: $white;
@@ -18,18 +18,48 @@
         max-width: 60%;
         margin-bottom: 4px;
         overflow-wrap: anywhere;
+        // box-shadow: 0px 1px 0px 0px #b9b9b978;
+        // z-index: 3;
+        box-shadow: 1px -1px 3px 1px rgba(196, 196, 196, 0.25);
+        // box-shadow: 1px -1px 1px 0px rgba(196, 196, 196, 0.25);
+        // box-shadow: 0px -1px 1px #b1b1b169;
     }
 
-    .reciever{
+    //     .chat-msg:before{
+    //         content: "";
+    //   position: absolute;
+    //   z-index: 0;
+    //   bottom: 0;
+    //   right: -8px;
+    //   height: 20px;
+    //   width: 20px;
+    //   background: linear-gradient(to bottom, $light-green 0%, $light-green 100%);
+    //   background-attachment: fixed;
+    //   border-bottom-left-radius: 15px;
+    //     }
+    //     .chat-msg:after{
+    //         content: "";
+    //   position: absolute;
+    //   z-index: 1;
+    //   bottom: 0;
+    //   right: -10px;
+    //   width: 10px;
+    //   height: 20px;
+    //   background: white;
+    //   border-bottom-left-radius: 10px;
+    //     }
+
+    .chat-msg.reciever {
         margin-left: auto;
         background-color: $light-green;
-    }
+        box-shadow: -1px -1px 3px 1px rgba(196, 196, 196, 0.25);
+        }
 
-    .content{
+    .content {
         font-size: 14.2px;
     }
 
-    .username{
+    .username {
         font-size: 12.8px;
     }
 
@@ -38,13 +68,85 @@
         text-align: end;
     }
 
-    .circle{
-        background-color: $white;
 
+    .rect:not(.reciever) {
+        margin-right: auto;
+        // background-color: $white;
+        position: relative;
+        left: -11px;
+        top: 19.8px;
+        // transform: rotate(-15deg);
+        width: 0;
+        height: 0;
+        border-top: 20px solid $white;
+        border-left: 20px solid transparent;
+        z-index: 2;
+        box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
     }
 
-    .rect{
-        background-color: $white;
-
+    .rect.reciever {
+        margin-left: auto;
+        // background-color: $white;
+        position: relative;
+        left: 11px;
+        top: 19.8px;
+        // transform: rotate(15deg);
+        width: 0;
+        height: 0;
+        border-top: 20px solid $light-green;
+        // border-bottom: 20px solid red;
+        border-right: 20px solid transparent;
+        z-index: 2;
+        // box-shadow: 0px -1px 1px #b1b1b169;
+        box-shadow: 0px -1px 0px 0px rgba(196, 196, 196, 0.084);
     }
+    // .circle:not(.reciever) {
+    //     background-color: $beige;
+    //     // background-color: $white;
+    //     position: relative;
+    //     left: -32px;
+    //     top: -28px;
+    //     width: 40px;
+    //     height: 20px;
+    //     transform: rotate(-45deg);
+    //     border-radius: 50%;
+    //     z-index: 2;
+    // }
+
+    // .rect:not(.reciever) {
+    //     // background-color: $white;
+    //     position: relative;
+    //     left: -15px;
+    //     bottom: 48px;
+    //     transform: rotate(-15deg);
+    //     width: 0;
+    //     height: 0;
+    //     border-bottom: 20px solid $white;
+    //     border-left: 20px solid transparent;
+    // }
+    // .circle.reciever {
+    //     background-color: $beige;
+    //     // background-color: $white;
+    //     position: relative;
+    //     left: 32px;
+    //     top: -28px;
+    //     width: 40px;
+    //     height: 20px;
+    //     transform: rotate(45deg);
+    //     border-radius: 50%;
+    //     z-index: 2;
+    // }
+
+    // .rect.reciever {
+    //     // background-color: $white;
+    //     position: relative;
+    //     left: 15px;
+    //     bottom: 48px;
+    //     transform: rotate(15deg);
+    //     width: 0;
+    //     height: 0;
+    //     border-bottom: 20px solid $light-green;
+    //     // border-bottom: 20px solid red;
+    //     border-right: 20px solid transparent;
+    // }
 }
