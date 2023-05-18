@@ -4,9 +4,10 @@ import SidebarHeader from "./sidebar-header"
 // import db from "../services/firebase"
 // import { addDoc, collection, getDocs } from 'firebase/firestore/lite';
 import { useEffect, useRef, useState } from "react"
-import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp } from "firebase/firestore";
+import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp, where, or, and } from "firebase/firestore";
 import db from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
+import { utilService } from "../../services/util.service";
 
 function Sidebar() {
 
@@ -28,7 +29,7 @@ function Sidebar() {
         // ))
     }, [])
 
-    function loadRooms() {
+    function loadRooms(filterBy = null) {
         // db.collection('rooms').onSnapshot(snapshot => (
         //     setRooms(snapshot.docs.map(doc=>
         //     ({
@@ -37,11 +38,26 @@ function Sidebar() {
         //     })))
         // ))
 
-        // dcidnt unsub from collection
-        const roomsCol = query(collection(db, 'rooms'), orderBy('timestamp', "desc"))
+        let roomsCol
+        if (filterBy) {
+            // const substrings = utilService.getAllSubstrings(filterBy)
+            // console.log('substrings:', substrings)
+            let capitalizedStr = filterBy.charAt(0).toUpperCase() + filterBy.slice(1)
+            let lowercaseStr = filterBy.toLowerCase()
+            // console.log('capitalizedStr:', capitalizedStr)
+            // console.log('lowercaseStr:', lowercaseStr)
+            roomsCol = query(collection(db, 'rooms'),
+                or(
+                    and(where("name", ">=", filterBy), where('name', '<=', filterBy + '\uf8ff')),
+                    and(where("name", ">=", capitalizedStr), where("name", "<=", capitalizedStr + '\uf8ff')),
+                    and(where("name", ">=", lowercaseStr), where("name", "<=", lowercaseStr + '\uf8ff'))
+                ))
+        } else {
+            roomsCol = query(collection(db, 'rooms'), orderBy('timestamp', "desc"))
+        }
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
-            navigate(`/rooms/${rooms.docs[0].id}`);
+            if (rooms.docs.length) navigate(`/rooms/${rooms.docs[0].id}`);
             setRooms(rooms.docs.length ?
                 rooms.docs.map(doc =>
                 ({
@@ -74,7 +90,7 @@ function Sidebar() {
         <div className="sidebar">
             {/* {console.log('rooms:', rooms.length)} */}
             <SidebarHeader />
-            <SearchBar />
+            <SearchBar loadRooms={loadRooms} />
             <ChatList rooms={rooms} createChat={createChat} />
         </div>
     )

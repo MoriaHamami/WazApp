@@ -3,25 +3,33 @@ import { Avatar, IconButton } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { SearchOutlined } from "@mui/icons-material";
 
-function ChatHeader({roomName, msgs}) {
+function ChatHeader({roomName, msgs, loadMsgs}) {
 
-    // const [seed, setSeed] = useState('')
+    const [isSearchShown, setIsSearchShown] = useState('')
 
     // useEffect(() => {
     //     setSeed(Math.floor(Math.random() * 5000))
     // }, [])
 
+    function onSearchMsgs(ev){
+        // ev.preventDefault()y
+        // console.log('here:', ev.target.value)
+        loadMsgs(ev.target.value)
+    }
+
     return (
         <header className="chat-header">
             <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} />
-            <div className="chat-info">
+            {!isSearchShown && <div className="chat-info">
                 <div className="user-name">{roomName}</div>
                 <p>Last seen at {new Date(msgs[msgs.length-1]?.timestamp?.toDate()).toUTCString()}</p>
-            </div>
+            </div>}
             <div className="chat-icons">
-                <IconButton>
+                {isSearchShown && <input placeholder="Search message in chat" onChange={onSearchMsgs} />}
+                <IconButton onClick={() => setIsSearchShown(prevState => !prevState)}>
                     <SearchOutlined />
                 </IconButton>
+
                 <IconButton>
                     <MoreVertIcon />
                 </IconButton>

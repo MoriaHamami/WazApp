@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import db from "../../services/firebase"
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
-import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and } from "firebase/firestore";
 
 function Chat({ loggedInUser }) {
 
@@ -38,12 +38,23 @@ function Chat({ loggedInUser }) {
         }
     }
 
-    async function loadMsgs() {
+    async function loadMsgs(filterBy = null) {
         const roomRef = doc(db, "rooms", roomId);
         const msgsCol = collection(roomRef, "msgs");
-        const msgsQuery = query(msgsCol, orderBy("timestamp"))
+        let msgsQuery
+        if(filterBy){
+            let capitalizedStr = filterBy.charAt(0).toUpperCase() + filterBy.slice(1)
+            let lowercaseStr = filterBy.toLowerCase()
+            msgsQuery = query(msgsCol, 
+            or(
+                and(where("msg", ">=", filterBy), where('msg', '<=', filterBy + '\uf8ff')),
+                and(where("msg", ">=", capitalizedStr), where("msg", "<=", capitalizedStr + '\uf8ff')),
+                and(where("msg", ">=", lowercaseStr), where("msg", "<=", lowercaseStr + '\uf8ff'))
+            ))
+        } else{
+            msgsQuery = query(msgsCol, orderBy("timestamp"))
+        }
         msgsUnsub.current = onSnapshot(msgsQuery, msgs => {
-
             setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
         })
 
@@ -76,7 +87,7 @@ function Chat({ loggedInUser }) {
 
     return (
         <article className="chat">
-            <ChatHeader roomName={roomName} msgs={msgs} />
+            <ChatHeader roomName={roomName} msgs={msgs} loadMsgs={loadMsgs} />
             <ChatBody msgs={msgs} />
             <ChatFooter saveMsg={saveMsg} />
         </article>

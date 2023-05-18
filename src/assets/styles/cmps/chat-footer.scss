@@ -19,6 +19,7 @@
         height: 100%;
         outline: none;
         padding-inline-start: 10px;
+        // margin-inline-end: 10px;
         font-size: 0.71rem;
 
         overflow: hidden;
@@ -26,15 +27,16 @@
         max-width: calc(100vw - $sidebar-width - 8rem);
         text-overflow: ellipsis;
     }
-aside.EmojiPickerReact.epr-main {
-    // .picker-container {
+
+    aside.EmojiPickerReact.epr-main {
+        // .picker-container {
         position: absolute;
         bottom: 60px;
         // left:-5px;
         width: calc(100vw - $sidebar-width - 50px) !important;
-        max-width: 500px!important;
+        max-width: 500px !important;
         height: 70vh !important;
-        max-height: 600px!important;
+        max-height: 600px !important;
         // width: 100%;
     }
 

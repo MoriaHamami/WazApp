@@ -16,16 +16,22 @@
 
     .chat-icons {
         display: flex;
-        justify-content: space-between;
+        width: 100%;
+        // just-items: end;
+        justify-content: end;
 
         .MuiSvgIcon-root {
-            margin-left: 0.8vw;
             font-size: 1.2rem !important;
+        }
+        
+        .MuiButtonBase-root-MuiIconButton-root{
+            margin-inline-end: 0.8vw;
         }
     }
 
     .chat-info {
         flex-grow: 1;
+        width: 100%;
     }
 
     .user-name {
@@ -39,6 +45,23 @@
     p {
         font-size: 13px;
         color: $light-blue;
+        overflow: hidden;
+        white-space: nowrap;
+        max-width: calc(100vw - $sidebar-width - 8rem);
+        text-overflow: ellipsis;
+    }
+
+    input{
+        flex-grow: 1;
+        border-radius: 5px;
+        border: none;
+        // height: 100%;
+        // width: 100%;
+        outline: none;
+        padding-inline-start: 10px;
+        margin-inline-end: 5px;
+        font-size: 0.71rem;
+// margin-block: 3px;
         overflow: hidden;
         white-space: nowrap;
         max-width: calc(100vw - $sidebar-width - 8rem);
