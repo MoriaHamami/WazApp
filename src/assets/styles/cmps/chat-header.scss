@@ -12,6 +12,7 @@
         height: 1.9rem;
         width: 1.9rem;
         margin-inline-end: 15px;
+        margin-block: 4px;
     }
 
     .chat-icons {
@@ -38,7 +39,7 @@
         font-size: 16px;
         overflow: hidden;
         white-space: nowrap;
-        max-width: calc(100vw - $sidebar-width - 8rem);
+        max-width: calc(100vw - $sidebar-width - 10rem);
         text-overflow: ellipsis;
     }
 
@@ -47,7 +48,7 @@
         color: $light-blue;
         overflow: hidden;
         white-space: nowrap;
-        max-width: calc(100vw - $sidebar-width - 8rem);
+        max-width: calc(100vw - $sidebar-width - 10rem);
         text-overflow: ellipsis;
     }
 
@@ -60,6 +61,7 @@
         outline: none;
         padding-inline-start: 10px;
         margin-inline-end: 5px;
+        // margin-block: 5px ;
         font-size: 0.71rem;
 // margin-block: 3px;
         overflow: hidden;
