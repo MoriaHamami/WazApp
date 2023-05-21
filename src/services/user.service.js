@@ -59,19 +59,31 @@ export const userService = {
 
 async function login(userCred) {
 
+    // Decrypt password
+    if(userCred.email) {
+        // New user
+        userCred.password = userCred.email
+    } else {
+        // Existing user - 
+        // TODO: decrypt password from session storage
+        // userCred.password = encrypt(userCred.password)
+
+    }
+
     // console.log('userCred:', userCred)
-    const usersCol = query(collection(db, 'users'), where("name", "==", userCred.displayName), where('password', '==', userCred.email))
+    const usersCol = query(collection(db, 'users'), where("name", "==", userCred.displayName || userCred.name), where('password', '==', userCred.password))
     const usersSnapshot = await getDocs(usersCol)
 
     // console.log('usersCol:', usersSnapshot.docs)
     let user
     if (usersSnapshot.docs.length) {
-        user = usersSnapshot.docs[0]
+        user = usersSnapshot.docs[0].data()
     } else {
         // Signup
+
         user = {
             name: userCred.displayName,
-            password: userCred.accessToken,
+            password: userCred.password,
             imgURL: userCred.photoURL
         }
         await addDoc(collection(db, 'users'), user)
@@ -138,13 +150,16 @@ async function logout(req, res){
 
 
 function saveLocalUser(user) {
-    user = { name: user.name, imgUrl: user.imgURL }
+    // TODO: Encrypt password
+
+    user = { name: user.name, password: user.password, imgUrl: user.imgURL }
     // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, logintoken)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
 function getLoggedinUser() {
+    // TODO: Check if user exists in DB before returning
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 

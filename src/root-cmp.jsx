@@ -11,18 +11,20 @@ import { store } from "./services/store";
 import { SET_USER } from "./services/user.reducer";
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null)
-
+  // const [loggedInUser, setLoggedInUser] = 
+const loggedInUser=useSelector(storeState => storeState.userModule.user)
   useEffect(() => {
+    // if(loggedInUser) return 
     const user = userService.getLoggedinUser()
     if (user) {
-      setLoggedInUser(user)
+      // setLoggedInUser(user)
       // console.log('here:', user)
+      login(user)
       // Save user in store
-      store.dispatch({
-        type: SET_USER,
-        user
-      })
+      // store.dispatch({
+      //   type: SET_USER,
+      //   user
+      // })
     }
   }, [])
 

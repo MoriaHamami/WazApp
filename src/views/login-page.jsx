@@ -4,7 +4,7 @@ import { onAuthStateChanged, signInWithPopup } from "firebase/auth"
 import { login } from "../services/user.actions"
 import { Link } from "react-router-dom"
 
-function LoginPage({ setUser }) {
+function LoginPage() {
 
     // useEffect(() => {
     //   const unsubscribe = onAuthStateChanged(auth, )
@@ -19,6 +19,7 @@ function LoginPage({ setUser }) {
             const res = await signInWithPopup(auth, provider)
             const user = res.user
             login(user)
+            // setLoggedInUser(user)
             // console.log('user:', user)
         } catch (err) {
             alert(err.message)
