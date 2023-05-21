@@ -3,6 +3,7 @@
 import { SET_USER} from "./user.reducer.js";
 // import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from "./user.reducer.js";
 import { store } from "./store.js";
+import { userService } from "./user.service.js";
 
 // export async function loadUsers() {
 //     try {
@@ -25,9 +26,10 @@ import { store } from "./store.js";
 //     }
 // }
 
-export async function login(user) {
+export async function login(creds) {
     try {
-        // const user = await userService.login(credentials)
+        const user = await userService.login(creds)
+        // console.log('user2:', user)
         store.dispatch({
             type: SET_USER,
             user

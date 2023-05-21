@@ -19,7 +19,7 @@ function LoginPage({ setUser }) {
             const res = await signInWithPopup(auth, provider)
             const user = res.user
             login(user)
-            console.log('user:', user)
+            // console.log('user:', user)
         } catch (err) {
             alert(err.message)
         }

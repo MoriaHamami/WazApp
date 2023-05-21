@@ -56,6 +56,8 @@ function Chat({ loggedInUser }) {
         }
         msgsUnsub.current = onSnapshot(msgsQuery, msgs => {
             setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
+            // Update unread msgs
+            
         })
 
     }

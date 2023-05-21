@@ -58,12 +58,12 @@ function Sidebar() {
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
             if (rooms.docs.length) navigate(`/rooms/${rooms.docs[0].id}`);
-            setRooms(rooms.docs.length ?
-                rooms.docs.map(doc =>
+            const roomsWithData = rooms.docs.map(doc =>
                 ({
                     id: doc.id,
                     data: doc.data()
-                })) : [])
+                }))
+            setRooms(rooms.docs.length ? roomsWithData : [])
         })
 
     }
