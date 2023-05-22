@@ -2,6 +2,7 @@
 // import { httpService } from './http.service'
 import { addDoc, collection, getDocs, query, where } from "@firebase/firestore"
 import db from "./firebase"
+import CryptoJS from "crypto-js"
 
 // const Cryptr = require('cryptr')
 // const bcrypt = require('bcrypt')
@@ -10,8 +11,9 @@ import db from "./firebase"
 
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
+const SECRET_PASS = 'XkhZG4fW2t2W'
 
-/// UNINSTALL CRYPTR
+
 export const userService = {
     login,
     // logout,
@@ -59,16 +61,22 @@ export const userService = {
 
 async function login(userCred) {
 
+    // If user doesnt exist login first
+    // if(!userCred.email && !userCred.password) return
+
     // Decrypt password
     if(userCred.email) {
         // New user
         userCred.password = userCred.email
-    } else {
+    } 
+    // else {
         // Existing user - 
         // TODO: decrypt password from session storage
         // userCred.password = encrypt(userCred.password)
+        // console.log('userCred.password:', userCred.password)
+        // userCred.password = _decryptData(userCred.password)
 
-    }
+    // }
 
     // console.log('userCred:', userCred)
     const usersCol = query(collection(db, 'users'), where("name", "==", userCred.displayName || userCred.name), where('password', '==', userCred.password))
@@ -151,16 +159,26 @@ async function logout(req, res){
 
 function saveLocalUser(user) {
     // TODO: Encrypt password
-
+    user.password = _encryptData(user.password)
+    
     user = { name: user.name, password: user.password, imgUrl: user.imgURL }
     // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, logintoken)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
 
-function getLoggedinUser() {
-    // TODO: Check if user exists in DB before returning
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+async function getLoggedinUser() {
+    const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+    if(!user) return null
+    // TODO: Decrypt password
+    user.password = _decryptData(user.password)
+    // user.password = decrypt(user.password)
+    // Check if user exists in DB before returning
+    const usersCol = query(collection(db, 'users'), where("name", "==", user.name), where('password', '==', user.password))
+    const usersSnapshot = await getDocs(usersCol)
+   
+    if (usersSnapshot.docs.length) return user
+    else return null
 }
 
 
@@ -185,4 +203,22 @@ function getLoggedinUser() {
 //     }
 //     return null
 // }
+
+function _encryptData(txt) {
+    const data = CryptoJS.AES.encrypt(
+      JSON.stringify(txt),
+      SECRET_PASS
+    ).toString()
+  console.log('encrypted data:', data)
+  return data
+}
+
+function _decryptData(txt) {
+    const bytes = CryptoJS.AES.decrypt(txt, SECRET_PASS)
+    const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
+    console.log('decrypted data:', data)
+    return data
+  }
+
+  
 

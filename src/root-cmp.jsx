@@ -15,7 +15,12 @@ function App() {
 const loggedInUser=useSelector(storeState => storeState.userModule.user)
   useEffect(() => {
     // if(loggedInUser) return 
-    const user = userService.getLoggedinUser()
+    updateUser()
+  }, [])
+
+  async function updateUser(){
+    const user = await userService.getLoggedinUser()
+    console.log('user:', user)
     if (user) {
       // setLoggedInUser(user)
       // console.log('here:', user)
@@ -26,7 +31,7 @@ const loggedInUser=useSelector(storeState => storeState.userModule.user)
       //   user
       // })
     }
-  }, [])
+  }
 
   // const loggedInUser = userService.getLoggedinUser()
 
