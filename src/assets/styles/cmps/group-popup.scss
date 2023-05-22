@@ -1,0 +1,29 @@
+.group-popup {
+    position: fixed;
+    margin: 0 auto;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .content-container {
+        box-shadow: $box-shadow;
+        background-color: $white;
+        padding: 10px;
+        border-radius: 3px;
+    }
+
+    form {
+        font-size: 1rem;
+        color: $black;
+        >*{
+            margin-top: 7px;
+        }
+        h3{
+            text-align: left;
+            font-family: $font;
+            font-weight: 100;
+        }
+    }
+}

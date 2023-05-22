@@ -16,9 +16,21 @@
     align-items: center;
     justify-content: space-between;
     min-width: 10vw;
+    
+    .MuiButtonBase-root {
+        margin-left: 0.8vw;
+        position: relative;
+    }
 
     .MuiSvgIcon-root {
-        margin-left: 0.8vw;
         font-size: 1.1rem !important;
     }
+    
+    .selected{
+        background-color:$darker-gray;
+
+    }
+    // .MuiIconButton-root{
+
+    // }
 }

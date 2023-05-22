@@ -55,18 +55,18 @@ export async function login(creds) {
 //     }
 // }
 
-// export async function logout() {
-//     try {
-//         await userService.logout()
-//         store.dispatch({
-//             type: SET_USER,
-//             user: null
-//         })
-//     } catch (err) {
-//         console.log('Cannot logout', err)
-//         throw err
-//     }
-// }
+export function logout() {
+    try {
+        userService.logout()
+        store.dispatch({
+            type: SET_USER,
+            user: null
+        })
+    } catch (err) {
+        console.log('Cannot logout', err)
+        throw err
+    }
+}
 
 // export async function loadUser(userId) {
 //     try {

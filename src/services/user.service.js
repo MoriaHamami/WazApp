@@ -16,7 +16,7 @@ const SECRET_PASS = 'XkhZG4fW2t2W'
 
 export const userService = {
     login,
-    // logout,
+    logout,
     // signup,
     getLoggedinUser,
     saveLocalUser,
@@ -126,13 +126,8 @@ async function login(userCred) {
     // }
 }
 
-async function logout(req, res){
-    try {
-        res.clearCookie('loginToken')
-        res.send({ msg: 'Logged out successfully' })
-    } catch (err) {
-        res.status(500).send({ err: 'Failed to logout' })
-    }
+function logout(){
+    sessionStorage.clear()
 }
 // async function signup(userCred) {
 //     userCred.score = 10000

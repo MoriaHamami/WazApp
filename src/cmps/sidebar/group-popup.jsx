@@ -1,0 +1,27 @@
+import MultiInput from "./multi-input"
+
+function GroupPopup() {
+
+    // async function addNewGroup(){
+    //     const roomName = prompt('Please enter name for chat')
+    //     if (roomName) {
+    //         const roomsCol = collection(db, 'rooms')
+    //         await addDoc(roomsCol, {
+    //             name: roomName,
+    //             timestamp: serverTimestamp()
+    //         })
+    //     }
+    //     setIsGroupPopupShown(prevState => !prevState)
+    // }
+
+  return (
+    <div className="group-popup">
+        <div className="content-container">
+
+        <MultiInput />
+        </div>
+    </div>
+  )
+}
+
+export default GroupPopup
