@@ -8,12 +8,14 @@ import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp, where,
 import db from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
 import { utilService } from "../../services/util.service";
+import { useSelector } from "react-redux";
 
 function Sidebar() {
 
     const [rooms, setRooms] = useState([])
     const unsub = useRef(null)
     const navigate = useNavigate();
+    const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         loadRooms()
@@ -48,6 +50,7 @@ function Sidebar() {
             // console.log('lowercaseStr:', lowercaseStr)
             roomsCol = query(collection(db, 'rooms'),
                 or(
+                    and(where("participants", "array-contains", loggedInUser.email)),
                     and(where("name", ">=", filterBy), where('name', '<=', filterBy + '\uf8ff')),
                     and(where("name", ">=", capitalizedStr), where("name", "<=", capitalizedStr + '\uf8ff')),
                     and(where("name", ">=", lowercaseStr), where("name", "<=", lowercaseStr + '\uf8ff'))
@@ -71,28 +74,14 @@ function Sidebar() {
 
   
 
-    async function createChat() {
 
-        const roomName = prompt('Please enter name for chat')
-        if (roomName) {
-            const roomsCol = collection(db, 'rooms')
-            await addDoc(roomsCol, {
-                name: roomName,
-                timestamp: serverTimestamp()
-            })
-            // loadRooms()
-            // db.collection('rooms').add({
-            //     name: roomName
-            // })
-        }
-    }
 
     return (
         <div className="sidebar">
             {/* {console.log('rooms:', rooms.length)} */}
-            <SidebarHeader />
+            <SidebarHeader loggedInUser={loggedInUser} />
             <SearchBar loadRooms={loadRooms} />
-            <ChatList rooms={rooms} createChat={createChat} />
+            <ChatList rooms={rooms} />
         </div>
     )
 }

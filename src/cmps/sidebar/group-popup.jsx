@@ -1,6 +1,6 @@
 import MultiInput from "./multi-input"
 
-function GroupPopup() {
+function GroupPopup({createChat}) {
 
     // async function addNewGroup(){
     //     const roomName = prompt('Please enter name for chat')
@@ -18,7 +18,7 @@ function GroupPopup() {
     <div className="group-popup">
         <div className="content-container">
 
-        <MultiInput />
+        <MultiInput createChat={createChat} />
         </div>
     </div>
   )

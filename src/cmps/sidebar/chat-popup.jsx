@@ -1,5 +1,5 @@
 
-function ChatPopup() {
+function ChatPopup({createChat}) {
 
     // async function addNewChat(){
     //     const roomName = prompt('Please enter name for chat')

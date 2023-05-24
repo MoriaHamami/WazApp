@@ -64,7 +64,6 @@ async function login(userCred) {
     // If user doesnt exist login first
     // if(!userCred.email && !userCred.password) return
 
-    // Decrypt password
     if(userCred.email) {
         // New user
         userCred.password = userCred.email
@@ -85,11 +84,17 @@ async function login(userCred) {
     // console.log('usersCol:', usersSnapshot.docs)
     let user
     if (usersSnapshot.docs.length) {
-        user = usersSnapshot.docs[0].data()
+        user = {
+            id: usersSnapshot.docs[0].id, 
+            name: usersSnapshot.docs[0].data().name,
+            password: usersSnapshot.docs[0].data().password,
+            imgURL: usersSnapshot.docs[0].data().imgURL
+        }
     } else {
         // Signup
 
         user = {
+            id: userCred.id,
             name: userCred.displayName,
             password: userCred.password,
             imgURL: userCred.photoURL
@@ -156,7 +161,7 @@ function saveLocalUser(user) {
     // TODO: Encrypt password
     user.password = _encryptData(user.password)
     
-    user = { name: user.name, password: user.password, imgUrl: user.imgURL }
+    user = { id: user.id, name: user.name , password: user.password , imgUrl: user.imgURL  }
     // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, logintoken)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
