@@ -50,7 +50,7 @@ function SidebarHeader({loggedInUser}) {
 
     return (
         <header className="sidebar-header">
-            <Avatar src={loggedInUser?.photoURL} className="profile"/>
+            <Avatar src={loggedInUser?.imgURL} className="profile"/>
             <div className="sidebar-icons">
                 <IconButton>
                     <DonutLargeIcon />
@@ -62,7 +62,7 @@ function SidebarHeader({loggedInUser}) {
                     <MoreVertIcon />
                     {isOptionsSelected && <Dropdown setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown}/>}
                     {isChatPopupShown && <ChatPopup createChat={createChat} />}
-                    {isGroupPopupShown && <GroupPopup createChat={createChat} />}
+                    {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} />}
                 </IconButton>
             </div>
         </header>

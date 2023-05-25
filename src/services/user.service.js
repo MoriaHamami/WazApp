@@ -161,7 +161,7 @@ function saveLocalUser(user) {
     // TODO: Encrypt password
     user.password = _encryptData(user.password)
     
-    user = { id: user.id, name: user.name , password: user.password , imgUrl: user.imgURL  }
+    user = { id: user.id, name: user.name , password: user.password , imgURL: user.imgURL  }
     // sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, logintoken)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user

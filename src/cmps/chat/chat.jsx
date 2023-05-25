@@ -57,7 +57,7 @@ function Chat({ loggedInUser }) {
         msgsUnsub.current = onSnapshot(msgsQuery, msgs => {
             setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
             // Update unread msgs
-            
+
         })
 
     }
@@ -68,7 +68,7 @@ function Chat({ loggedInUser }) {
             const msgsCol = collection(roomRef, "msgs");
             const newMsg = {
                 msg,
-                name: loggedInUser.displayName,
+                name: loggedInUser.name,
                 timestamp: serverTimestamp()
             }
             await addDoc(msgsCol, newMsg)

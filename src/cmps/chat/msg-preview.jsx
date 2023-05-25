@@ -5,8 +5,8 @@ function ChatPreview({ timestamp, name, msg }) {
 
     return (
         <div className="msg-preview">
-            <div className={`rect ${name === loggedInUser.displayName && 'reciever'}`}></div>
-            <div className={`chat-msg ${name === loggedInUser.displayName && 'reciever'}`}>
+            <div className={`rect ${name === loggedInUser.name && 'reciever'}`}></div>
+            <div className={`chat-msg ${name === loggedInUser.name && 'reciever'}`}>
                 <p className="username">{name}</p>
                 <p className="content">{msg}</p>
                 <p className="timestamp">{new Date(timestamp?.toDate()).toUTCString()}</p>

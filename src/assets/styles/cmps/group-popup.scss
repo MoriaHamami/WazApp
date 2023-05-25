@@ -6,28 +6,65 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
+    cursor: auto;
     .content-container {
         box-shadow: $box-shadow;
         background-color: $white;
         padding: 10px;
         border-radius: 3px;
+        display: flex;
+        flex-direction: column;
     }
 
+    .close-btn {
+        align-self: end;
+        cursor: pointer;
+    }
+    
     form {
         font-size: 1rem;
         color: $black;
-        >*{
+
+        >* {
             margin-top: 7px;
         }
-        h3{
+
+        h3 {
             text-align: left;
             font-family: $font;
             font-weight: 100;
         }
-
-        .react-multi-email span{
+        
+        .react-multi-email span {
             font-size: smaller;
+            cursor:text;
+        }
+        button{
+            cursor: pointer;
         }
     }
+
+    ul {
+        padding: 0;
+        background-color: $light-red;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 0.7rem;
+        text-align: start;
+    }
+
+    li {
+        list-style-type: none;
+
+        a {
+            text-decoration: underline;
+            color: blue;
+        }
+
+        a:hover {
+            opacity: 0.7;
+        }
+    }
+
+    // a@gmail.com
 }

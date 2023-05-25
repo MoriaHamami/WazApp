@@ -1,6 +1,8 @@
+import { IconButton } from "@mui/material"
 import MultiInput from "./multi-input"
+import CloseIcon from '@mui/icons-material/Close';
 
-function GroupPopup({createChat}) {
+function GroupPopup({ createChat, setIsGroupPopupShown }) {
 
     // async function addNewGroup(){
     //     const roomName = prompt('Please enter name for chat')
@@ -14,14 +16,17 @@ function GroupPopup({createChat}) {
     //     setIsGroupPopupShown(prevState => !prevState)
     // }
 
-  return (
-    <div className="group-popup">
-        <div className="content-container">
+    return (
+        <div className="group-popup" onClick={(ev)=>ev.stopPropagation()}>
+            <div className="content-container">
+            <IconButton className="close-btn" onClick={()=>setIsGroupPopupShown(prevState=>!prevState)}>
+                <CloseIcon />
+            </IconButton>
 
-        <MultiInput createChat={createChat} />
+                <MultiInput createChat={createChat} />
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default GroupPopup

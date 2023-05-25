@@ -16,14 +16,16 @@ function MultiInput({ createChat }) {
 
     function handleChange(ev) {
 
-        // Remove invalid emails
-
+        
         if (ev.target) {
             const groupSub = ev.target.value
             setGroupSub(groupSub)
         } else {
             // Emails input
             const emails = ev
+            // Remove invalid emails
+            const updatedInvalidEmails = invalidEmails.filter(email=> emails.includes(email))
+            setInvalidEmails(updatedInvalidEmails)
             setEmails(emails)
             // console.log('emails:', emails)
         }
@@ -97,15 +99,14 @@ function MultiInput({ createChat }) {
                     );
                 }}
             />
-            <br />
-            {invalidEmails && <ul className="invalid-emails">
+            {/* <br /> */}
+            {invalidEmails.length ? <ul className="invalid-emails">
                 {invalidEmails.map(invalidEmail => {
                     return(<li key={invalidEmail}>
-                        {invalidEmail}
-                        <a href="#"> Send invite</a>
+                        {invalidEmail} isn't a member on WazApp <a href="#">send invite</a>
                     </li>)
                 })}
-            </ul>}
+            </ul>: ''}
             {/* <p>{emails.join(', ') || 'empty'}</p> */}
             <button>Create</button>
         </form>
