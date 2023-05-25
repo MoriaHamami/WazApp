@@ -52,9 +52,16 @@ function Sidebar() {
             // console.log('lowercaseStr:', lowercaseStr)
 
             // TODO: Shorten query with use of "in" and utils func
+            // const filterBySubstrings = utilService.getAllSubstrings(filterBy)
+            // console.log('filterBySubstrings:', filterBySubstrings)
+            // roomsCol = query(collection(db, 'rooms'),
+                
+                    // (where("participants", "array-contains", loggedInUser.id)),
+                    // (where("name", "in", filterBySubstrings)))
+                
             roomsCol = query(collection(db, 'rooms'),
                 or(
-                    and(where("participants", "array-contains", loggedInUser.id)),
+                    // and(where("participants", "array-contains", loggedInUser.id)),
                     and(where("name", ">=", filterBy), where('name', '<=', filterBy + '\uf8ff')),
                     and(where("name", ">=", capitalizedStr), where("name", "<=", capitalizedStr + '\uf8ff')),
                     and(where("name", ">=", lowercaseStr), where("name", "<=", lowercaseStr + '\uf8ff'))
@@ -65,12 +72,20 @@ function Sidebar() {
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
             if (rooms.docs.length) navigate(`/rooms/${rooms.docs[0].id}`);
-            const roomsWithData = rooms.docs.map(doc =>
-                ({
-                    id: doc.id,
-                    data: doc.data()
-                }))
-            setRooms(rooms.docs.length ? roomsWithData : [])
+            let roomsWithData =[]
+            for(let i = 0; i < rooms.docs.length; i ++){
+                const room = rooms.docs[i]
+                if(room.data().participants.includes(loggedInUser.id)) {
+                    roomsWithData.push({id: room.id, data: room.data()})
+                }
+            }
+            // const roomsWithData = rooms.docs.map(room =>
+            //     ({
+            //         id: room.id,
+            //         data: room.data()
+            //     }))
+            setRooms(roomsWithData)
+            // setRooms(rooms.docs.length ? roomsWithData : [])
         })
 
     }

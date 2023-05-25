@@ -16,6 +16,7 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
 
     useEffect(() => {
         loadLastMsg(id)
+        getChatName()
         return () => {
             unsub.current && unsub.current()
         }
