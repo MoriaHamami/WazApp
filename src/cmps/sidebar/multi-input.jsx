@@ -103,7 +103,7 @@ function MultiInput({ createChat }) {
             {invalidEmails.length ? <ul className="invalid-emails">
                 {invalidEmails.map(invalidEmail => {
                     return(<li key={invalidEmail}>
-                        {invalidEmail} isn't a member on WazApp <a href="#">send invite</a>
+                        {invalidEmail} isn't a member on WazApp <a target="_blank" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${invalidEmail}&su=Let\'s chat!&body=Let\'s chat on WazApp! It\'s a fast, simple, and secure app we can use to message each other for free. Join at https://wazapp-fc40f.web.app/`}>send invite</a>
                     </li>)
                 })}
             </ul>: ''}
