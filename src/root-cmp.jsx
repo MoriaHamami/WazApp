@@ -20,7 +20,7 @@ const loggedInUser=useSelector(storeState => storeState.userModule.user)
 
   async function updateUser(){
     const user = await userService.getLoggedinUser()
-    console.log('user:', user)
+    // console.log('user:', user)
     if (user) {
       // setLoggedInUser(user)
       // console.log('here:', user)

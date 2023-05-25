@@ -158,7 +158,7 @@ function logout(){
 
 
 function saveLocalUser(user) {
-    // TODO: Encrypt password
+    // Encrypt password
     user.password = _encryptData(user.password)
     
     user = { id: user.id, name: user.name , password: user.password , imgURL: user.imgURL  }
@@ -170,7 +170,7 @@ function saveLocalUser(user) {
 async function getLoggedinUser() {
     const user = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
     if(!user) return null
-    // TODO: Decrypt password
+    // Decrypt password
     user.password = _decryptData(user.password)
     // user.password = decrypt(user.password)
     // Check if user exists in DB before returning
@@ -209,14 +209,14 @@ function _encryptData(txt) {
       JSON.stringify(txt),
       SECRET_PASS
     ).toString()
-  console.log('encrypted data:', data)
+//   console.log('encrypted data:', data)
   return data
 }
 
 function _decryptData(txt) {
     const bytes = CryptoJS.AES.decrypt(txt, SECRET_PASS)
     const data = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))
-    console.log('decrypted data:', data)
+    // console.log('decrypted data:', data)
     return data
   }
 

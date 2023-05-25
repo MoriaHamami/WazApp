@@ -9,6 +9,7 @@ import db from "../../services/firebase";
 import { useNavigate } from "react-router-dom";
 import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
+import { userService } from "../../services/user.service";
 
 function Sidebar() {
 
@@ -46,11 +47,14 @@ function Sidebar() {
             // console.log('substrings:', substrings)
             let capitalizedStr = filterBy.charAt(0).toUpperCase() + filterBy.slice(1)
             let lowercaseStr = filterBy.toLowerCase()
+            // const decryptedLoggedInUser = userService.getLoggedinUser()
             // console.log('capitalizedStr:', capitalizedStr)
             // console.log('lowercaseStr:', lowercaseStr)
+
+            // TODO: Shorten query with use of "in" and utils func
             roomsCol = query(collection(db, 'rooms'),
                 or(
-                    and(where("participants", "array-contains", loggedInUser.email)),
+                    and(where("participants", "array-contains", loggedInUser.id)),
                     and(where("name", ">=", filterBy), where('name', '<=', filterBy + '\uf8ff')),
                     and(where("name", ">=", capitalizedStr), where("name", "<=", capitalizedStr + '\uf8ff')),
                     and(where("name", ">=", lowercaseStr), where("name", "<=", lowercaseStr + '\uf8ff'))

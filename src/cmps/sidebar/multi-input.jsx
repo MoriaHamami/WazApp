@@ -16,7 +16,7 @@ function MultiInput({ createChat }) {
 
     function handleChange(ev) {
 
-        
+
         if (ev.target) {
             const groupSub = ev.target.value
             setGroupSub(groupSub)
@@ -24,7 +24,7 @@ function MultiInput({ createChat }) {
             // Emails input
             const emails = ev
             // Remove invalid emails
-            const updatedInvalidEmails = invalidEmails.filter(email=> emails.includes(email))
+            const updatedInvalidEmails = invalidEmails.filter(email => emails.includes(email))
             setInvalidEmails(updatedInvalidEmails)
             setEmails(emails)
             // console.log('emails:', emails)
@@ -38,44 +38,48 @@ function MultiInput({ createChat }) {
         const decryptedUser = await userService.getLoggedinUser()
         const loggedInUserEmail = decryptedUser.password
         // console.log('loggedInUserEmail:', loggedInUserEmail)
-        
+
         // Check if emails exist in db 
         const usersCol = query(collection(db, 'users'), where("password", "in", emails))
         const usersSnapshot = await getDocs(usersCol)
-        console.log('usersSnapshot.docs:', usersSnapshot.docs.map(e => e.data()))
+        // console.log('usersSnapshot.docs:', usersSnapshot.docs.map(e => e.data()))
         // console.log('usersSnapshot.docs:', usersSnapshot.docs.length)
         // If not all emails were found in db
         if (usersSnapshot.docs.length !== emails.length) {
             // If no emails were found in db, all are invalid
-            if(usersSnapshot.docs.length === 0) return setInvalidEmails(emails)
+            if (usersSnapshot.docs.length === 0) return setInvalidEmails(emails)
             // Find all emails that werent included in db query
             const invalidEmails = emails.filter(email => {
                 const foundEmail = usersSnapshot.docs.find(user => user.data().password === email)?.data()
-                console.log('isEmailFound:', foundEmail)
+                // console.log('isEmailFound:', foundEmail)
                 // If email isnt found add to invalidEmails arr
                 return !foundEmail
             })
-            console.log('invalidEmails:', invalidEmails)
+            // console.log('invalidEmails:', invalidEmails)
             return setInvalidEmails(invalidEmails)
         }
 
+
+let participants = []
+        usersSnapshot.docs.map(user => {
+            // return ({
+            //     email: user.data().password,
+            //     name: user.data().name
+            // })
+            participants.push(user.id)
+            // return user.data().id
+        })
         if (!emails.includes(loggedInUserEmail)) {
-            emails.push(loggedInUserEmail)
+            participants.push(decryptedUser.id)
         }
-
-        // TODO - TURN PARTICIPANTS TO OBJ W\ NAME & EMAIL 
-        // const participants = [decryptedUser, ]
-
-        
-        // If emails dont exist, add 'send invite' option
-
+        // console.log('participants:', participants)
         // Add group to db 
         // rooms => createdBy, participants, name, timeCreated
         // msgs =>
-        console.log('emails:', emails)
-        console.log('groupSub:', groupSub)
-        createChat(emails, groupSub)
-    
+        // console.log('emails:', emails)
+        // console.log('groupSub:', groupSub)
+        createChat(participants, groupSub)
+
     }
 
     return (
@@ -84,7 +88,7 @@ function MultiInput({ createChat }) {
             <h3>Group Subject</h3>
             <input type="text"
                 value={groupSub}
-            placeholder="Type group subject"
+                placeholder="Type group subject"
                 onChange={handleChange} />
             <h3>Add participants</h3>
             <ReactMultiEmail
@@ -108,11 +112,11 @@ function MultiInput({ createChat }) {
             {/* <br /> */}
             {invalidEmails.length ? <ul className="invalid-emails">
                 {invalidEmails.map(invalidEmail => {
-                    return(<li key={invalidEmail}>
+                    return (<li key={invalidEmail}>
                         {invalidEmail} isn't a member on WazApp <a target="_blank" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${invalidEmail}&su=Let\'s chat!&body=Let\'s chat on WazApp! It\'s a fast, simple, and secure app we can use to message each other for free. Join at https://wazapp-fc40f.web.app/`}>send invite</a>
                     </li>)
                 })}
-            </ul>: ''}
+            </ul> : ''}
             {/* <p>{emails.join(', ') || 'empty'}</p> */}
             <button>Create</button>
         </form>

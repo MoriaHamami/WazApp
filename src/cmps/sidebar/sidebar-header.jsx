@@ -9,6 +9,7 @@ import ChatPopup from "./chat-popup";
 import GroupPopup from "./group-popup";
 import { addDoc, collection, query, serverTimestamp, where } from "@firebase/firestore";
 import db from "../../services/firebase";
+import { userService } from "../../services/user.service";
 
 function SidebarHeader({loggedInUser}) {
     const [isOptionsSelected, setIsOptionsSelected] = useState(false)
@@ -17,8 +18,11 @@ function SidebarHeader({loggedInUser}) {
     // const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     async function createChat(participants, name) {
+        // const decryptedLoggedInUser = userService.getLoggedinUser()
+            const roomsCol = collection(db, 'rooms')
+            // const roomsCol = query(collection(db, 'rooms'), ("participants", "array-contains", decryptedLoggedInUser.password))
 
-            const roomsCol = query(collection(db, 'rooms'), ("participants", "array-contains", loggedInUser.email))
+            // TODO: Dont open chat with same person
             await addDoc(roomsCol, {
                 name,
                 participants,

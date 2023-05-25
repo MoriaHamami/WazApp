@@ -1,14 +1,18 @@
-import { collection, doc, limit, onSnapshot, orderBy, query } from "@firebase/firestore"
+import { collection, doc, getDoc, limit, onSnapshot, orderBy, query, where } from "@firebase/firestore"
 import { Avatar } from "@mui/material"
 import { useState, useEffect, useRef } from "react"
 import { Link, useParams } from "react-router-dom"
 import db from "../../services/firebase"
+import { userService } from "../../services/user.service"
+import { useSelector } from "react-redux"
 
 function ChatPreview({ addNewChat, createChat, name, id, participants }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
+    const [chatRecieverName, setChatRecieverName] = useState("")
     const unsub = useRef(null)
     const { roomId } = useParams()
+    const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         loadLastMsg(id)
@@ -26,6 +30,25 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
             setLastMsg(msg?.docs ? msg.docs[0]?.data().msg : "")
         })
     }
+// console.log('getChatName():', getChatName())
+    async function getChatName() {
+        // const loggedInUser = userService.getLoggedinUser()
+        // console.log('participants:', participants)
+        // if(name) return
+        const chatRecieverId = participants.find(participantId=> participantId !== loggedInUser.id)
+        // console.log('chatReciever:', chatRecieverId)
+        // if(chatRecieverId.includes('com')) return
+        // const usersCol = query(collection(db, 'users'), where('id', "==", chatReciever.id))
+        // const recieverSnapshot = await getDoc(usersCol)
+        // Get participant from db
+        const usersCol = doc(db, "users", chatRecieverId);
+        const recieverSnapshot = await getDoc(usersCol)
+
+const chatRecieverName = recieverSnapshot?.data().name
+// console.log('chatRecieverName:', chatRecieverName)
+        // return chatRecieverName
+        setChatRecieverName(chatRecieverName)
+    }
 
 
 
@@ -41,8 +64,7 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
 
                     ) : (
 
-                        // /TODO - FIX SYNTAX
-                    <div className="user-name">{participants}</div>
+                    <div className="user-name">{chatRecieverName}</div>
                     )}
                     {/* <div className="user-name">hi</div> */}
                     <p>{lastMsg}</p>
