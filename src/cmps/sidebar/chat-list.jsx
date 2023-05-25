@@ -7,7 +7,7 @@ function ChatList({rooms}) {
             {/* <ChatPreview addNewChat createChat={createChat}/> */}
             {/* <ChatPreview /> */}
             {rooms && rooms.map(room => (
-                <ChatPreview key={room.id} id={room.id} name={room.data.name} />
+                <ChatPreview key={room.id} id={room.id} name={room.data.name} participants={room.data.participants} />
             ))}
         </article>
     )

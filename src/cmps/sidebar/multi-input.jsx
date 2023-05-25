@@ -62,6 +62,11 @@ function MultiInput({ createChat }) {
         if (!emails.includes(loggedInUserEmail)) {
             emails.push(loggedInUserEmail)
         }
+
+        // TODO - TURN PARTICIPANTS TO OBJ W\ NAME & EMAIL 
+        // const participants = [decryptedUser, ]
+
+        
         // If emails dont exist, add 'send invite' option
 
         // Add group to db 
@@ -79,10 +84,11 @@ function MultiInput({ createChat }) {
             <h3>Group Subject</h3>
             <input type="text"
                 value={groupSub}
+            placeholder="Type group subject"
                 onChange={handleChange} />
             <h3>Add participants</h3>
             <ReactMultiEmail
-                placeholder='Type participants emails'
+                placeholder="Type participants' emails"
                 emails={emails}
                 onChange={handleChange}
                 autoFocus={true}

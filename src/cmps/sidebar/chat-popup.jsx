@@ -1,22 +1,81 @@
+import { collection, getDocs, query, where } from "@firebase/firestore";
+import { useState } from "react";
+import { ReactMultiEmail, isEmail } from 'react-multi-email';
+import 'react-multi-email/dist/style.css';
+import { useSelector } from "react-redux";
+import db from "../../services/firebase";
+import { userService } from "../../services/user.service";
+import { IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
-function ChatPopup({createChat}) {
+function ChatPopup({ createChat, setIsChatPopupShown }) {
 
-    // async function addNewChat(){
-    //     const roomName = prompt('Please enter name for chat')
-    //     if (roomName) {
-    //         const roomsCol = collection(db, 'rooms')
-    //         await addDoc(roomsCol, {
-    //             name: roomName,
-    //             timestamp: serverTimestamp()
-    //         })
-    //     }
-    //     setIsChatPopupShown(prevState => !prevState)
-    // }
-    
+    const [email, setEmail] = useState('')
+    const [invalidEmail, setInvalidEmail] = useState('')
+    // const loggedInUser = useSelector(storeState => storeState.userModule.user)
+
+    function handleChange({ target }) {
+        const email = target.value
+        // Remove invalid emails
+        if (invalidEmail !== email) setInvalidEmail('')
+        setEmail(email)
+    }
+
+
+    async function onSubmit(ev) {
+        ev.preventDefault()
+
+        // If user didnt add self, add the logged in user to chat participants
+        const decryptedUser = await userService.getLoggedinUser()
+        const loggedInUserEmail = decryptedUser.password
+        // console.log('loggedInUserEmail:', loggedInUserEmail)
+
+        // Check if emails exist in db 
+        const usersCol = query(collection(db, 'users'), where("password", "==", email))
+        const usersSnapshot = await getDocs(usersCol)
+        // console.log('usersSnapshot.docs:', usersSnapshot.docs.map(e => e.data()))
+        // console.log('usersSnapshot.docs:', usersSnapshot.docs.length)
+        // If email was not found in db
+        if (!usersSnapshot.docs.length) {
+            return setInvalidEmail(email)
+        }
+
+        const emails = [email, loggedInUserEmail]
+        // console.log('emails:', emails)
+        // console.log('groupSub:', groupSub)
+        createChat(emails, null)
+    }
+
 
     return (
-      <div className="chat-popup">ChatPopup</div>
+        <div className="chat-popup" onClick={(ev)=>ev.stopPropagation()}>
+            <div className="content-container">
+                <IconButton className="close-btn" onClick={() => setIsChatPopupShown(prevState => !prevState)}>
+                    <CloseIcon />
+                </IconButton>
+                <form onSubmit={onSubmit}>
+                    <h2>New Chat</h2>
+                    <h3>Contact email</h3>
+                    <input type="text"
+                        placeholder="Type contact email"
+                        value={email}
+                        onChange={handleChange} />
+
+                    {invalidEmail && <div className="invalid-email">
+                        {invalidEmail} isn't a member on WazApp <a target="_blank" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${invalidEmail}&su=Let\'s chat!&body=Let\'s chat on WazApp! It\'s a fast, simple, and secure app we can use to message each other for free. Join at https://wazapp-fc40f.web.app/`}>send invite</a>
+                    </div>}
+                    <button>Open chat</button>
+                </form>
+            </div>
+        </div>
     )
-  }
-  
-  export default ChatPopup
+}
+
+export default ChatPopup
+
+
+
+
+
+
+

@@ -61,7 +61,7 @@ function SidebarHeader({loggedInUser}) {
                 <IconButton className={isOptionsSelected && 'selected'} onClick={()=>setIsOptionsSelected(prevState => !prevState)}>
                     <MoreVertIcon />
                     {isOptionsSelected && <Dropdown setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown}/>}
-                    {isChatPopupShown && <ChatPopup createChat={createChat} />}
+                    {isChatPopupShown && <ChatPopup createChat={createChat} setIsChatPopupShown={setIsChatPopupShown} />}
                     {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} />}
                 </IconButton>
             </div>

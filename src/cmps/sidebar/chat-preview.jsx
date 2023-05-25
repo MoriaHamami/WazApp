@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react"
 import { Link, useParams } from "react-router-dom"
 import db from "../../services/firebase"
 
-function ChatPreview({ addNewChat, createChat, name, id }) {
+function ChatPreview({ addNewChat, createChat, name, id, participants }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
     const unsub = useRef(null)
@@ -36,7 +36,14 @@ function ChatPreview({ addNewChat, createChat, name, id }) {
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
                 <Avatar src={`https://i.pravatar.cc/150?u=${name}`} />
                 <article className="preview-info">
-                    <div className="user-name">{name}</div>
+                    {name ? (
+                        <div className="user-name">{name}</div>
+
+                    ) : (
+
+                        // /TODO - FIX SYNTAX
+                    <div className="user-name">{participants}</div>
+                    )}
                     {/* <div className="user-name">hi</div> */}
                     <p>{lastMsg}</p>
                 </article>
