@@ -64,21 +64,20 @@ function Chat({ loggedInUser }) {
         loadMsgs()
     }
 
-    async function getRecieverName(participants) {
-        const chatRecieverId = participants.find(participantId => participantId !== loggedInUser.id)
-        // TODO: LATER DONT LET USER OPEN GROUP WITH SELF ONLY
-        // Get participant from db
-        const recieverSnapshot = doc(db, "users", chatRecieverId);
-        // const usersCol = doc(db, "users", chatRecieverId);
+    // async function getRecieverName(participants) {
+    //     const chatRecieverId = participants.find(participantId => participantId !== loggedInUser.id)
+    //     // Get participant from db
+    //     const recieverSnapshot = doc(db, "users", chatRecieverId);
+    //     // const usersCol = doc(db, "users", chatRecieverId);
 
-        // TODO: LATER MAKE HERE AND CHAT PREVIEW SNAPSHOT (FOR IMG SWAP REASONS)
-        // const recieverSnapshot = await getDoc(usersCol)
-        let recieverName
-        recieverUnsub.current = onSnapshot(recieverSnapshot, reciever => {
-            recieverName = reciever.data().name
-        })
-        return recieverName
-    }
+    //     // TODO: LATER MAKE HERE AND CHAT PREVIEW SNAPSHOT (FOR IMG SWAP REASONS)
+    //     // const recieverSnapshot = await getDoc(usersCol)
+    //     let recieverName
+    //     recieverUnsub.current = onSnapshot(recieverSnapshot, reciever => {
+    //         recieverName = reciever.data().name
+    //     })
+    //     return recieverName
+    // }
 
     async function loadMsgs(filterBy = null) {
         const roomRef = doc(db, "rooms", roomId);

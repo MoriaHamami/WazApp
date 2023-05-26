@@ -57,6 +57,29 @@
 
     }
 
+    // .circle {
+    //     background: #fff;
+    //     border: 3px solid #000;
+    //     color: #000;
+    //     font: 32px Arial, sans-serif;
+    // }
+    
+    .unread-msgs{
+        // border-radius: 50%;
+        width: 22px;
+        height: 18px;
+        // padding: 10px;
+        text-align: center;
+
+        border-radius: 50%;
+        background-color: $green;
+        font-size: 0.6rem;
+        padding: 2px;
+        position: relative;
+        right: 8px;
+        color: white;
+    }
+
     .user-name {
         max-width: calc($sidebar-width - 6rem);
         font-size: 18px;

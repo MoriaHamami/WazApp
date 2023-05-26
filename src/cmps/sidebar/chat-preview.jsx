@@ -9,6 +9,7 @@ import { useSelector } from "react-redux"
 function ChatPreview({ addNewChat, createChat, name, id, participants }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
+    const [unreadMsgsCount, setUnreadMsgsCount] = useState(0)
     const [chatRecieverName, setChatRecieverName] = useState("")
     const unsub = useRef(null)
     const { roomId } = useParams()
@@ -32,9 +33,17 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
             // Update last msg
             const lastMsg = msgs?.docs ? msgs.docs[0]?.data().msg : ""
             setLastMsg(lastMsg)
-
+            
             // TODO Update unreadMgs
-
+            const unreadMsgsCount= msgs.docs.reduce((unreadMsgsCount, msg) => {
+                const readBy = msg.data().readBy
+                // console.log('readBy.includes(loggedInUser.id):', readBy.includes(loggedInUser.id))
+                // console.log('readBy:', readBy)
+                if(readBy.includes(loggedInUser.id)) return unreadMsgsCount
+                return ++unreadMsgsCount
+            }, 0)
+            // console.log('unreadMsgsCount:', unreadMsgsCount)
+            setUnreadMsgsCount(unreadMsgsCount)
         })
     }
 // console.log('getChatName():', getChatName())
@@ -61,7 +70,7 @@ const chatRecieverName = recieverSnapshot?.data().name
 
     return !addNewChat ? (
         <Link to={`/rooms/${id}`}>
-            <section className={`chat-preview ${id===roomId && 'active'}`}>
+            <section className={`chat-preview ${id===roomId && 'active'} ${unreadMsgsCount && 'unread'}`}>
                 {/* {console.log('id, roomId:', id, roomId)} */}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
                 <Avatar src={`https://i.pravatar.cc/150?u=${name}`} />
@@ -76,6 +85,7 @@ const chatRecieverName = recieverSnapshot?.data().name
                     {/* <div className="user-name">hi</div> */}
                     <p>{lastMsg}</p>
                 </article>
+                {unreadMsgsCount ? <div className="unread-msgs">{unreadMsgsCount}</div> : ''}
             </section>
         </Link>
     ) : (
