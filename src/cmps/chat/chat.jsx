@@ -7,7 +7,7 @@ import { useEffect } from "react"
 import db from "../../services/firebase"
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
-import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and } from "firebase/firestore";
+import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion } from "firebase/firestore";
 
 function Chat({ loggedInUser }) {
 
@@ -16,50 +16,123 @@ function Chat({ loggedInUser }) {
     const [msgs, setMsgs] = useState([])
     const msgsUnsub = useRef(null)
     const roomsUnsub = useRef(null)
+    const recieverUnsub = useRef(null)
 
     useEffect(() => {
         loadRoom()
         return () => {
             roomsUnsub.current && roomsUnsub.current()
             msgsUnsub.current && msgsUnsub.current()
+            recieverUnsub.current && recieverUnsub.current()
         }
     }, [roomId])
 
     async function loadRoom() {
-        if (roomId) {
-            // const roomsCol = collection(db, 'rooms')
-            // const roomRef = doc(roomsCol, roomId);
-            const roomRef = doc(db, "rooms", roomId);
-            roomsUnsub.current = onSnapshot(roomRef, room => {
-                // console.log('room:', room)
-                setRoomName(room.data().name)
-            })
-            loadMsgs()
-        }
+        if (!roomId) return
+        // const roomsCol = collection(db, 'rooms')
+        // const roomRef = doc(roomsCol, roomId);
+        const roomRef = doc(db, "rooms", roomId);
+        roomsUnsub.current = onSnapshot(roomRef, room => {
+            // console.log('room:', room)
+
+            let roomName
+            if (room.data().name) {
+                // This chat is a group with subject name
+                roomName = room.data().name
+                setRoomName(roomName)
+            } else {
+                // Find reciever name
+                let participants = room.data().participants
+                // roomName = getRecieverName(participants)
+                const chatRecieverId = participants.find(participantId => participantId !== loggedInUser.id)
+                // TODO: LATER DONT LET USER OPEN GROUP WITH SELF ONLY
+                // Get participant from db
+                const recieverSnapshot = doc(db, "users", chatRecieverId);
+                // const usersCol = doc(db, "users", chatRecieverId);
+
+                // TODO: LATER MAKE HERE AND CHAT PREVIEW SNAPSHOT (FOR IMG SWAP REASONS)
+                // const recieverSnapshot = await getDoc(usersCol)
+                recieverUnsub.current = onSnapshot(recieverSnapshot, reciever => {
+                    // console.log('reciever.data():', reciever.data())
+                    roomName = reciever.data().name
+                    setRoomName(roomName)
+                })
+
+            }
+            // console.log('roomName:', roomName)
+        })
+        loadMsgs()
+    }
+
+    async function getRecieverName(participants) {
+        const chatRecieverId = participants.find(participantId => participantId !== loggedInUser.id)
+        // TODO: LATER DONT LET USER OPEN GROUP WITH SELF ONLY
+        // Get participant from db
+        const recieverSnapshot = doc(db, "users", chatRecieverId);
+        // const usersCol = doc(db, "users", chatRecieverId);
+
+        // TODO: LATER MAKE HERE AND CHAT PREVIEW SNAPSHOT (FOR IMG SWAP REASONS)
+        // const recieverSnapshot = await getDoc(usersCol)
+        let recieverName
+        recieverUnsub.current = onSnapshot(recieverSnapshot, reciever => {
+            recieverName = reciever.data().name
+        })
+        return recieverName
     }
 
     async function loadMsgs(filterBy = null) {
         const roomRef = doc(db, "rooms", roomId);
         const msgsCol = collection(roomRef, "msgs");
         let msgsQuery
-        if(filterBy){
+        if (filterBy) {
             let capitalizedStr = filterBy.charAt(0).toUpperCase() + filterBy.slice(1)
             let lowercaseStr = filterBy.toLowerCase()
-            msgsQuery = query(msgsCol, 
-            or(
-                and(where("msg", ">=", filterBy), where('msg', '<=', filterBy + '\uf8ff')),
-                and(where("msg", ">=", capitalizedStr), where("msg", "<=", capitalizedStr + '\uf8ff')),
-                and(where("msg", ">=", lowercaseStr), where("msg", "<=", lowercaseStr + '\uf8ff'))
-            ))
-        } else{
+            msgsQuery = query(msgsCol,
+                or(
+                    and(where("msg", ">=", filterBy), where('msg', '<=', filterBy + '\uf8ff')),
+                    and(where("msg", ">=", capitalizedStr), where("msg", "<=", capitalizedStr + '\uf8ff')),
+                    and(where("msg", ">=", lowercaseStr), where("msg", "<=", lowercaseStr + '\uf8ff'))
+                ))
+        } else {
             msgsQuery = query(msgsCol, orderBy("timestamp"))
+            // Set all msgs as read
+            // const washingtonRef = doc(db, "cities", "DC");
+
+            // Atomically add a new region to the "regions" array field.
+            // await updateDoc(washingtonRef, {
+            //     regions: arrayUnion("greater_virginia")
+            // });
         }
         msgsUnsub.current = onSnapshot(msgsQuery, msgs => {
-            setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
-            // Update unread msgs
+            // setMsgs(msgs.docs.length ? msgs.docs.map(doc => doc.data()) : [])
+            // // Update unread msgs
+            // await updateDoc(washingtonRef, {
+            //     regions: arrayUnion("greater_virginia")
+            // });
+            if (!msgs) return setMsgs([])
+            let updatedMsgs = []
+            for (let i = 0; i < msgs.docs.length; i++) {
+                const msg = msgs.docs[i].data()
+                const msgRef = doc(roomRef, "msgs", msgs.docs[i].id);
+
+                // let msgRef = msgs.docs[i]
+                updateReadBy(msg, updatedMsgs, msgRef)
+            }
+            setMsgs(updatedMsgs)
 
         })
 
+    }
+
+    async function updateReadBy(msg, updatedMsgs, msgRef) {
+        if (!msg.readBy.includes(loggedInUser.id)) {
+
+            await updateDoc(msgRef, {
+                readBy: arrayUnion(loggedInUser.id)
+            })
+            msg.readBy.push(loggedInUser.id)
+        }
+        updatedMsgs.push(msg)
     }
 
     async function saveMsg(msg) {
@@ -69,9 +142,18 @@ function Chat({ loggedInUser }) {
             const newMsg = {
                 msg,
                 name: loggedInUser.name,
+                readBy: [loggedInUser.id],
                 timestamp: serverTimestamp()
             }
             await addDoc(msgsCol, newMsg)
+            // console.log('savedMsg:', savedMsg.id)
+
+            // const savedMsg = await addDoc(msgsCol, newMsg)
+            // const msgRef = doc(roomRef, "msgs", savedMsg.id);
+            // const readByCol = collection(msgRef, "readBy");
+            // await addDoc(readByCol, loggedInUser.id)
+
+
             // loadMsgs()
             //LOAD MSGS
             // const msgsQuery = query(msgsCol, orderBy("timestamp"))

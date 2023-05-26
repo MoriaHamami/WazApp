@@ -15,20 +15,26 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
-        loadLastMsg(id)
+        loadPreviewData(id)
         getChatName()
         return () => {
             unsub.current && unsub.current()
         }
     }, [id])
 
-    async function loadLastMsg(roomId) {
+    async function loadPreviewData(roomId) {
         const roomRef = doc(db, "rooms", roomId);
         const msgsCol = collection(roomRef, "msgs");
-        const lastMsg = query(msgsCol, orderBy("timestamp", "desc"), limit(1))
-        unsub.current = onSnapshot(lastMsg, msg => {
+        const msgsQuery = query(msgsCol, orderBy("timestamp", "desc"))
+        unsub.current = onSnapshot(msgsQuery, msgs => {
             // console.log('msg:', msg)
-            setLastMsg(msg?.docs ? msg.docs[0]?.data().msg : "")
+
+            // Update last msg
+            const lastMsg = msgs?.docs ? msgs.docs[0]?.data().msg : ""
+            setLastMsg(lastMsg)
+
+            // TODO Update unreadMgs
+
         })
     }
 // console.log('getChatName():', getChatName())

@@ -2,7 +2,7 @@ import { IconButton } from "@mui/material"
 import MultiInput from "./multi-input"
 import CloseIcon from '@mui/icons-material/Close';
 
-function GroupPopup({ createChat, setIsGroupPopupShown }) {
+function GroupPopup({ createChat, setIsGroupPopupShown, loggedInEmail }) {
 
     // async function addNewGroup(){
     //     const roomName = prompt('Please enter name for chat')
@@ -23,7 +23,7 @@ function GroupPopup({ createChat, setIsGroupPopupShown }) {
                 <CloseIcon />
             </IconButton>
 
-                <MultiInput createChat={createChat} />
+                <MultiInput createChat={createChat} loggedInEmail={loggedInEmail} />
             </div>
         </div>
     )

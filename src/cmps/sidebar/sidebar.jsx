@@ -71,13 +71,15 @@ function Sidebar() {
         }
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
-            if (rooms.docs.length) navigate(`/rooms/${rooms.docs[0].id}`);
             let roomsWithData =[]
             for(let i = 0; i < rooms.docs.length; i ++){
                 const room = rooms.docs[i]
                 if(room.data().participants.includes(loggedInUser.id)) {
                     roomsWithData.push({id: room.id, data: room.data()})
                 }
+            }
+            if (roomsWithData.length) {
+                navigate(`/rooms/${roomsWithData[0].id}`)
             }
             // const roomsWithData = rooms.docs.map(room =>
             //     ({
