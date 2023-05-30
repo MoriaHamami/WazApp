@@ -5,9 +5,10 @@ import ChatHeader from "./chat-header"
 import { useRef, useState } from "react"
 import { useEffect } from "react"
 import db from "../../services/firebase"
+import IntroChat from "./intro-chat"
+import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion } from "firebase/firestore";
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
-import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion } from "firebase/firestore";
 
 function Chat({ loggedInUser }) {
 
@@ -19,6 +20,7 @@ function Chat({ loggedInUser }) {
     const recieverUnsub = useRef(null)
 
     useEffect(() => {
+        console.log('roomId:', roomId)
         loadRoom()
         return () => {
             roomsUnsub.current && roomsUnsub.current()
@@ -168,16 +170,20 @@ function Chat({ loggedInUser }) {
 
     }
 
-    return (
+    return !roomId ? (
+        <IntroChat />
+    ) : (
         <article className="chat">
             <ChatHeader roomName={roomName} msgs={msgs} loadMsgs={loadMsgs} />
             <ChatBody msgs={msgs} />
             <ChatFooter saveMsg={saveMsg} />
-        </article>
+        </article >
     )
-}
+    }
 
-export default Chat
+
+
+    export default Chat
 
 
 

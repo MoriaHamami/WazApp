@@ -41,6 +41,7 @@
     }
 
     .preview-info {
+        position: relative;
         padding: 0 0 8px 15px;
         width: 100%;
         border-bottom: 1px solid $white-smoke;
@@ -66,7 +67,7 @@
     
     .unread-msgs{
         // border-radius: 50%;
-        width: 22px;
+        width: 18px;
         height: 18px;
         // padding: 10px;
         text-align: center;
@@ -75,10 +76,13 @@
         background-color: $green;
         font-size: 0.6rem;
         padding: 2px;
-        position: relative;
+        position: absolute;
+        top: calc(50% - 9px);
         right: 8px;
         color: white;
+        
     }
+
 
     .user-name {
         max-width: calc($sidebar-width - 6rem);

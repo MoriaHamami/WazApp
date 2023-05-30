@@ -51,3 +51,22 @@ const loggedInUser=useSelector(storeState => storeState.userModule.user)
 }
 
 export default App;
+
+// TODOSSSSSS
+
+// VV - FIRST LOAD NOT ON FIRST CHAT
+// RENDER LIST ACCORDING TO LAST MSG
+// CHANGE IMG OPTION
+// CHANGE TIME MARKING
+// ADD PHONE MODE
+// CREATE BACKEND FILE
+
+// HARD //////////////////////
+
+// ADD SOUNDS FOR SENT OR INCOME
+// ADD V MARK
+// RENDER BETTER ALL -APPEAR AT ONCE
+
+// ADD VOICE RECORDINGS ?
+// ADD FILE SENDING ?
+// FIX QUERY ?

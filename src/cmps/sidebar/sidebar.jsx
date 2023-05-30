@@ -78,8 +78,11 @@ function Sidebar() {
                     roomsWithData.push({id: room.id, data: room.data()})
                 }
             }
+
+            
             if (roomsWithData.length) {
-                navigate(`/rooms/${roomsWithData[0].id}`)
+                navigate('/rooms')
+                // navigate(`/rooms/${roomsWithData[0].id}`)
             }
             // const roomsWithData = rooms.docs.map(room =>
             //     ({

@@ -84,8 +84,8 @@ const chatRecieverName = recieverSnapshot?.data().name
                     )}
                     {/* <div className="user-name">hi</div> */}
                     <p>{lastMsg}</p>
-                </article>
                 {unreadMsgsCount ? <div className="unread-msgs">{unreadMsgsCount}</div> : ''}
+                </article>
             </section>
         </Link>
     ) : (

@@ -23,12 +23,36 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig)
 // const firebaseApp = firebase.initializeApp(firebaseConfig)
 // const db= firebaseApp.firestore()
-const db= getFirestore(firebaseApp)
+const db = getFirestore(firebaseApp)
 // const auth = firebase.auth()
 const auth = getAuth(firebaseApp)
 const provider = new GoogleAuthProvider()
 // const provider = new auth.GoogleAuthProvider()
 // const provider = new firebase.auth.GoogleAuthProvider()
 
-export { auth, provider }
+
+// TODO - TO REMOVE LATER?
+const recordingSettings = {
+    android: {
+        extension: ".m4a",
+        outputFormat: Audio.RECORDING_OPTION_ANDROID_OUTPUT_FORMAT_MPEG_4,
+        audioEncoder: Audio.RECORDING_OPTION_ANDROID_AUDIO_ENCODER_AAC,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+    },
+    ios: {
+        extension: ".m4a",
+        outputFormat: Audio.RECORDING_OPTION_IOS_OUTPUT_FORMAT_MPEG4AAC,
+        audioQuality: Audio.RECORDING_OPTION_IOS_AUDIO_QUALITY_MIN,
+        sampleRate: 44100,
+        numberOfChannels: 2,
+        bitRate: 128000,
+        linearPCMBitDepth: 16,
+        linearPCMIsBigEndian: false,
+        linearPCMIsFloat: false,
+    },
+}
+
+export { auth, provider, recordingSettings }
 export default db
