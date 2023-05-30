@@ -15,13 +15,14 @@ import { setRooms } from "../../services/room.actions";
 
 function Sidebar() {
 
-    // const [rooms, setRooms] = useState([])
+    const [rooms, setRooms] = useState([])
     const unsub = useRef(null)
     const navigate = useNavigate();
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
-    const rooms=useSelector(storeState => storeState.roomModule.rooms)
+    // const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
+        navigate('/rooms')
         loadRooms()
         return () => {
             unsub.current && unsub.current()
@@ -46,6 +47,7 @@ function Sidebar() {
 
         let roomsCol
         if (filterBy) {
+            navigate('/rooms')
             // const substrings = utilService.getAllSubstrings(filterBy)
             // console.log('substrings:', substrings)
             let capitalizedStr = filterBy.charAt(0).toUpperCase() + filterBy.slice(1)
@@ -55,8 +57,8 @@ function Sidebar() {
             // console.log('lowercaseStr:', lowercaseStr)
 
             // TODO: Shorten query with use of "in" and utils func
-            // const filterBySubstrings = utilService.getAllSubstrings(filterBy)
-            // console.log('filterBySubstrings:', filterBySubstrings)
+            const filterBySubstrings = utilService.getAllSubstrings(filterBy)
+            console.log('filterBySubstrings:', filterBySubstrings)
             // roomsCol = query(collection(db, 'rooms'),
                 
                     // (where("participants", "array-contains", loggedInUser.id)),
@@ -67,8 +69,11 @@ function Sidebar() {
                     // and(where("participants", "array-contains", loggedInUser.id)),
                     and(where('name', '>=', filterBy), where('name', '<=', filterBy + '\uf8ff')),
                     and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
-                    and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff'))
-                ), orderBy('lastMsgTime', 'desc'))
+                    and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff')),
+                    // and(where('participants', 'array-contains-any', filterBySubstrings)),
+                    // and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
+                    // and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff'))
+                ))
         } else {
             roomsCol = query(collection(db, 'rooms'), orderBy('lastMsgTime', 'desc'))
         }
@@ -83,10 +88,10 @@ function Sidebar() {
             }
 
             
-            if (roomsWithData.length) {
-                navigate('/rooms')
-                // navigate(`/rooms/${roomsWithData[0].id}`)
-            }
+            // if (roomsWithData.length) {
+            //     navigate('/rooms')
+            //     // navigate(`/rooms/${roomsWithData[0].id}`)
+            // }
             // const roomsWithData = rooms.docs.map(room =>
             //     ({
             //         id: room.id,

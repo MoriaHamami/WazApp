@@ -6,8 +6,9 @@ import { useRef, useState } from "react"
 import { useEffect } from "react"
 import db from "../../services/firebase"
 import IntroChat from "./intro-chat"
-import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion } from "firebase/firestore";
+import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore";
 import { useSelector } from "react-redux"
+import { setRooms } from "../../services/room.actions"
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
 
@@ -19,7 +20,7 @@ function Chat({ loggedInUser }) {
     const msgsUnsub = useRef(null)
     const roomsUnsub = useRef(null)
     const recieverUnsub = useRef(null)
-    const rooms=useSelector(storeState => storeState.roomModule.rooms)
+    const rooms = useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
         console.log('roomId:', roomId)
@@ -144,15 +145,18 @@ function Chat({ loggedInUser }) {
         try {
             const roomRef = doc(db, "rooms", roomId);
             const msgsCol = collection(roomRef, "msgs");
+            const timestamp = serverTimestamp()
             const newMsg = {
                 msg,
                 name: loggedInUser.name,
                 readBy: [loggedInUser.id],
-                timestamp: serverTimestamp()
+                timestamp
+                // timestamp: serverTimestamp()
             }
-            const savedMsg = await addDoc(msgsCol, newMsg)
-            console.log('savedMsg.timestamp:', savedMsg.timestamp)
-            updateRoomLastMsgTime(roomRef, savedMsg.timestamp)
+            await addDoc(msgsCol, newMsg)
+            // const savedMsg = await getDoc(roomRef, "msgs", msgRef.id)
+            // updateRoomLastMsgTime(roomRef, savedMsg.data().timestamp)
+            updateRoomLastMsgTime(roomRef, timestamp)
 
             // console.log('savedMsg:', savedMsg.id)
 
@@ -171,19 +175,28 @@ function Chat({ loggedInUser }) {
             // })
             // setMsgs(prevMsgs=> [...prevMsgs, newMsg])
         } catch (err) {
-            alert('Had issues sending msg', err)
+            console.log('err:', err)
+            alert('Had issues sending msg')
         }
         // setRoomName(roomSnapshot.data().name)
 
     }
 
     async function updateRoomLastMsgTime(roomRef, lastMsgTime) {
-        await updateDoc(roomRef, { lastMsgTime })
+        try {
+            // console.log('lastMsgTime:', lastMsgTime)
+            // await setDoc(roomRef, { lastMsgTime },{merge:true})
+            await updateDoc(roomRef, { lastMsgTime })
+            // await updateDoc(roomRef, { lastMsgTime })
+        } catch (err) {
+            console.log('err:', err)
+        }
         // TODO:? remove and push to start of rooms list this room
-        const roomIdx = rooms.findIndex(room => room.id === roomId)
-        const room = rooms.splice(roomIdx, 1);
-        rooms.unshift(room);
-
+        // const roomIdx = rooms.findIndex(room => room.id === roomId)
+        // const room = rooms.splice(roomIdx, 1)
+        // rooms.unshift(room[0])
+        // console.log('rooms:', rooms)
+        // setRooms(rooms)
     }
 
     return !roomId ? (

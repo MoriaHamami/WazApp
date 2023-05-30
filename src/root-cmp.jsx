@@ -55,12 +55,17 @@ export default App;
 // TODOSSSSSS
 
 // VV - FIRST LOAD NOT ON FIRST CHAT
-// RENDER LIST ACCORDING TO LAST MSG
+// VV - RENDER LIST ACCORDING TO LAST MSG
 // CHANGE IMG OPTION
 // CHANGE TIME MARKING
 // ADD PHONE MODE
 // CREATE BACKEND FILE
 // DEAL WITH CHATS WITHOUT MSGS APPEARING
+// CHANGE EVRYTHING TO WORK WITH STORE?
+// ADD TRY AND CATCH TO ALL
+// Add scroll in chat footer input
+// dont let user add chat that exists
+// fix filter (chats dont have names)
 
 // HARD //////////////////////
 
