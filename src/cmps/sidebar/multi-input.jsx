@@ -93,7 +93,7 @@ let participants = []
         // msgs =>
         // console.log('emails:', emails)
         // console.log('groupSub:', groupSub)
-        createChat(participants, groupSub)
+        createChat(participants, groupSub, 'group')
 
     }
 

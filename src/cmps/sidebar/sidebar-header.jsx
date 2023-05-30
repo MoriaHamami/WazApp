@@ -7,9 +7,10 @@ import Dropdown from "./dropdown";
 import { useEffect, useState } from "react";
 import ChatPopup from "./chat-popup";
 import GroupPopup from "./group-popup";
-import { addDoc, collection, query, serverTimestamp, where } from "@firebase/firestore";
+import { addDoc, collection, getDoc, getDocs, query, serverTimestamp, where } from "@firebase/firestore";
 import db from "../../services/firebase";
 import { userService } from "../../services/user.service";
+import { useNavigate } from "react-router-dom";
 // import { userService } from "../../services/user.service";
 
 function SidebarHeader({ loggedInUser }) {
@@ -18,6 +19,7 @@ function SidebarHeader({ loggedInUser }) {
     const [isChatPopupShown, setIsChatPopupShown] = useState(false)
     const [loggedInEmail, setLoggedInEmail] = useState('')
     // const loggedInUser = useSelector(storeState => storeState.userModule.user)
+    const navigate = useNavigate()
 
     useEffect(() => {
         updateLoggedInEmail()
@@ -28,15 +30,28 @@ function SidebarHeader({ loggedInUser }) {
         setLoggedInEmail(decryptedUser.password)
     }
 
-    async function createChat(participants, name) {
+    async function createChat(participants, name, chatType) {
         // const decryptedLoggedInUser = userService.getLoggedinUser()
-        const roomsCol = collection(db, 'rooms')
         // const roomsCol = query(collection(db, 'rooms'), ("participants", "array-contains", decryptedLoggedInUser.password))
+        if (isGroupPopupShown) setIsGroupPopupShown(false)
+        if (isChatPopupShown) setIsChatPopupShown(false)
 
         // TODO: Dont open chat with same person
+        let roomsCol = query(collection(db, 'rooms'),
+            // and(where("participants", "array-contains", loggedInUser.id)),
+            where('participants', 'array-contains-any', participants), where('chatType', '==', 'chat')
+        )
+        const roomsSnapshot = await getDocs(roomsCol)
+        // If a chat already exists, take user to chat
+        if (roomsSnapshot.docs.length) return navigate(`/rooms/${roomsSnapshot.docs[0].id}`)
+
+        roomsCol = collection(db, 'rooms')
+
         await addDoc(roomsCol, {
             name,
             participants,
+            chatType,
+            lastMsgTime: serverTimestamp(),
             createdBy: loggedInUser.id,
             timestamp: serverTimestamp()
         })
@@ -44,8 +59,6 @@ function SidebarHeader({ loggedInUser }) {
         // db.collection('rooms').add({
         //     name: roomName
         // })
-        if (isGroupPopupShown) setIsGroupPopupShown(false)
-        if (isChatPopupShown) setIsChatPopupShown(false)
     }
     // async function createChat() {
 

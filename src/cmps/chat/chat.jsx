@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import db from "../../services/firebase"
 import IntroChat from "./intro-chat"
 import { doc, onSnapshot, addDoc, collection, orderBy, query, serverTimestamp, where, or, and, updateDoc, arrayUnion } from "firebase/firestore";
+import { useSelector } from "react-redux"
 // import { addDoc, collection, getDoc, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 // import { onSnapshot } from "firebase/firestore";
 
@@ -18,6 +19,7 @@ function Chat({ loggedInUser }) {
     const msgsUnsub = useRef(null)
     const roomsUnsub = useRef(null)
     const recieverUnsub = useRef(null)
+    const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
         console.log('roomId:', roomId)
@@ -136,6 +138,8 @@ function Chat({ loggedInUser }) {
         updatedMsgs.push(msg)
     }
 
+
+
     async function saveMsg(msg) {
         try {
             const roomRef = doc(db, "rooms", roomId);
@@ -146,7 +150,10 @@ function Chat({ loggedInUser }) {
                 readBy: [loggedInUser.id],
                 timestamp: serverTimestamp()
             }
-            await addDoc(msgsCol, newMsg)
+            const savedMsg = await addDoc(msgsCol, newMsg)
+            console.log('savedMsg.timestamp:', savedMsg.timestamp)
+            updateRoomLastMsgTime(roomRef, savedMsg.timestamp)
+
             // console.log('savedMsg:', savedMsg.id)
 
             // const savedMsg = await addDoc(msgsCol, newMsg)
@@ -170,6 +177,15 @@ function Chat({ loggedInUser }) {
 
     }
 
+    async function updateRoomLastMsgTime(roomRef, lastMsgTime) {
+        await updateDoc(roomRef, { lastMsgTime })
+        // TODO:? remove and push to start of rooms list this room
+        const roomIdx = rooms.findIndex(room => room.id === roomId)
+        const room = rooms.splice(roomIdx, 1);
+        rooms.unshift(room);
+
+    }
+
     return !roomId ? (
         <IntroChat />
     ) : (
@@ -179,11 +195,11 @@ function Chat({ loggedInUser }) {
             <ChatFooter saveMsg={saveMsg} />
         </article >
     )
-    }
+}
 
 
 
-    export default Chat
+export default Chat
 
 
 

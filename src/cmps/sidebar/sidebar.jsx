@@ -10,13 +10,16 @@ import { useNavigate } from "react-router-dom";
 import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
 import { userService } from "../../services/user.service";
+import { roomReducer } from "../../services/room.reducer";
+import { setRooms } from "../../services/room.actions";
 
 function Sidebar() {
 
-    const [rooms, setRooms] = useState([])
+    // const [rooms, setRooms] = useState([])
     const unsub = useRef(null)
     const navigate = useNavigate();
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
+    const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
         loadRooms()
@@ -62,12 +65,12 @@ function Sidebar() {
             roomsCol = query(collection(db, 'rooms'),
                 or(
                     // and(where("participants", "array-contains", loggedInUser.id)),
-                    and(where("name", ">=", filterBy), where('name', '<=', filterBy + '\uf8ff')),
-                    and(where("name", ">=", capitalizedStr), where("name", "<=", capitalizedStr + '\uf8ff')),
-                    and(where("name", ">=", lowercaseStr), where("name", "<=", lowercaseStr + '\uf8ff'))
-                ))
+                    and(where('name', '>=', filterBy), where('name', '<=', filterBy + '\uf8ff')),
+                    and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
+                    and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff'))
+                ), orderBy('lastMsgTime', 'desc'))
         } else {
-            roomsCol = query(collection(db, 'rooms'), orderBy('timestamp', "desc"))
+            roomsCol = query(collection(db, 'rooms'), orderBy('lastMsgTime', 'desc'))
         }
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
@@ -89,13 +92,14 @@ function Sidebar() {
             //         id: room.id,
             //         data: room.data()
             //     }))
+            // setRooms(roomsWithData)
             setRooms(roomsWithData)
             // setRooms(rooms.docs.length ? roomsWithData : [])
         })
 
     }
 
-
+   
   
 
 

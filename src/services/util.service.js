@@ -23,3 +23,4 @@ function getAllSubstrings(str) {
 
     return substrings
 }
+

@@ -60,6 +60,7 @@ export default App;
 // CHANGE TIME MARKING
 // ADD PHONE MODE
 // CREATE BACKEND FILE
+// DEAL WITH CHATS WITHOUT MSGS APPEARING
 
 // HARD //////////////////////
 

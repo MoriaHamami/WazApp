@@ -57,7 +57,7 @@ function ChatPopup({ createChat, setIsChatPopupShown, loggedInEmail }) {
 
         // console.log('participants:', participants)
         // console.log('groupSub:', groupSub)
-        createChat(participants, null)
+        createChat(participants, null, 'chat')
     }
 
 
