@@ -121,9 +121,9 @@ function ChatFooter({ saveMsg }) {
     //       .storage()
     //       .ref("nameOfTheFile.filetype")
     //       .getDownloadURL()
-    
+
     //     console.log("uri:", uri)
-    
+
     //     // The rest of this plays the audio
     //     const soundObject = new Audio.Sound()
     //     try {
@@ -143,6 +143,7 @@ function ChatFooter({ saveMsg }) {
     const [input, setInput] = useState('')
     const [showPicker, setShowPicker] = useState(false)
     const inputRef = useRef(null)
+    const [textareaheight, setTextareaheight] = useState(1);
 
     useEffect(() => {
         inputRef.current.focus()
@@ -164,8 +165,66 @@ function ChatFooter({ saveMsg }) {
         setInput('')
     }
 
+    // function handleChange(ev) {
+    //     setInput(ev.target.value)
+    //     console.log(ev.target.rows)
+    //     const height = ev.target.scrollHeight;
+    //     const rowHeight = 15;
+    //     const textRows = Math.ceil(height / rowHeight) - 1;
 
+    //     if (textRows !== textareaheight) {
 
+    //         setTextareaheight(textRows);
+
+    //     }
+    // }
+
+    function handleChange(ev) {
+
+        setInput(ev.target.value)
+    
+        // console.log(ev.target.rows)
+        // const rowHeight = 21.36;
+        // const rowHeight = 46.36;
+        
+        // According to input height and padding
+        const rowHeight = 14.36;
+
+        // const rowHeight = 16;
+        // const rowHeight = 24;
+        const minRows = 1
+        const maxRows = 10
+
+        // Reset number of rows in textarea 
+        // so scrollHeight will see min height available is 1 row
+        ev.target.rows = minRows
+        const height = ev.target.scrollHeight;
+        const previousRows = ev.target.rows;
+
+    console.log('ev.target.scrollHeight:', ev.target.scrollHeight)
+        // const rowHeight = 15;
+        // const currentRows = Math.ceil(height / rowHeight) ;
+        const currentRows = Math.ceil(height / rowHeight)-2 ;
+    // console.log('Math.ceil(height / rowHeight) - 1:', height)
+        // if (currentRows <= previousRows) {
+    
+        //     setTextareaheight(currentRows);
+    
+        // }
+    
+        if (currentRows !== previousRows) {
+            // console.log('currentRows:', currentRows)
+            ev.target.rows = currentRows;
+        }
+    // console.log('currentRows:', currentRows)
+        // if (currentRows >= maxRows) {
+        //     ev.target.rows = maxRows;
+        //     ev.target.scrollTop = ev.target.scrollHeight;
+        // }
+    
+        // setTextareaheight(currentRows < maxRows ? currentRows : maxRows)
+        // setTextareaheight(currentRows)
+    }
     return (
         <footer className="chat-footer">
             <IconButton>
@@ -184,11 +243,19 @@ function ChatFooter({ saveMsg }) {
                 <AttachFile />
             </IconButton>
             <form onSubmit={sendMsg}>
-                <input type="text"
+                <textarea
+                    rows={1}
+                    placeholder="Type a message"
+                    value={input}
+                    onChange={handleChange}
+                    ref={inputRef} 
+                    // height={scrollHeight}
+                    />
+                {/* <input type="text"
                     placeholder="Type a message"
                     value={input}
                     onChange={ev => setInput(ev.target.value)}
-                    ref={inputRef} />
+                    ref={inputRef} /> */}
             </form>
             <IconButton>
                 <Mic />
@@ -198,3 +265,30 @@ function ChatFooter({ saveMsg }) {
 }
 
 export default ChatFooter
+
+
+
+
+
+// function handleChange(ev) {
+//     const textareaLineHeight = 24;
+//     const rows = 5
+//     const minRows = 5
+//     const maxRows = 10
+//     const previousRows = ev.target.rows;
+//     ev.target.rows = minRows; // reset number of rows in textarea 
+
+//     const currentRows = ~~(ev.target.scrollHeight / textareaLineHeight)
+
+//     if (currentRows === previousRows) {
+//         ev.target.rows = currentRows;
+//     }
+
+//     if (currentRows >= maxRows) {
+//         ev.target.rows = maxRows;
+//         ev.target.scrollTop = ev.target.scrollHeight;
+//     }
+
+//     setTextareaheight(currentRows < maxRows ? currentRows : maxRows)
+// };
+

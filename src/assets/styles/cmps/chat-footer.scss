@@ -2,9 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 54px;
+    // height: 54px;
     border-top: 1px solid $white-smoke;
-    padding: 10px 0.8rem;
+    padding: 8px 0.8rem;
 
     form {
         flex: 1;
@@ -12,21 +12,56 @@
         height: 100%;
     }
 
-    input {
+    // input {
+    //     flex: 1;
+    //     border-radius: 5px;
+    //     border: none;
+    //     height: 100%;
+    //     outline: none;
+    //     padding-inline-start: 10px;
+    //     // margin-inline-end: 10px;
+    //     font-size: 0.71rem;
+
+        
+    //     overflow: hidden;
+    //     white-space: normal;
+    //     max-width: calc(100vw - $sidebar-width - 8rem);
+    //     text-overflow: ellipsis;
+    // }
+    
+    textarea{
         flex: 1;
         border-radius: 5px;
         border: none;
-        height: 100%;
+        // height: max-content;
         outline: none;
-        padding-inline-start: 10px;
+        padding: 10px;
+        // padding-inline-start: 10px;
         // margin-inline-end: 10px;
+        // font-size: 11px;
         font-size: 0.71rem;
-
+        resize: none;
+        // overflow-y: no-scroll;
+        // height: max-content;
+        max-width: calc(100vw - $sidebar-width - 8rem);
+        max-height: 20vh;
+        overflow-y: auto;
+        // margin: 0;
+        font-family: $font;
+        max-width: calc(100vw - $sidebar-width - 8rem);
+    }
+    textarea::placeholder{
         overflow: hidden;
         white-space: nowrap;
         max-width: calc(100vw - $sidebar-width - 8rem);
         text-overflow: ellipsis;
+        // height: 15px;
     }
+    textarea:focus {
+        outline: none;
+        border-color: #c6c6c6;
+      }
+    
 
     aside.EmojiPickerReact.epr-main {
         // .picker-container {

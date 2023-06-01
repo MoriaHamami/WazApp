@@ -66,6 +66,7 @@ export default App;
 // Add scroll in chat footer input
 // dont let user add chat that exists
 // fix filter (chats dont have names)
+// MAKE BOTH HOMEPAGES RESPONSIVE AND NICE
 
 // HARD //////////////////////
 
