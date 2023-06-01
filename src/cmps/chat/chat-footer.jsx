@@ -187,8 +187,8 @@ function ChatFooter({ saveMsg }) {
         // const rowHeight = 21.36;
         // const rowHeight = 46.36;
         
-        // According to input height and padding
-        const rowHeight = 14.36;
+        // According to scroll height
+        const rowHeight = 14.5;
 
         // const rowHeight = 16;
         // const rowHeight = 24;

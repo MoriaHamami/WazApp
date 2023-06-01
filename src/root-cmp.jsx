@@ -10,43 +10,52 @@ import { login } from "./services/user.actions";
 import { store } from "./services/store";
 import { SET_USER } from "./services/user.reducer";
 
+import { setLoader } from "./services/loader.actions";
+import Loader from "./views/loader";
+
 function App() {
-  // const [loggedInUser, setLoggedInUser] = 
-const loggedInUser=useSelector(storeState => storeState.userModule.user)
+  // const [isLoading, setIsLoading] = useState(true)
+  const isLoading = useSelector(storeState => storeState.loaderModule.isLoading)
+  const loggedInUser = useSelector(storeState => storeState.userModule.user)
   useEffect(() => {
     // if(loggedInUser) return 
     updateUser()
   }, [])
 
-  async function updateUser(){
+  async function updateUser() {
     const user = await userService.getLoggedinUser()
     // console.log('user:', user)
     if (user) {
       // setLoggedInUser(user)
       // console.log('here:', user)
-      login(user)
+      await login(user)
       // Save user in store
       // store.dispatch({
-      //   type: SET_USER,
-      //   user
-      // })
-    }
+        //   type: SET_USER,
+        //   user
+        // })
+      }
+      setLoader(false)
+      // setIsLoading(false)
   }
 
   // const loggedInUser = userService.getLoggedinUser()
 
   return (
-    <div className="app">
-      {!loggedInUser ? (
-        <LoginPage />
-      ) : (
-        <main className='app-body'>
-          <Routes>
-            <Route element={<MainPage loggedInUser={loggedInUser} />} path="rooms/:roomId?" />
-          </Routes>
-        </main>
-      )}
-    </div>
+    isLoading ?
+      <Loader /> : (
+        <div className="app">
+          {!loggedInUser ? (
+            <LoginPage />
+          ) : (
+            <main className='app-body'>
+              <Routes>
+                <Route element={<MainPage loggedInUser={loggedInUser} />} path="rooms/:roomId?" />
+              </Routes>
+            </main>
+          )}
+        </div>
+      )
   )
 }
 
@@ -63,13 +72,13 @@ export default App;
 // DEAL WITH CHATS WITHOUT MSGS APPEARING
 // CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD TRY AND CATCH TO ALL
-// Add scroll in chat footer input
 // dont let user add chat that exists
 // fix filter (chats dont have names)
 // MAKE BOTH HOMEPAGES RESPONSIVE AND NICE
 
 // HARD //////////////////////
 
+// VV - Add scroll in chat footer input
 // ADD SOUNDS FOR SENT OR INCOME
 // ADD V MARK
 // RENDER BETTER ALL -APPEAR AT ONCE

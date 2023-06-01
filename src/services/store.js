@@ -2,10 +2,12 @@ import { createStore, combineReducers } from 'redux'
 
 import { userReducer } from './user.reducer.js'
 import { roomReducer } from './room.reducer.js'
+import { loaderReducer } from './loader.reducer.js'
 
 const rootReducer = combineReducers({
     userModule: userReducer,
     roomModule: roomReducer,
+    loaderModule: loaderReducer,
 })
 
 

@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { userService } from "../../services/user.service";
 import { roomReducer } from "../../services/room.reducer";
 import { setRooms } from "../../services/room.actions";
+import { setLoader } from "../../services/loader.actions";
+import Loader from "../../views/loader";
 
 function Sidebar() {
 
@@ -19,9 +21,12 @@ function Sidebar() {
     const unsub = useRef(null)
     const navigate = useNavigate();
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
+    const isLoading = useSelector(storeState => storeState.loaderModule.isLoading)
+
     // const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
+        setLoader(true)
         navigate('/rooms')
         loadRooms()
         return () => {
@@ -60,10 +65,10 @@ function Sidebar() {
             const filterBySubstrings = utilService.getAllSubstrings(filterBy)
             console.log('filterBySubstrings:', filterBySubstrings)
             // roomsCol = query(collection(db, 'rooms'),
-                
-                    // (where("participants", "array-contains", loggedInUser.id)),
-                    // (where("name", "in", filterBySubstrings)))
-                
+
+            // (where("participants", "array-contains", loggedInUser.id)),
+            // (where("name", "in", filterBySubstrings)))
+
             roomsCol = query(collection(db, 'rooms'),
                 or(
                     // and(where("participants", "array-contains", loggedInUser.id)),
@@ -79,15 +84,15 @@ function Sidebar() {
         }
         unsub.current = onSnapshot(roomsCol, rooms => {
             // console.log('rooms:', rooms)
-            let roomsWithData =[]
-            for(let i = 0; i < rooms.docs.length; i ++){
+            let roomsWithData = []
+            for (let i = 0; i < rooms.docs.length; i++) {
                 const room = rooms.docs[i]
-                if(room.data().participants.includes(loggedInUser.id)) {
-                    roomsWithData.push({id: room.id, data: room.data()})
+                if (room.data().participants.includes(loggedInUser.id)) {
+                    roomsWithData.push({ id: room.id, data: room.data() })
                 }
             }
 
-            
+
             // if (roomsWithData.length) {
             //     navigate('/rooms')
             //     // navigate(`/rooms/${roomsWithData[0].id}`)
@@ -101,21 +106,23 @@ function Sidebar() {
             setRooms(roomsWithData)
             // setRooms(rooms.docs.length ? roomsWithData : [])
         })
+        setLoader(false)
 
     }
 
-   
-  
+
+
 
 
 
     return (
-        <div className="sidebar">
-            {/* {console.log('rooms:', rooms.length)} */}
-            <SidebarHeader loggedInUser={loggedInUser} />
-            <SearchBar loadRooms={loadRooms} />
-            <ChatList rooms={rooms} />
-        </div>
+        isLoading ? <Loader /> : (
+            < div className="sidebar" >
+                {/* {console.log('rooms:', rooms.length)} */}
+                < SidebarHeader loggedInUser={loggedInUser} />
+                <SearchBar loadRooms={loadRooms} />
+                <ChatList rooms={rooms} />
+            </div >)
     )
 }
 
