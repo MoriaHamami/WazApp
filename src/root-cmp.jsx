@@ -31,12 +31,15 @@ function App() {
       await login(user)
       // Save user in store
       // store.dispatch({
-        //   type: SET_USER,
-        //   user
-        // })
-      }
+      //   type: SET_USER,
+      //   user
+      // })
+      // setLoader(true)
+    } 
+    // else {
       setLoader(false)
-      // setIsLoading(false)
+    // }
+    // setIsLoading(false)
   }
 
   // const loggedInUser = userService.getLoggedinUser()

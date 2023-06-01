@@ -30,6 +30,7 @@ export async function setLoader(isLoading) {
     try {
         // const loader = await loaderService.login(creds)
         // console.log('loader2:', loader)
+        console.log('isLoading:', isLoading)
         store.dispatch({
             type: SET_LOADER,
             isLoading

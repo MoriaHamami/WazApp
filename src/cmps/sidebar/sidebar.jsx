@@ -21,12 +21,14 @@ function Sidebar() {
     const unsub = useRef(null)
     const navigate = useNavigate();
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
-    const isLoading = useSelector(storeState => storeState.loaderModule.isLoading)
+    // const isLoading = useSelector(storeState => storeState.loaderModule.isLoading)
 
     // const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
-        setLoader(true)
+    //   setLoader(true)
+
+        // console.log('isLoading:', isLoading)
         navigate('/rooms')
         loadRooms()
         return () => {
@@ -42,6 +44,8 @@ function Sidebar() {
     }, [])
 
     function loadRooms(filterBy = null) {
+    // setLoader(false)
+
         // db.collection('rooms').onSnapshot(snapshot => (
         //     setRooms(snapshot.docs.map(doc=>
         //     ({
@@ -106,23 +110,23 @@ function Sidebar() {
             setRooms(roomsWithData)
             // setRooms(rooms.docs.length ? roomsWithData : [])
         })
-        setLoader(false)
-
+        
     }
-
-
-
+    
+    
+    
 
 
 
     return (
-        isLoading ? <Loader /> : (
+        // isLoading ? <Loader /> : (
             < div className="sidebar" >
                 {/* {console.log('rooms:', rooms.length)} */}
                 < SidebarHeader loggedInUser={loggedInUser} />
                 <SearchBar loadRooms={loadRooms} />
                 <ChatList rooms={rooms} />
-            </div >)
+            </div >
+            // )
     )
 }
 
