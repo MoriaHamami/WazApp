@@ -1,4 +1,4 @@
-import { AttachFile, InsertEmoticon, Mic } from "@mui/icons-material"
+import { AttachFile, InsertEmoticon, Mic, Send, SendOutlined } from "@mui/icons-material"
 import { IconButton } from "@mui/material"
 import { useEffect, useRef, useState } from "react"
 // import Picker from 'emoji-picker-react';
@@ -258,7 +258,7 @@ function ChatFooter({ saveMsg }) {
                     ref={inputRef} /> */}
             </form>
             <IconButton>
-                <Mic />
+                {input ? <Send onClick={sendMsg}/>: <Mic />}
             </IconButton>
         </footer>
     )

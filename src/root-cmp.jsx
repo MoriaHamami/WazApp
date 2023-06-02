@@ -68,24 +68,26 @@ export default App;
 
 // VV - FIRST LOAD NOT ON FIRST CHAT
 // VV - RENDER LIST ACCORDING TO LAST MSG
+// VV - RENDER BETTER ALL -APPEAR AT ONCE
+
 // CHANGE IMG OPTION
 // CHANGE TIME MARKING
-// ADD PHONE MODE
 // CREATE BACKEND FILE
 // DEAL WITH CHATS WITHOUT MSGS APPEARING
-// CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD TRY AND CATCH TO ALL
-// dont let user add chat that exists
-// fix filter (chats dont have names)
+// ADD PHONE MODE
 // MAKE BOTH HOMEPAGES RESPONSIVE AND NICE
 
 // HARD //////////////////////
 
 // VV - Add scroll in chat footer input
+
 // ADD SOUNDS FOR SENT OR INCOME
 // ADD V MARK
-// RENDER BETTER ALL -APPEAR AT ONCE
+// dont let user add chat that exists
+// fix filter (chats dont have names)
 
+// CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD VOICE RECORDINGS ?
 // ADD FILE SENDING ?
 // FIX QUERY ?

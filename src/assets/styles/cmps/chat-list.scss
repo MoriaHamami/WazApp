@@ -3,7 +3,7 @@
     overflow: auto;
     // height: 100px;
     background-color: $white;
-// position: relative;
+    // position: relative;
 
     .add-btn {
         padding: 8px 0 8px 60px;
@@ -15,11 +15,12 @@
         z-index: 1;
         border-bottom: 1px solid $white-smoke;
 
-    // height: 20px;
-    // align-self: flex-start;
+        // height: 20px;
+        // align-self: flex-start;
 
         // background-color: $dark-white;
         background-color: $light-gray;
+
         &:hover {
             opacity: 0.9;
         }
@@ -33,8 +34,9 @@
         padding: 5px 0 0 15px;
         // font-weight: 300;
 
-// margin-bottom: 5px;
-        &:hover,&.active {
+        // margin-bottom: 5px;
+        &:hover,
+        &.active {
             background-color: $light-gray;
         }
 
@@ -45,9 +47,10 @@
         padding: 0 0 8px 15px;
         width: 100%;
         border-bottom: 1px solid $white-smoke;
-
         // height: 100%;
+
         p {
+            color: $gray;
             max-width: calc($sidebar-width - 6rem);
             overflow: hidden;
             white-space: nowrap;
@@ -64,8 +67,8 @@
     //     color: #000;
     //     font: 32px Arial, sans-serif;
     // }
-    
-    .unread-msgs{
+
+    .unread-msgs {
         // border-radius: 50%;
         width: 18px;
         height: 18px;
@@ -77,12 +80,44 @@
         font-size: 0.6rem;
         padding: 2px;
         position: absolute;
-        top: calc(50% - 9px);
+        // top: calc(50% - 9px);
         right: 8px;
         color: white;
-        
+
     }
 
+
+    .preview-info .timestamp {
+        height: 100%;
+        // border-radius: 50%;
+        // width: 18px;
+        // height: 18px;
+        // padding: 10px;
+        // text-align: center;
+
+        // border-radius: 50%;
+        // background-color: $green;
+        font-size: 0.6rem;
+        padding-inline-end: 8px;
+        // position: absolute;
+        // top: calc(50% - 9px - 18px);
+        // right: 8px;
+        // width: 100%;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        // line-height: 0;
+        color: $gray;
+        // width: 100%;
+        p{
+            padding-block-end: 3px;
+        }
+
+    }
+
+    .unread.timestamp {
+        color: $green;
+        // width: 120%;
+    }
 
     .user-name {
         max-width: calc($sidebar-width - 6rem);
@@ -91,7 +126,14 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        
+    }
+
+    .first-row,.second-row{
+        display: flex;
+        // flex-direction: column;
+        justify-content: space-between;
+        align-items: end;
     }
 
 }
-

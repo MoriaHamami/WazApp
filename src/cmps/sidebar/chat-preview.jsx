@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom"
 import db from "../../services/firebase"
 import { userService } from "../../services/user.service"
 import { useSelector } from "react-redux"
+import { utilService } from "../../services/util.service"
 
 function ChatPreview({ addNewChat, createChat, name, id, participants }) {
     // const [seed, setSeed] = useState('')
@@ -31,27 +32,27 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
             // console.log('msg:', msg)
 
             // Update last msg
-            const lastMsg = msgs?.docs ? msgs.docs[0]?.data().msg : ""
+            const lastMsg = msgs?.docs ? msgs.docs[0]?.data() : ""
             setLastMsg(lastMsg)
-            
+
             // TODO Update unreadMgs
-            const unreadMsgsCount= msgs.docs.reduce((unreadMsgsCount, msg) => {
+            const unreadMsgsCount = msgs.docs.reduce((unreadMsgsCount, msg) => {
                 const readBy = msg.data().readBy
                 // console.log('readBy.includes(loggedInUser.id):', readBy.includes(loggedInUser.id))
                 // console.log('readBy:', readBy)
-                if(readBy.includes(loggedInUser.id)) return unreadMsgsCount
+                if (readBy.includes(loggedInUser.id)) return unreadMsgsCount
                 return ++unreadMsgsCount
             }, 0)
             // console.log('unreadMsgsCount:', unreadMsgsCount)
             setUnreadMsgsCount(unreadMsgsCount)
         })
     }
-// console.log('getChatName():', getChatName())
+    // console.log('getChatName():', getChatName())
     async function getChatName() {
         // const loggedInUser = userService.getLoggedinUser()
         // console.log('participants:', participants)
         // if(name) return
-        const chatRecieverId = participants.find(participantId=> participantId !== loggedInUser.id)
+        const chatRecieverId = participants.find(participantId => participantId !== loggedInUser.id)
         // console.log('chatReciever:', chatRecieverId)
         // if(chatRecieverId.includes('com')) return
         // const usersCol = query(collection(db, 'users'), where('id', "==", chatReciever.id))
@@ -60,8 +61,8 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
         const usersCol = doc(db, "users", chatRecieverId);
         const recieverSnapshot = await getDoc(usersCol)
 
-const chatRecieverName = recieverSnapshot?.data().name
-// console.log('chatRecieverName:', chatRecieverName)
+        const chatRecieverName = recieverSnapshot?.data().name
+        // console.log('chatRecieverName:', chatRecieverName)
         // return chatRecieverName
         setChatRecieverName(chatRecieverName)
     }
@@ -70,29 +71,52 @@ const chatRecieverName = recieverSnapshot?.data().name
 
     return !addNewChat ? (
         <Link to={`/rooms/${id}`}>
-            <section className={`chat-preview ${id===roomId && 'active'} ${unreadMsgsCount && 'unread'}`}>
+            <section className={`chat-preview ${id === roomId && 'active'} ${unreadMsgsCount && 'unread'}`}>
                 {/* {console.log('id, roomId:', id, roomId)} */}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
                 <Avatar src={`https://i.pravatar.cc/150?u=${name}`} />
                 <article className="preview-info">
-                    {name ? (
-                        <div className="user-name">{name}</div>
+                    <div className="first-row">
+                        {name ? (
+                            <div className="user-name">
+                                {name}
+                            </div>
+                        ) : (
+                            <div className="user-name">
+                                {chatRecieverName}
+                            </div>
+                        )}
+                        <p className={`timestamp ${unreadMsgsCount && 'unread'}`}>{utilService.getChatListFormattedDate(lastMsg.timestamp)}</p>
+                    </div>
 
-                    ) : (
 
-                    <div className="user-name">{chatRecieverName}</div>
-                    )}
+
                     {/* <div className="user-name">hi</div> */}
-                    <p>{lastMsg}</p>
-                {unreadMsgsCount ? <div className="unread-msgs">{unreadMsgsCount}</div> : ''}
+                    <div className="second-row">
+                        <p>{lastMsg.msg}</p>
+                        {unreadMsgsCount ?
+                            <div className="unread-msgs">
+                                {unreadMsgsCount}
+                            </div> : ''}
+                    </div>
+
+                    {/* <p className="timestamp">{utilService.getChatHeaderFormattedDate(lastMsg.timestamp)}</p> */}
+
+                    {/* {unreadMsgsCount ?
+                        <div className="unread-msgs">
+                            <p className="timestamp">time</p>
+                            {unreadMsgsCount}
+                        </div> :
+                        <p className="timestamp">time</p>
+                    } */}
                 </article>
             </section>
         </Link>
     ) : (
         // <div >
-            <div className="add-btn" onClick={createChat}>
-                Add new chat
-            </div>
+        <div className="add-btn" onClick={createChat}>
+            Add new chat
+        </div>
         // </div>
     )
 }
