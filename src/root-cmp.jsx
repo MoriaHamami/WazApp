@@ -72,20 +72,23 @@ export default App;
 
 // CHANGE IMG OPTION
 // CHANGE TIME MARKING
+// make input small after sending
 // CREATE BACKEND FILE
 // DEAL WITH CHATS WITHOUT MSGS APPEARING
-// ADD TRY AND CATCH TO ALL
 // ADD PHONE MODE
 // MAKE BOTH HOMEPAGES RESPONSIVE AND NICE
+// ADD TRY AND CATCH TO ALL
 
 // HARD //////////////////////
 
 // VV - Add scroll in chat footer input
 
+// INFINITE SCROLL
 // ADD SOUNDS FOR SENT OR INCOME
 // ADD V MARK
 // dont let user add chat that exists
 // fix filter (chats dont have names)
+// Save enter spaces in input footer when sending
 
 // CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD VOICE RECORDINGS ?

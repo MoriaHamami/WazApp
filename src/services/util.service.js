@@ -2,7 +2,8 @@ export const utilService = {
     getAllSubstrings,
     getChatHeaderFormattedDate,
     getChatListFormattedDate,
-    getChatFormattedDate
+    getChatFormattedDate,
+    getTime
 }
 
 // Function to print all sub strings
@@ -135,9 +136,22 @@ function padNum(num) {
 //         12 * (endDate.getFullYear() - startDate.getFullYear())
 //     )
 // }
+function getTime(timestamp){
+    if(!timestamp) return null
+    const ms = timestamp.seconds * 1000
+    timestamp = new Date(ms)
+    const userLocale =
+        navigator.languages && navigator.languages.length
+            ? navigator.languages[0]
+            : navigator.language
+    return timestamp.toLocaleString(userLocale, {
+        hour: '2-digit',
+        minute: '2-digit'
+    })
+}
 
 function getChatFormattedDate(timestamp) {
-    if(!timestamp) return ''
+    if(!timestamp) return null
     const ms = timestamp.seconds * 1000
     // console.log('ms:', ms)
     timestamp = new Date(ms)
