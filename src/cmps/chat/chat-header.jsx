@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Avatar, IconButton } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { SearchOutlined } from "@mui/icons-material";
+import { utilService } from "../../services/util.service";
 
 function ChatHeader({roomName, msgs, loadMsgs}) {
 
@@ -22,7 +23,8 @@ function ChatHeader({roomName, msgs, loadMsgs}) {
             <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} />
             {!isSearchShown && <div className="chat-info">
                 <div className="user-name">{roomName}</div>
-                <p>Last seen at {new Date(msgs[msgs.length-1]?.timestamp?.toDate()).toUTCString()}</p>
+                <p>{utilService.getChatHeaderFormattedDate(msgs[msgs.length-1]?.timestamp)}</p>
+                {/* <p>Last seen at {new Date(msgs[msgs.length-1]?.timestamp?.toDate()).toUTCString()}</p> */}
             </div>}
             <div className="chat-icons">
                 {isSearchShown && <input placeholder="Search message in chat" onChange={onSearchMsgs} />}

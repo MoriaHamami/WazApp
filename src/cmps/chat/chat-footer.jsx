@@ -182,11 +182,11 @@ function ChatFooter({ saveMsg }) {
     function handleChange(ev) {
 
         setInput(ev.target.value)
-    
+
         // console.log(ev.target.rows)
         // const rowHeight = 21.36;
         // const rowHeight = 46.36;
-        
+
         // According to scroll height
         const rowHeight = 14.5;
 
@@ -201,34 +201,34 @@ function ChatFooter({ saveMsg }) {
         const height = ev.target.scrollHeight;
         const previousRows = ev.target.rows;
 
-    console.log('ev.target.scrollHeight:', ev.target.scrollHeight)
+        // console.log('ev.target.scrollHeight:', ev.target.scrollHeight)
         // const rowHeight = 15;
         // const currentRows = Math.ceil(height / rowHeight) ;
-        const currentRows = Math.ceil(height / rowHeight)-2 ;
-    // console.log('Math.ceil(height / rowHeight) - 1:', height)
+        const currentRows = Math.ceil(height / rowHeight) - 2;
+        // console.log('Math.ceil(height / rowHeight) - 1:', height)
         // if (currentRows <= previousRows) {
-    
+
         //     setTextareaheight(currentRows);
-    
+
         // }
-    
+
         if (currentRows !== previousRows) {
             // console.log('currentRows:', currentRows)
             ev.target.rows = currentRows;
         }
-    // console.log('currentRows:', currentRows)
+        // console.log('currentRows:', currentRows)
         // if (currentRows >= maxRows) {
         //     ev.target.rows = maxRows;
         //     ev.target.scrollTop = ev.target.scrollHeight;
         // }
-    
+
         // setTextareaheight(currentRows < maxRows ? currentRows : maxRows)
         // setTextareaheight(currentRows)
     }
     return (
         <footer className="chat-footer">
-            <IconButton>
-                <InsertEmoticon onClick={() => setShowPicker(val => !val)} />
+            <IconButton onClick={() => setShowPicker(val => !val)}>
+                <InsertEmoticon />
             </IconButton>
             {showPicker && <EmojiPicker
                 pickerStyle={{ width: '100%' }}
@@ -248,18 +248,22 @@ function ChatFooter({ saveMsg }) {
                     placeholder="Type a message"
                     value={input}
                     onChange={handleChange}
-                    ref={inputRef} 
-                    // height={scrollHeight}
-                    />
+                    ref={inputRef}
+                // height={scrollHeight}
+                />
                 {/* <input type="text"
                     placeholder="Type a message"
                     value={input}
                     onChange={ev => setInput(ev.target.value)}
                     ref={inputRef} /> */}
             </form>
-            <IconButton>
-                {input ? <Send onClick={sendMsg}/>: <Mic />}
-            </IconButton>
+            {input ?
+                <IconButton onClick={sendMsg}>
+                    <Send />
+                </IconButton> :
+                <IconButton>
+                    <Mic />
+                </IconButton>}
         </footer>
     )
 }
@@ -276,7 +280,7 @@ export default ChatFooter
 //     const minRows = 5
 //     const maxRows = 10
 //     const previousRows = ev.target.rows;
-//     ev.target.rows = minRows; // reset number of rows in textarea 
+//     ev.target.rows = minRows; // reset number of rows in textarea
 
 //     const currentRows = ~~(ev.target.scrollHeight / textareaLineHeight)
 

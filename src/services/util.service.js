@@ -234,7 +234,7 @@ function getChatListFormattedDate(timestamp) {
     // return date
 }
 function getChatHeaderFormattedDate(timestamp) {
-    if(!timestamp) return ''
+    if(!timestamp?.seconds) return ''
     const ms = timestamp.seconds * 1000
     // console.log('ms:', ms)
     timestamp = new Date(ms)
@@ -250,9 +250,9 @@ function getChatHeaderFormattedDate(timestamp) {
         const time = timestamp.toLocaleString(userLocale, { hour: '2-digit', minute: '2-digit' })
         return 'last seen today at ' + time
     } else if (_isThisWeek(timestamp)) {
-        return 'last seen ' + toLocaleString(userLocale, { weekday: 'short', hour: "2-digit", minute: "2-digit" })
+        return 'last seen ' + timestamp.toLocaleString(userLocale, { weekday: 'short', hour: "2-digit", minute: "2-digit" })
     } else {
-        return 'last seen ' + toLocaleString(userLocale, { month: 'short', hour: "2-digit", minute: "2-digit" })
+        return 'last seen ' + timestamp.toLocaleString(userLocale, { month: 'short', hour: "2-digit", minute: "2-digit" })
     }
 
 

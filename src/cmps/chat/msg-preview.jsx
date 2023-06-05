@@ -8,14 +8,14 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
     // const [isDateNearestHidden, setIsDateNearestHidden] = useState(false)
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
     // const [nearDates, setNearDates] = useState([])
-    const dateRef = useRef()
+    const dateRef = useRef(false)
     // const {ref: dateRef, inView: isDateVisible} = useInView()
    
    // TODO: Make first message not disappear when at top
    
     useEffect(() => {
         updateDate()
-
+// console.log('idx:', idx)
         // const observer = new IntersectionObserver((entries) => {
         //     const entry = entries[0]
         //     // console.log('entries:', entries)
@@ -28,7 +28,8 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
         //     if(dateRef.current) observer.unobserve(dateRef.current)
         // })
         // Change all dates when the day changes
-    }, [timestamp])
+    }, [])
+    // }, [date, prevDate])
 
     // function updateDateVisibility(){
 
@@ -49,8 +50,10 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
 
     function updateDate() {
         if (!date) return
-        // return setIsDateShown(true)
+        // if (!prevDate) return dateRef.current = true
         if (!prevDate) return setIsDateShown(true)
+        // if (!prevDate) return 
+        // return setIsDateShown(true)
         // console.log('msgDate:', msgDate)
         // console.log('prevMsgDate:', prevMsgDate)
         
@@ -58,6 +61,12 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
         
         
         if(prevDate !== date) setIsDateShown(true)
+        // if(prevDate !== date) dateRef.current =true
+
+            // console.log('prevDate:', prevDate)
+            // console.log('date:', date)
+            // setIsDateShown(true)
+        // }
         // const currDate = new Date(Date.now()).getTime()
         // const msgDate = new Date(timestamp.seconds * 1000).getTime()
         // const prevMsgDate = new Date(prevTimestamp.seconds * 1000).getTime()
@@ -93,12 +102,13 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
             {/* {isDateShown && !isDateVisible ? <div className="chat-timestamp absolute">{utilService.getChatFormattedDate(timestamp)}</div> : null}
             {isDateShown ? <div ref={dateRef} className="chat-timestamp">{utilService.getChatFormattedDate(timestamp)}</div> : null} */}
             {isDateShown ?
-                <div ref={dateRef} className={`chat-timestamp ${floatingTimestamp === date && 'sticky'}`}>
+                <div className={`chat-timestamp ${floatingTimestamp === date && 'sticky'}`}>
                 {/* <div ref={dateRef} className={`chat-timestamp ${floatingTimestamp === utilService.getChatFormattedDate(timestamp) && 'sticky'}`}> */}
                     {date}
                     {/* {utilService.getChatFormattedDate(timestamp)} */}
                 </div> : null}
             <div className="msg-preview" ref={el => msgsRef.current[idx] = el} date={date}>
+            {/* <div className="msg-preview" ref={el => msgsRef.current.push(el)} date={date}> */}
             {/* <div className="msg-preview" ref={el => msgsRef.current[idx] = el} timestamp={utilService.getChatFormattedDate(timestamp)}> */}
                 <div className={`rect ${name === loggedInUser.name && 'reciever'}`}></div>
                 <div className={`chat-msg ${name === loggedInUser.name && 'reciever'}`}>
