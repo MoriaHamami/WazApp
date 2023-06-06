@@ -1,8 +1,10 @@
 // SETUP
 @import 'setup/variables.scss';
+@import 'setup/mixins.scss';
 
 // BASICS
 @import 'basics/base.scss';
+@import 'basics/helpers.scss';
 
 // VIEWS
 @import 'views/main-page.scss';

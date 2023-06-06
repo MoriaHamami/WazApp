@@ -7,10 +7,13 @@
     align-items: center;
     justify-content: center;
     cursor: auto;
+
     .content-container {
+        width: 50vh;
+        position: relative;
         box-shadow: $box-shadow;
         background-color: $white;
-        padding: 10px;
+        padding: 15px;
         border-radius: 3px;
         display: flex;
         flex-direction: column;
@@ -19,8 +22,11 @@
     .close-btn {
         align-self: end;
         cursor: pointer;
+        position: absolute;
+        right: 3px;
+        top: 3px;
     }
-    
+
     form {
         font-size: 1rem;
         color: $black;
@@ -34,37 +40,91 @@
             font-family: $font;
             font-weight: 100;
         }
-        
+
         .react-multi-email span {
             font-size: smaller;
-            cursor:text;
+            cursor: text;
         }
-        button{
+
+        button {
+            font-size: 0.8rem;
+            margin-top: 15px;
+            // font-weight: 100;
+            // text-transform: uppercase;
             cursor: pointer;
+            border-radius: 25px;
+            border: 1px solid $gray;
+            padding: 5px 8px;
+            background-color: $light-gray;
+            transition: padding ease 0.5s, background-color 0.5s;
+        }
+        
+        button:hover{
+            background-color: $white;
+            padding: 5px 13px;
+        }
+
+        input {
+            width: 100%;
+            outline: 0;
+            font-size: 0.8rem;
+            line-height: 1.21428571em;
+            padding: 0.4rem 0.5rem;
+            background: #fff;
+            border: 1px solid rgba(34, 36, 38, 0.15);
+            border-radius: 0.28571429rem;
+        }
+        input:focus{
+            border-color: #85b7d9;
+        }
+        input::placeholder{
+            color: #ccc;
+            // font-size: 1rem;
         }
     }
 
-    .invalid-msg {
-        padding: 0;
-        background-color: $light-red;
-        border-radius: 5px;
-        padding: 5px;
-        font-size: 0.7rem;
-        text-align: start;
+
+.invalid-msg {
+    padding: 0;
+    background-color: $light-red;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 0.7rem;
+    text-align: start;
+}
+
+li {
+    list-style-type: none;
+
+    a {
+        text-decoration: underline;
+        color: blue;
     }
 
-    li {
-        list-style-type: none;
+    a:hover {
+        opacity: 0.7;
+    }
+}
 
-        a {
-            text-decoration: underline;
-            color: blue;
-        }
+// a@gmail.com
 
-        a:hover {
-            opacity: 0.7;
-        }
+@include for-mobile-layout {
+    .content-container {
+        height: 100%;
+        width: 100%;
     }
 
-    // a@gmail.com
+    form {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        padding-inline: 10%;
+    }
+
+    // .react-multi-email{
+    //     height: auto;
+    // }
+
+}
 }

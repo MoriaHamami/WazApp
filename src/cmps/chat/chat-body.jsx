@@ -10,7 +10,7 @@ function ChatBody({msgs}) {
     const [chatBodyTop, setChatBodyTop] = useState(null)
     const { isScrollingUp, isScrollingDown, scrollTargetRef } = useScrollDirection()
     // const msgListRef = useRef()
-    const [isScrollAtTop, setIsScrollAtTop] = useState(false)
+    const [isScrollAtTop, setIsScrollAtTop] = useState(true)
    
    
     // function handleScroll(){
@@ -32,7 +32,7 @@ function ChatBody({msgs}) {
 
     useEffect(() => {
 
-        
+        // updateIsScrollAtTop()
         // setChatBodyTop(47)
         
         
@@ -41,7 +41,14 @@ function ChatBody({msgs}) {
         }
     }, []);
     
-    
+//     function updateIsScrollAtTop() {
+//         // If the chat has no scroll, 
+//         // the chat is at top of container
+// // console.log('scrollTargetRef:', scrollTargetRef)
+
+//         // otherwise the user will scroll and trigger onscroll 
+//         // which will update the isScrollAtTop
+//     }
     
     function handleScroll(ev){
         // setChatBodyTop(ev.target.offsetTop) // 47

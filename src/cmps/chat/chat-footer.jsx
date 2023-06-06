@@ -163,6 +163,7 @@ function ChatFooter({ saveMsg }) {
         // console.log('input:', input)
         saveMsg(input)
         setInput('')
+        inputRef.current.rows = 1
     }
 
     // function handleChange(ev) {
@@ -201,7 +202,7 @@ function ChatFooter({ saveMsg }) {
         const height = ev.target.scrollHeight;
         const previousRows = ev.target.rows;
 
-        // console.log('ev.target.scrollHeight:', ev.target.scrollHeight)
+        console.log('ev.target.scrollHeight:', ev.target.scrollHeight)
         // const rowHeight = 15;
         // const currentRows = Math.ceil(height / rowHeight) ;
         const currentRows = Math.ceil(height / rowHeight) - 2;
@@ -225,6 +226,7 @@ function ChatFooter({ saveMsg }) {
         // setTextareaheight(currentRows < maxRows ? currentRows : maxRows)
         // setTextareaheight(currentRows)
     }
+
     return (
         <footer className="chat-footer">
             <IconButton onClick={() => setShowPicker(val => !val)}>
@@ -243,19 +245,19 @@ function ChatFooter({ saveMsg }) {
                 <AttachFile />
             </IconButton>
             <form onSubmit={sendMsg}>
-                <textarea
+                {/* <textarea
                     rows={1}
                     placeholder="Type a message"
                     value={input}
                     onChange={handleChange}
                     ref={inputRef}
                 // height={scrollHeight}
-                />
-                {/* <input type="text"
+                /> */}
+                <input type="text"
                     placeholder="Type a message"
                     value={input}
                     onChange={ev => setInput(ev.target.value)}
-                    ref={inputRef} /> */}
+                    ref={inputRef} />
             </form>
             {input ?
                 <IconButton onClick={sendMsg}>

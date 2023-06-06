@@ -69,10 +69,13 @@ export default App;
 // VV - FIRST LOAD NOT ON FIRST CHAT
 // VV - RENDER LIST ACCORDING TO LAST MSG
 // VV - RENDER BETTER ALL -APPEAR AT ONCE
+// VV - make input small after sending
+// VV - Save enter spaces in input footer when sending
 
+// VX - CHANGE TIME MARKING
+
+// IF ONLY SELF IS WRITTEN OR GROUP NAME ISNT WRITTEN IN NEW CHAT MAKE ERROR
 // CHANGE IMG OPTION
-// CHANGE TIME MARKING
-// make input small after sending
 // CREATE BACKEND FILE
 // DEAL WITH CHATS WITHOUT MSGS APPEARING
 // ADD PHONE MODE
@@ -83,12 +86,14 @@ export default App;
 
 // VV - Add scroll in chat footer input
 
+// When searching message in chat jump to it instead of showing only it
+// ADD UNREADMSGS COUNT
+// MAKE ONLINE OPTION
 // INFINITE SCROLL
 // ADD SOUNDS FOR SENT OR INCOME
 // ADD V MARK
 // dont let user add chat that exists
 // fix filter (chats dont have names)
-// Save enter spaces in input footer when sending
 
 // CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD VOICE RECORDINGS ?

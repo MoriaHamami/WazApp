@@ -86,14 +86,14 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
                                 {chatRecieverName}
                             </div>
                         )}
-                        <p className={`timestamp ${unreadMsgsCount && 'unread'}`}>{utilService.getChatListFormattedDate(lastMsg.timestamp)}</p>
+                        <p className={`timestamp ${unreadMsgsCount && 'unread'}`}>{utilService.getChatListFormattedDate(lastMsg?.timestamp) || null}</p>
                     </div>
 
 
 
                     {/* <div className="user-name">hi</div> */}
                     <div className="second-row">
-                        <p>{lastMsg.msg}</p>
+                        <p>{lastMsg?.msg || null}</p>
                         {unreadMsgsCount ?
                             <div className="unread-msgs">
                                 {unreadMsgsCount}

@@ -200,7 +200,7 @@ function Chat({ loggedInUser }) {
     }
 
     return !roomId ? (
-        <IntroChat />
+        <IntroChat/>
     ) : (
         <article className="chat">
             <ChatHeader roomName={roomName} msgs={msgs} loadMsgs={loadMsgs} />

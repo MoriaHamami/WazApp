@@ -25,7 +25,13 @@ $white-smoke: rgb(228, 228, 228);
 $font: "Segoe UI", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Ubuntu, Cantarell, "Fira Sans", sans-serif;
 
 // WIDTHS
-$sidebar-width: 236.56px;
+// $sidebar-width: 236.56px;
+$sidebar-width: 205.2px;
 
 // BOX SHADOW
 $box-shadow: rgba(11, 20, 26, 0.26) 0px 2px 5px 0px, rgba(11, 20, 26, 0.16) 0px 2px 10px 0px;
+
+// BREAKPOINTS
+$mobile-breakpoint: 460px;
+$narrow-breakpoint: 720px;
+$normal-breakpoint: 960px;

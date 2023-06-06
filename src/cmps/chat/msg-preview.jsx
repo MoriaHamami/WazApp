@@ -107,6 +107,7 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
                     {date}
                     {/* {utilService.getChatFormattedDate(timestamp)} */}
                 </div> : null}
+
             <div className="msg-preview" ref={el => msgsRef.current[idx] = el} date={date}>
             {/* <div className="msg-preview" ref={el => msgsRef.current.push(el)} date={date}> */}
             {/* <div className="msg-preview" ref={el => msgsRef.current[idx] = el} timestamp={utilService.getChatFormattedDate(timestamp)}> */}

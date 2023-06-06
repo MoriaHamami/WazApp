@@ -172,7 +172,7 @@ function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBody
             {msgs && msgs.map((msg, idx) => (
                 // <MsgPreview key={idx} ref={el=>msgsRef.current.push(el)} name={msg.name} msg={msg.msg} timestamp={msg.timestamp} prevTimestamp={msgs[idx - 1]?.timestamp} nextTimestamp={msgs[idx + 1]?.timestamp} floatingTimestamp={floatingTimestamp}/>
                 <MsgPreview 
-                    key={msg.timestamp.seconds}
+                    key={msg.timestamp?.seconds}
                     idx={idx}
                     msgsRef={msgsRef}
                     name={msg.name}
@@ -180,7 +180,8 @@ function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBody
                     date={utilService.getChatFormattedDate(msg.timestamp)}
                     prevDate={utilService.getChatFormattedDate(msgs[idx - 1]?.timestamp)}
                     // nextTimestamp={msgs[idx + 1]?.timestamp}
-                    floatingTimestamp={floatingTimestamp} timestamp={utilService.getTime(msg.timestamp)} />
+                    floatingTimestamp={floatingTimestamp} 
+                    timestamp={utilService.getTime(msg.timestamp)} />
             ))}
             <div ref={bottomRef} />
             {/* {console.log('firstVisibleMsg:', floatingTimestamp)} */}

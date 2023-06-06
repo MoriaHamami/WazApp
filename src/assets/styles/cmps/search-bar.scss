@@ -19,6 +19,10 @@
             margin-left: 10px;
             background: none;
             outline: none;
+            height: 100%;
+            font-size: 0.67rem;
+            // width: 100%;
+            // flex-grow: 1;
         }
 
         >input::placeholder {
@@ -30,6 +34,10 @@
             color: gray;
             font-size: 1rem;
         }
+    }
+
+    @include for-mobile-layout {
+
     }
 
 }

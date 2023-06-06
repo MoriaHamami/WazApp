@@ -5,4 +5,7 @@
     width: calc(100vw - $sidebar-width);
     overflow: hidden;
 
+    @include for-mobile-layout {
+        width: 100%;
+    }
 }

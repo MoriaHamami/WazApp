@@ -34,19 +34,26 @@ function SidebarHeader({ loggedInUser }) {
         // const decryptedLoggedInUser = userService.getLoggedinUser()
         // const roomsCol = query(collection(db, 'rooms'), ("participants", "array-contains", decryptedLoggedInUser.password))
         if (isGroupPopupShown) setIsGroupPopupShown(false)
-        if (isChatPopupShown) setIsChatPopupShown(false)
-
+        
+        
         // TODO: Dont open chat with same person
         let roomsCol = query(collection(db, 'rooms'),
-            // and(where("participants", "array-contains", loggedInUser.id)),
-            where('participants', 'array-contains-any', participants), where('chatType', '==', 'chat')
+        // and(where("participants", "array-contains", loggedInUser.id)),
+        where('participants', 'array-contains-any', participants), where('chatType', '==', 'chat')
         )
-        const roomsSnapshot = await getDocs(roomsCol)
-        // If a chat already exists, take user to chat
-        if (roomsSnapshot.docs.length) return navigate(`/rooms/${roomsSnapshot.docs[0].id}`)
+        
+        if(isChatPopupShown) {
+             setIsChatPopupShown(false)
+            
+            const roomsSnapshot = await getDocs(roomsCol)
+            // If a chat already exists, take user to chat
+            if (roomsSnapshot.docs.length) return navigate(`/rooms/${roomsSnapshot.docs[0].id}`)
+
+        }
+        
 
         roomsCol = collection(db, 'rooms')
-
+        
         await addDoc(roomsCol, {
             name,
             participants,
@@ -57,10 +64,10 @@ function SidebarHeader({ loggedInUser }) {
         })
         // loadRooms()
         // db.collection('rooms').add({
-        //     name: roomName
-        // })
-    }
-    // async function createChat() {
+            //     name: roomName
+            // })
+        }
+        // async function createChat() {
 
     //     const roomName = prompt('Please enter name for chat')
     //     if (roomName) {
@@ -80,12 +87,12 @@ function SidebarHeader({ loggedInUser }) {
         <header className="sidebar-header">
             <Avatar src={loggedInUser?.imgURL} className="profile" />
             <div className="sidebar-icons">
-                <IconButton>
+                {/* <IconButton>
                     <DonutLargeIcon />
                 </IconButton>
                 <IconButton>
                     <ChatIcon />
-                </IconButton>
+                </IconButton> */}
                 <IconButton className={isOptionsSelected ? 'selected' : ''} onClick={() => setIsOptionsSelected(prevState => !prevState)}>
                     <MoreVertIcon />
                     {isOptionsSelected && <Dropdown setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}

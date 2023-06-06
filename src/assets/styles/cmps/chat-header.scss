@@ -15,6 +15,10 @@
         margin-block: 4px;
     }
 
+    .prev-btn {
+        display: none;
+    }
+
     .chat-icons {
         display: flex;
         width: 100%;
@@ -24,8 +28,8 @@
         .MuiSvgIcon-root {
             font-size: 1.2rem !important;
         }
-        
-        .MuiButtonBase-root-MuiIconButton-root{
+
+        .MuiButtonBase-root-MuiIconButton-root {
             margin-inline-end: 0.8vw;
         }
     }
@@ -36,7 +40,7 @@
     }
 
     .user-name {
-        font-size: 16px;
+        font-size: 1rem;
         overflow: hidden;
         white-space: nowrap;
         max-width: calc(100vw - $sidebar-width - 10rem);
@@ -44,7 +48,7 @@
     }
 
     p {
-        font-size: 13px;
+        font-size: 0.8125rem;
         color: $light-blue;
         overflow: hidden;
         white-space: nowrap;
@@ -52,7 +56,7 @@
         text-overflow: ellipsis;
     }
 
-    input{
+    input {
         flex-grow: 1;
         border-radius: 5px;
         border: none;
@@ -63,10 +67,55 @@
         margin-inline-end: 5px;
         // margin-block: 5px ;
         font-size: 0.71rem;
-// margin-block: 3px;
+        // margin-block: 3px;
         overflow: hidden;
         white-space: nowrap;
         max-width: calc(100vw - $sidebar-width - 8rem);
         text-overflow: ellipsis;
+    }
+
+    @include for-mobile-layout {
+
+    padding: 0.2rem 0.4rem;
+
+        .prev-btn {
+            display: flex;
+            
+            // align-items: end;
+            // justify-content: end;
+            .MuiSvgIcon-root {
+                // position: absolute;
+                // right: 0;
+                font-size: 0.8rem !important;
+                // text-align: center;
+                // width:80%;
+            }
+    
+            // .MuiButtonBase-root-MuiIconButton-root {
+            //     margin-inline-end: 0.8vw;
+            // }
+        }
+
+        p{
+            font-size: 0.65rem;
+            max-width: calc(100vw - 8.5rem);
+        }
+        .user-name{
+            font-size: 0.85rem;
+            max-width: calc(100vw - 8.5rem);
+        }
+        
+        input {
+            max-width: calc(100vw - 8rem);
+
+        }
+
+        .chat-icons .MuiSvgIcon-root {
+            font-size: 1rem !important;
+        }
+
+        .chat-icons .MuiButtonBase-root-MuiIconButton-root {
+            margin-inline-end: 0.5vw;
+        }
     }
 }

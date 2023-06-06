@@ -3,7 +3,7 @@ import laptopCartoon from '../../assets/imgs/laptop-cartoon.webp'
 
 function IntroChat() {
     return (
-        <div className="intro-chat">
+        <div className="intro-chat not-active">
             <article>
                 <img src={laptopCartoon} alt="" />
                 <h1>WazApp Web</h1>

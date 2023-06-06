@@ -6,7 +6,7 @@ import SidebarHeader from "./sidebar-header"
 import { useEffect, useRef, useState } from "react"
 import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp, where, or, and } from "firebase/firestore";
 import db from "../../services/firebase";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
 import { userService } from "../../services/user.service";
@@ -17,16 +17,19 @@ import Loader from "../../views/loader";
 
 function Sidebar() {
 
-    const [rooms, setRooms] = useState([])
+    const { roomId } = useParams()
+
+    // const [rooms, setRooms] = useState([])
     const unsub = useRef(null)
     const navigate = useNavigate();
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
+    const rooms = useSelector(storeState => storeState.roomModule.rooms)
     // const isLoading = useSelector(storeState => storeState.loaderModule.isLoading)
 
     // const rooms=useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
-    //   setLoader(true)
+        //   setLoader(true)
 
         // console.log('isLoading:', isLoading)
         navigate('/rooms')
@@ -42,9 +45,10 @@ function Sidebar() {
         //     })))
         // ))
     }, [])
+    // }, [rooms])
 
     function loadRooms(filterBy = null) {
-    // setLoader(false)
+        // setLoader(false)
 
         // db.collection('rooms').onSnapshot(snapshot => (
         //     setRooms(snapshot.docs.map(doc=>
@@ -110,23 +114,23 @@ function Sidebar() {
             setRooms(roomsWithData)
             // setRooms(rooms.docs.length ? roomsWithData : [])
         })
-        
+
     }
-    
-    
-    
+
+
+
 
 
 
     return (
         // isLoading ? <Loader /> : (
-            < div className="sidebar" >
-                {/* {console.log('rooms:', rooms.length)} */}
-                < SidebarHeader loggedInUser={loggedInUser} />
-                <SearchBar loadRooms={loadRooms} />
-                <ChatList rooms={rooms} />
-            </div >
-            // )
+        < div className={`sidebar ${roomId ? 'not-active' : null}`} >
+            {/* {console.log('rooms:', rooms.length)} */}
+            < SidebarHeader loggedInUser={loggedInUser} />
+            <SearchBar loadRooms={loadRooms} />
+            <ChatList rooms={rooms} />
+        </div >
+        // )
     )
 }
 

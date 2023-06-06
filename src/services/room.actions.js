@@ -36,7 +36,7 @@ export async function setRooms(rooms) {
         })
         // return room
     } catch (err) {
-        console.log('Cannot login', err)
+        console.log('Cannot update rooms', err)
         throw err
     }
 }

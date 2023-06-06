@@ -12,7 +12,7 @@ function SearchBar({loadRooms}) {
         <div className="searchbar">
             <div className="search-container">
                 <SearchOutlined />
-                <input placeholder="Search or start new chat" onChange={onSearchChats} />
+                <input placeholder="Search" onChange={onSearchChats} />
             </div>
         </div>
     )

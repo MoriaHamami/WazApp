@@ -63,9 +63,18 @@ function _isThisWeek(ts) {
     // weekAgo.setDate(weekAgo.getDate() - 7)
 
     // return yesterday.toDateString() === thatDay.toDateString()
-    const weekAgo = new Date().getTime() - 604800000
-    const thatTime = new Date(ts).getTime()
+    // const today = new Date() 
+    // const thatDay = new Date(ts)
+    const weekAgo = new Date().setHours(0,0,0,0) - 604800000
+    const thatTime = new Date(ts).setHours(0,0,0,0)
 
+
+    // const weekDiff = today.getDay() - thatDay.getDay() 
+    // const monthDiff = today.getMonth() - thatDay.getMonth()
+    // const yearDiff = today.getFullYear() - thatDay.getFullYear()
+    //     console.log('weekDiff:', weekDiff)
+    // const monthDiff = _getMonthDifference(thatDay, today)
+    // return weekDiff < 7
     // weekAgo.setDate(weekAgo.getDate() - 7)
 
     return weekAgo < thatTime
@@ -137,7 +146,7 @@ function padNum(num) {
 //     )
 // }
 function getTime(timestamp){
-    if(!timestamp) return null
+    if(!timestamp?.seconds) return null
     const ms = timestamp.seconds * 1000
     timestamp = new Date(ms)
     const userLocale =
@@ -151,7 +160,7 @@ function getTime(timestamp){
 }
 
 function getChatFormattedDate(timestamp) {
-    if(!timestamp) return null
+    if(!timestamp?.seconds) return null
     const ms = timestamp.seconds * 1000
     // console.log('ms:', ms)
     timestamp = new Date(ms)
@@ -196,7 +205,7 @@ function getChatFormattedDate(timestamp) {
 }
 function getChatListFormattedDate(timestamp) {
     // console.log('timestamp:', timestamp)
-    if(!timestamp) return ''
+    if(!timestamp?.seconds) return ''
     const ms = timestamp.seconds * 1000
     // console.log('ms:', ms)
     timestamp = new Date(ms)
