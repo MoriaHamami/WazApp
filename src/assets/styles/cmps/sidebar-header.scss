@@ -3,7 +3,7 @@
     justify-content: space-between;
     padding: 0.43rem 0.8rem;
     border-right: 1px solid lightgray;
-
+position: relative;
     .profile {
         height: 1.9rem;
         width: 1.9rem;
@@ -12,15 +12,18 @@
 }
 
 .sidebar-icons {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: end;
     // min-width: 10vw;
     
     .MuiButtonBase-root {
         margin-left: 0.8vw;
-        position: relative;
+        // position: relative;
         // padding: 0;
+        // right: 5px;
+        right: -12px;
     }
 
     .MuiSvgIcon-root {
@@ -28,10 +31,33 @@
     }
     
     .selected{
-        background-color:$darker-gray;
+        background-color:$darker-gray !important;
 
     }
     // .MuiIconButton-root{
 
+    // }
+
+    @include for-tablet-layout {
+        .MuiButtonBase-root {
+            right: -0.766rem;
+        }
+
+        // .selected,.css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover{
+        // .selected{
+        //     background-color:$darker-gray !important;
+    
+        // }
+    }
+    // @include for-mobile-layout {
+    //     .MuiButtonBase-root {
+    //         right: -0.766rem;
+    //     }
+
+    //     // .selected,.css-78trlr-MuiButtonBase-root-MuiIconButton-root:hover{
+    //     // .selected{
+    //     //     background-color:$darker-gray !important;
+    
+    //     // }
     // }
 }

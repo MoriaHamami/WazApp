@@ -31,6 +31,7 @@
 
         .MuiButtonBase-root-MuiIconButton-root {
             margin-inline-end: 0.8vw;
+            // padding: 0;
         }
     }
 
@@ -74,7 +75,7 @@
         text-overflow: ellipsis;
     }
 
-    @include for-mobile-layout {
+    @include for-tablet-layout {
 
     padding: 0.2rem 0.4rem;
 
@@ -118,4 +119,48 @@
             margin-inline-end: 0.5vw;
         }
     }
+    // @include for-mobile-layout {
+
+    // padding: 0.2rem 0.4rem;
+
+    //     .prev-btn {
+    //         display: flex;
+            
+    //         // align-items: end;
+    //         // justify-content: end;
+    //         .MuiSvgIcon-root {
+    //             // position: absolute;
+    //             // right: 0;
+    //             font-size: 0.8rem !important;
+    //             // text-align: center;
+    //             // width:80%;
+    //         }
+    
+    //         // .MuiButtonBase-root-MuiIconButton-root {
+    //         //     margin-inline-end: 0.8vw;
+    //         // }
+    //     }
+
+    //     p{
+    //         font-size: 0.65rem;
+    //         max-width: calc(100vw - 8.5rem);
+    //     }
+    //     .user-name{
+    //         font-size: 0.85rem;
+    //         max-width: calc(100vw - 8.5rem);
+    //     }
+        
+    //     input {
+    //         max-width: calc(100vw - 8rem);
+
+    //     }
+
+    //     .chat-icons .MuiSvgIcon-root {
+    //         font-size: 1rem !important;
+    //     }
+
+    //     .chat-icons .MuiButtonBase-root-MuiIconButton-root {
+    //         margin-inline-end: 0.5vw;
+    //     }
+    // }
 }

@@ -108,7 +108,7 @@ li {
 
 // a@gmail.com
 
-@include for-mobile-layout {
+@include for-tablet-layout {
     .content-container {
         height: 100%;
         width: 100%;
@@ -127,4 +127,23 @@ li {
     // }
 
 }
+// @include for-mobile-layout {
+//     .content-container {
+//         height: 100%;
+//         width: 100%;
+//     }
+
+//     form {
+//         display: flex;
+//         height: 100%;
+//         flex-direction: column;
+//         justify-content: center;
+//         padding-inline: 10%;
+//     }
+
+//     // .react-multi-email{
+//     //     height: auto;
+//     // }
+
+// }
 }

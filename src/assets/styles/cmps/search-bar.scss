@@ -12,7 +12,7 @@
         width: 100%;
         background-color: $light-gray;
         height: 1.7rem;
-        margin: 0.4375rem 0.75rem;
+        margin: 0.4375rem 15px;
 
         >input {
             border: none;
@@ -21,7 +21,7 @@
             outline: none;
             height: 100%;
             font-size: 0.67rem;
-            // width: 100%;
+            width: 100%;
             // flex-grow: 1;
         }
 

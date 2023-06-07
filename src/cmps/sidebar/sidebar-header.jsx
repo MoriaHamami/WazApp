@@ -95,11 +95,11 @@ function SidebarHeader({ loggedInUser }) {
                 </IconButton> */}
                 <IconButton className={isOptionsSelected ? 'selected' : ''} onClick={() => setIsOptionsSelected(prevState => !prevState)}>
                     <MoreVertIcon />
-                    {isOptionsSelected && <Dropdown setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
-                    {isChatPopupShown && <ChatPopup createChat={createChat} setIsChatPopupShown={setIsChatPopupShown} loggedInEmail={loggedInEmail} />}
-                    {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} loggedInEmail={loggedInEmail} />}
                 </IconButton>
             </div>
+                    {isOptionsSelected && <Dropdown setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
+                    {isChatPopupShown && <ChatPopup createChat={createChat} setIsChatPopupShown={setIsChatPopupShown} loggedInEmail={loggedInEmail} />}
+                    {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} loggedInEmail={loggedInEmail} />}
         </header>
     )
 }

@@ -1,8 +1,8 @@
 import { logout } from "../../services/user.actions"
 
-function Dropdown({ setIsChatPopupShown, setIsGroupPopupShown }) {
+function Dropdown({ setIsOptionsSelected, setIsChatPopupShown, setIsGroupPopupShown }) {
     return (
-        <div className="dropdown">
+        <div className="dropdown" onClick={() => setIsOptionsSelected(prevState => !prevState)}>
             {/* <button onClick="myFunction()" className="dropbtn">Dropdown</button> */}
             <div id="myDropdown" className="dropdown-content">
                 <a onClick={()=>setIsGroupPopupShown(prevState => !prevState)}>New group</a>

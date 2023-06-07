@@ -18,8 +18,8 @@ body {
 //   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
 //     monospace;
 // }
-html{
-font-size: 16px;
+html {
+  font-size: 22px;
 }
 
 .app {
@@ -27,7 +27,8 @@ font-size: 16px;
   display: grid;
   place-items: center;
   // background-color: #dadbd3;
-  height: 100vh;
+  height: 100svh;
+  // height: 100vh;
 }
 
 .app-body {
@@ -35,7 +36,8 @@ font-size: 16px;
   // background-color: #ededed;
   background-color: $light-gray;
   /* margin-top: -25px; */
-  height: 100vh;
+  height: 100svh;
+  // height: 100vh;
   width: 100vw;
   /* box-shadow: -1px 4px 20px -6px rgba(0,0,0,0.7); */
 }
@@ -61,14 +63,42 @@ font-size: 16px;
   background: #c9c8c8;
 }
 
+@include for-desktop-layout {
+  html {
+    font-size: 18px;
+  }
+
+  .sidebar-header {
+    background-color: red !important;
+  }
+}
+
+@include for-laptop-layout {
+  html {
+    font-size: 16px;
+  }
+
+  .sidebar-header {
+    background-color: orange !important;
+  }
+}
+
+@include for-tablet-layout {
+  html {
+    font-size: 18px;
+  }
+
+  .sidebar-header {
+    background-color: yellow !important;
+  }
+}
+
 @include for-mobile-layout {
-  // .app{
-  //   font-size: 50px;
-  // }
-  // body{
-  //   font-size: 50px;
-  // }
-  html{
+  .sidebar-header {
+    background-color: pink !important;
+  }
+
+  html {
     font-size: 30px;
   }
 }

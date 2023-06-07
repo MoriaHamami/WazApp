@@ -9,6 +9,7 @@ $dark-green: #0a8d48;
 $camel: #efeae2;
 $beige: #efeae2;
 $light-red: #f1060638;
+$blue: blue;
 // COLORS
 // Icons
 $dark-gray: #111b21;
@@ -24,14 +25,22 @@ $white-smoke: rgb(228, 228, 228);
 // FONTS
 $font: "Segoe UI", "Helvetica Neue", Helvetica, "Lucida Grande", Arial, Ubuntu, Cantarell, "Fira Sans", sans-serif;
 
+// BREAKPOINTS
+$mobile-breakpoint: 460px;
+$tablet-breakpoint: 880px;
+$laptop-breakpoint: 1500px;
+$desktop-breakpoint: 2200px;
+
 // WIDTHS
 // $sidebar-width: 236.56px;
-$sidebar-width: 205.2px;
+// $sidebar-width: 205.2px;
+$sidebar-width: 40vw;
+@media (max-width: calc($tablet-breakpoint)) {
+    $sidebar-width: 100vw;
+}
+// @media (max-width: calc($mobile-breakpoint)) {
+//     $sidebar-width: 100vw;
+// }
 
 // BOX SHADOW
 $box-shadow: rgba(11, 20, 26, 0.26) 0px 2px 5px 0px, rgba(11, 20, 26, 0.16) 0px 2px 10px 0px;
-
-// BREAKPOINTS
-$mobile-breakpoint: 460px;
-$narrow-breakpoint: 720px;
-$normal-breakpoint: 960px;

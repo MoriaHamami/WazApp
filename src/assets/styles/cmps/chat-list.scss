@@ -33,7 +33,8 @@
         font-size: 0.9375rem;
         padding: 5px 0 0 15px;
         // font-weight: 300;
-
+        width: 40vw;
+        // max-width: 1000px;
         // margin-bottom: 5px;
         &:hover,
         &.active {
@@ -51,7 +52,7 @@
 
         p {
             color: $gray;
-            max-width: calc($sidebar-width - 6rem);
+            max-width: calc($sidebar-width - 7.5rem);
             overflow: hidden;
             white-space: nowrap;
             // max-width: calc(100vw - $sidebar-width - 8rem);
@@ -71,20 +72,28 @@
 
     .unread-msgs {
         // border-radius: 50%;
-        width: 1.125rem;
-        height: 1.125rem;
-        // padding: 10px;
+
+        // width: 1.125rem;
+        // height: 1.125rem;
+
+        padding: 2px 6px;
+        
+        // padding: 5px;
         text-align: center;
 
-        border-radius: 50%;
+        // border-radius: 50%;
         background-color: $green;
         font-size: 0.6rem;
-        padding: 0.125rem;
+        // padding: 0.125rem;
         position: absolute;
         // top: calc(50% - 9px);
-        right: 8px;
+        right: 15px;
         top: -0.2rem;
         color: white;
+        border-radius: 1rem;
+        // margin-inline-end: 15px;
+        // padding: 4px 10px;
+
 
     }
 
@@ -101,7 +110,7 @@
         // border-radius: 50%;
         // background-color: $green;
         font-size: 0.6rem;
-        padding-inline-end: 8px;
+        margin-inline-end: 15px;
         // position: absolute;
         // top: calc(50% - 9px - 18px);
         // right: 8px;
@@ -110,8 +119,9 @@
         margin-bottom: 0;
         // line-height: 0;
         color: $gray;
+
         // width: 100%;
-        p{
+        p {
             padding-block-end: 3px;
         }
 
@@ -130,27 +140,91 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        
+
     }
 
-    .first-row,.second-row{
+    .first-row,
+    .second-row {
         position: relative;
         display: flex;
         // flex-direction: column;
         justify-content: space-between;
         align-items: end;
-        
+
     }
 
-    @include for-mobile-layout {
-        .user-name{
-            max-width: calc(100vw - 5rem);
-        }
-        .preview-info p{
-            max-width: calc(100vw - 3.5rem);
-        }
-     
-      }
+    @include for-tablet-layout {
+        // overflow-x: hidden;
 
-  
+        .user-name {
+            font-size: 0.9rem;
+            max-width: calc(100vw - 6rem);
+        }
+
+        .chat-preview{
+            width: 100%;
+        }
+
+        .preview-info p {
+            font-size: 0.7rem;
+            max-width: calc(100vw - 5.8rem);
+        }
+
+        .unread-msgs {
+            top: 0;
+            // width: 1rem;
+            // height: 1rem;
+            font-size: 0.5rem;
+            background-color: $blue;
+            padding: 4px 10px;
+            
+        }
+
+        .unread.timestamp {
+            color: $blue;
+
+            // width: 120%;
+        }
+
+      
+
+    }
+    @include for-mobile-layout {
+        // // overflow-x: hidden;
+
+        // .user-name {
+        //     font-size: 0.9rem;
+        //     max-width: calc(100vw - 6rem);
+        // }
+
+        // .chat-preview{
+        //     width: 100%;
+        // }
+
+        // .preview-info p {
+        //     font-size: 0.7rem;
+        //     max-width: calc(100vw - 5.8rem);
+        // }
+
+        // .unread-msgs {
+        //     top: 0;
+        //     // width: 1rem;
+        //     // height: 1rem;
+        //     font-size: 0.5rem;
+        //     background-color: $blue;
+        //     padding: 4px 10px;
+            
+        // }
+
+        // .unread.timestamp {
+        //     color: $blue;
+
+        //     // width: 120%;
+        // }
+
+      
+
+    }
+
+
 }
