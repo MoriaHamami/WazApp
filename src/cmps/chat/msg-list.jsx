@@ -3,7 +3,7 @@ import MsgPreview from "./msg-preview"
 import { utilService } from "../../services/util.service";
 import { useScrollDirection } from "react-use-scroll-direction";
 
-function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBodyTop }) {
+function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBodyTop, participants, chatType }) {
     const bottomRef = useRef(null);
     const [floatingTimestamp, setFloatingTimestamp] = useState(null)
     // const ref = useRef([])
@@ -161,6 +161,7 @@ function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBody
         // If the new items array is smaller than the previous one, slice will return an array which size will be equal to the new items array size
         msgsRef.current = msgsRef.current.slice(0, msgs.length);
 
+
     }, [msgs]);
 
 
@@ -171,17 +172,24 @@ function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBody
             {/* <div className="timestamp"></div> */}
             {msgs && msgs.map((msg, idx) => (
                 // <MsgPreview key={idx} ref={el=>msgsRef.current.push(el)} name={msg.name} msg={msg.msg} timestamp={msg.timestamp} prevTimestamp={msgs[idx - 1]?.timestamp} nextTimestamp={msgs[idx + 1]?.timestamp} floatingTimestamp={floatingTimestamp}/>
-                <MsgPreview 
-                    key={msg.timestamp?.seconds}
-                    idx={idx}
-                    msgsRef={msgsRef}
-                    name={msg.name}
-                    msg={msg.msg}
-                    date={utilService.getChatFormattedDate(msg.timestamp)}
-                    prevDate={utilService.getChatFormattedDate(msgs[idx - 1]?.timestamp)}
-                    // nextTimestamp={msgs[idx + 1]?.timestamp}
-                    floatingTimestamp={floatingTimestamp} 
-                    timestamp={utilService.getTime(msg.timestamp)} />
+                <div key={msg.timestamp?.seconds}>
+                    {/* {console.log('participants:', participants)} */}
+                    {/* {console.log('msg.readBy:', msg.readBy)} */}
+                    <MsgPreview 
+                        key={msg.timestamp?.seconds}
+                        idx={idx}
+                        msgsRef={msgsRef}
+                        name={msg.name}
+                        msg={msg.msg}
+                        readBy={msg.readBy}
+                        participants={participants}
+                        chatType={chatType}
+                        date={utilService.getChatFormattedDate(msg.timestamp)}
+                        prevDate={utilService.getChatFormattedDate(msgs[idx - 1]?.timestamp)}
+                        // nextTimestamp={msgs[idx + 1]?.timestamp}
+                        floatingTimestamp={floatingTimestamp} 
+                        timestamp={utilService.getTime(msg.timestamp)} />
+                </div>
             ))}
             <div ref={bottomRef} />
             {/* {console.log('firstVisibleMsg:', floatingTimestamp)} */}

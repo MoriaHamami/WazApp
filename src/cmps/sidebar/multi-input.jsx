@@ -9,6 +9,7 @@ import { userService } from "../../services/user.service";
 function MultiInput({ createChat, loggedInEmail }) {
 
     const [groupSub, setGroupSub] = useState('')
+    const [errorMsg, setErrorMsg] = useState('')
     const [emails, setEmails] = useState([])
     // const [loggedInEmail, setLoggedInEmail] = useState('')
     const [invalidEmails, setInvalidEmails] = useState([])
@@ -18,14 +19,13 @@ function MultiInput({ createChat, loggedInEmail }) {
     // useEffect(() => {
     //     updateLoggedInEmail()
     // }, [loggedInUser])
-    
+
     // async function updateLoggedInEmail() {
     //     const decryptedUser = await userService.getLoggedinUser()
     // setLoggedInEmail(decryptedUser.password)
     // }
 
     function handleChange(ev) {
-
 
         if (ev.target) {
             const groupSub = ev.target.value
@@ -37,6 +37,7 @@ function MultiInput({ createChat, loggedInEmail }) {
             const updatedInvalidEmails = invalidEmails.filter(email => emails.includes(email))
             setInvalidEmails(updatedInvalidEmails)
             setEmails(emails)
+            if (emails) setErrorMsg('')
             // console.log('emails:', emails)
         }
     }
@@ -50,9 +51,9 @@ function MultiInput({ createChat, loggedInEmail }) {
         // const decryptedUser = await userService.getLoggedinUser()
         // const loggedInUserEmail = decryptedUser.password
         // console.log('loggedInUserEmail:', loggedInUserEmail)
-
+        if (!emails.length) return setErrorMsg('Please add participants. Make sure to press the "Enter" key after every email typed in.')
         // Dont open group if logged in user is only one added to group
-        if(emails.length === 1 && loggedInEmail === emails[0]) return
+        if (emails.length === 1 && loggedInEmail === emails[0]) return
         // Check if emails exist in db 
         const usersCol = query(collection(db, 'users'), where("password", "in", emails))
         const usersSnapshot = await getDocs(usersCol)
@@ -74,19 +75,19 @@ function MultiInput({ createChat, loggedInEmail }) {
         }
 
 
-let participants = []
+        let participants = []
         usersSnapshot.docs.map(user => {
             // return ({
-                //     email: user.data().password,
-                //     name: user.data().name
-                // })
-                participants.push(user.id)
-                // return user.data().id
-            })
-            // // If user didnt add self, add the logged in user to group
-            if (!emails.includes(loggedInEmail)) {
-                participants.push(loggedInUser.id)
-            }
+            //     email: user.data().password,
+            //     name: user.data().name
+            // })
+            participants.push(user.id)
+            // return user.data().id
+        })
+        // // If user didnt add self, add the logged in user to group
+        if (!emails.includes(loggedInEmail)) {
+            participants.push(loggedInUser.id)
+        }
         // console.log('participants:', participants)
         // Add group to db 
         // rooms => createdBy, participants, name, timeCreated
@@ -104,13 +105,16 @@ let participants = []
             <input type="text"
                 value={groupSub}
                 placeholder="Type group subject"
-                onChange={handleChange} />
+                onChange={handleChange}
+                required
+            />
             <h3>Add participants</h3>
             <ReactMultiEmail
                 placeholder="Type participants' emails"
                 emails={emails}
+                required
                 onChange={handleChange}
-                autoFocus={true}
+                autoFocus={false}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 getLabel={(email, index, removeEmail) => {
@@ -132,9 +136,12 @@ let participants = []
                     </li>)
                 })}
             </ul> : ''}
+            {errorMsg ? <p className="invalid-msg">
+                {errorMsg}
+            </p> : ''}
             {emails.length === 1 && loggedInEmail === emails[0] && <div className="invalid-msg">
-                Groups must include at least two members 
-                </div>}
+                Groups must include at least two members
+            </div>}
             {/* <p>{emails.join(', ') || 'empty'}</p> */}
             <button>Create</button>
         </form>

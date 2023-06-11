@@ -4,7 +4,7 @@ import db from "../../services/firebase";
 import { useEffect, useRef, useState } from "react";
 import { useScrollDirection } from "react-use-scroll-direction";
 
-function ChatBody({msgs}) {
+function ChatBody({msgs, room}) {
     const timeoutIdRef = useRef(null);
     const [isListScrolled, setIsListScrolled] = useState(false)
     const [chatBodyTop, setChatBodyTop] = useState(null)
@@ -66,7 +66,7 @@ function ChatBody({msgs}) {
 
     return (
         <article className={`chat-body ${isListScrolled && 'scrolled'}`} ref={scrollTargetRef} onScroll={handleScroll}>
-            {msgs && <MsgList msgs={msgs} isScrollingUp={isScrollingUp} isScrollingDown={isScrollingDown} chatBodyTop={chatBodyTop} isScrollAtTop={isScrollAtTop}/>}
+            {msgs && <MsgList msgs={msgs} isScrollingUp={isScrollingUp} isScrollingDown={isScrollingDown} chatBodyTop={chatBodyTop} isScrollAtTop={isScrollAtTop} participants={room.participants} chatType={room.chatType}/>}
         
             {/* <div className={`chat-msg ${true && 'reciever'}`}>
                 <p className="username">Moria Hamami</p>

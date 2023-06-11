@@ -25,6 +25,11 @@
             background-color: $dark-green !important;
             color: $white;
         }
+
+        a{
+            text-decoration: none;
+            color: $white;
+        }
     }
 
     @include for-tablet-layout {

@@ -2,15 +2,17 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "re
 import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service"
 import { useInView } from "react-intersection-observer"
+import { DoneAll } from "@mui/icons-material"
 
-function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTimestamp, floatingTimestamp }) {
+function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTimestamp, floatingTimestamp, readBy, participants, chatType }) {
     const [isDateShown, setIsDateShown] = useState(false)
     // const [isDateNearestHidden, setIsDateNearestHidden] = useState(false)
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
     // const [nearDates, setNearDates] = useState([])
     const dateRef = useRef(false)
     // const {ref: dateRef, inView: isDateVisible} = useInView()
-   
+    const [isRead, setIsRead] = useState(false);
+
    // TODO: Make first message not disappear when at top
    
     useEffect(() => {
@@ -29,6 +31,11 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
         // })
         // Change all dates when the day changes
     }, [])
+
+    useEffect(()=>{
+        updateIsRead()
+
+    }, [isRead, participants])
     // }, [date, prevDate])
 
     // function updateDateVisibility(){
@@ -47,6 +54,11 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
     //         // if(invisibleDates.includes(dateRef.current)) setIsDateVisible(true)
 
     // }
+
+    function updateIsRead() {
+        const isReadByAll = participants?.every(participant=> readBy.includes(participant))
+        if(isReadByAll) setIsRead(isReadByAll)
+    }
 
     function updateDate() {
         if (!date) return
@@ -98,6 +110,7 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
 
     return (
         <>
+        {/* <div key={msg.timestamp?.seconds}> */}
             {/* {console.log('isDateVisible:', isDateVisible, utilService.getChatFormattedDate(timestamp))} */}
             {/* {isDateShown && !isDateVisible ? <div className="chat-timestamp absolute">{utilService.getChatFormattedDate(timestamp)}</div> : null}
             {isDateShown ? <div ref={dateRef} className="chat-timestamp">{utilService.getChatFormattedDate(timestamp)}</div> : null} */}
@@ -113,8 +126,9 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
             {/* <div className="msg-preview" ref={el => msgsRef.current[idx] = el} timestamp={utilService.getChatFormattedDate(timestamp)}> */}
                 <div className={`rect ${name === loggedInUser.name && 'reciever'}`}></div>
                 <div className={`chat-msg ${name === loggedInUser.name && 'reciever'}`}>
-                    <p className="username">{name}</p>
+                    {chatType === 'group' && <p className="username">{name}</p>}
                     <p className="content">{msg}</p>
+                    {name === loggedInUser.name && <DoneAll className={`v-mark ${isRead ? 'blue' : ''}`} />}
                     <p className="timestamp">{timestamp}</p>
                     {/* <p className="timestamp">{new Date(timestamp?.toDate()).toUTCString()}</p> */}
                 </div>

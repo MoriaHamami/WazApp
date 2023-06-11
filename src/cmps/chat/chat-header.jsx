@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Avatar, IconButton } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ArrowBack, ArrowBackIos, SearchOutlined } from "@mui/icons-material";
 import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import UploadImg from "../upload-img";
 
-function ChatHeader({ roomName, msgs, loadMsgs }) {
+function ChatHeader({ roomName, roomId, chatType, msgs, loadMsgs, imgURL }) {
 
     const [isSearchShown, setIsSearchShown] = useState('')
     const rooms = useSelector(storeState => storeState.roomModule.rooms)
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
     const navigate = useNavigate()
+    const imgRef = useRef()
     // useEffect(() => {
     //     setSeed(Math.floor(Math.random() * 5000))
     // }, [])
 
     useEffect(() => {
-        
+        // console.log('roomName:', roomName)
     }, [])
 
     function onSearchMsgs(ev) {
@@ -46,7 +48,13 @@ function ChatHeader({ roomName, msgs, loadMsgs }) {
                 <ArrowBackIos />
                 {/* {getUnreadChats()} */}
             </IconButton>
-            <Avatar className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} />
+            <div className="img-container">
+                <Avatar ref={imgRef} className="profile" src={imgURL} />
+                {/* <Avatar ref={imgRef} className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} /> */}
+                {chatType === 'group' && <UploadImg imgRef={imgRef} type={'group'} id={roomId} />}
+
+            </div>
+
             {!isSearchShown && <div className="chat-info">
                 <div className="user-name">{roomName}</div>
                 <p>{utilService.getChatHeaderFormattedDate(msgs[msgs.length - 1]?.timestamp)}</p>

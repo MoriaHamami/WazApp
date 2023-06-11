@@ -15,7 +15,8 @@ import { setRooms } from "../../services/room.actions"
 function Chat({ loggedInUser }) {
 
     const { roomId } = useParams()
-    const [roomName, setRoomName] = useState("")
+    const [room, setRoom] = useState({})
+    // const [roomName, setRoomName] = useState("")
     const [msgs, setMsgs] = useState([])
     const msgsUnsub = useRef(null)
     const roomsUnsub = useRef(null)
@@ -23,7 +24,7 @@ function Chat({ loggedInUser }) {
     const rooms = useSelector(storeState => storeState.roomModule.rooms)
 
     useEffect(() => {
-        console.log('roomId:', roomId)
+        // console.log('roomId:', roomId)
         loadRoom()
         return () => {
             roomsUnsub.current && roomsUnsub.current()
@@ -40,11 +41,15 @@ function Chat({ loggedInUser }) {
         roomsUnsub.current = onSnapshot(roomRef, room => {
             // console.log('room:', room)
 
-            let roomName
+            // let room
             if (room.data().name) {
                 // This chat is a group with subject name
-                roomName = room.data().name
-                setRoomName(roomName)
+                // roomName = room.data().name
+                // setRoomName(roomName)
+                // room = room.data()
+                const roomData = room.data()
+                roomData.id = room.id
+                setRoom(roomData)
             } else {
                 // Find reciever name
                 let participants = room.data().participants
@@ -59,8 +64,11 @@ function Chat({ loggedInUser }) {
                 // const recieverSnapshot = await getDoc(usersCol)
                 recieverUnsub.current = onSnapshot(recieverSnapshot, reciever => {
                     // console.log('reciever.data():', reciever.data())
-                    roomName = reciever.data().name
-                    setRoomName(roomName)
+                    // room.data().name = reciever.data().name
+                    const roomData = room.data()
+                    roomData.name = reciever.data().name
+                    roomData.id = room.id
+                    setRoom(roomData)
                 })
 
             }
@@ -141,8 +149,11 @@ function Chat({ loggedInUser }) {
 
 
 
+
+
     async function saveMsg(msg) {
         try {
+            // console.log('msg:', msg)
             const roomRef = doc(db, "rooms", roomId);
             const msgsCol = collection(roomRef, "msgs");
             const timestamp = serverTimestamp()
@@ -153,7 +164,9 @@ function Chat({ loggedInUser }) {
                 timestamp
                 // timestamp: serverTimestamp()
             }
-            await addDoc(msgsCol, newMsg)
+            // console.log('newMsg:', newMsg)
+            const savedMsg = await addDoc(msgsCol, newMsg)
+            // console.log('savedMsg:', savedMsg.data())
             // const savedMsg = await getDoc(roomRef, "msgs", msgRef.id)
             // updateRoomLastMsgTime(roomRef, savedMsg.data().timestamp)
             updateRoomLastMsgTime(roomRef, timestamp)
@@ -200,11 +213,11 @@ function Chat({ loggedInUser }) {
     }
 
     return !roomId ? (
-        <IntroChat/>
+        <IntroChat />
     ) : (
         <article className="chat">
-            <ChatHeader roomName={roomName} msgs={msgs} loadMsgs={loadMsgs} />
-            <ChatBody msgs={msgs} />
+            <ChatHeader roomName={room.name} roomId={room.id} chatType={room.chatType} imgURL={room.imgURL} msgs={msgs} loadMsgs={loadMsgs} />
+            <ChatBody msgs={msgs} room={room} />
             <ChatFooter saveMsg={saveMsg} />
         </article >
     )

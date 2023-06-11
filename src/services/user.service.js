@@ -1,8 +1,10 @@
 // import { storageService } from './async-storage.service'
 // import { httpService } from './http.service'
-import { addDoc, collection, getDocs, query, serverTimestamp, where } from "@firebase/firestore"
+import { addDoc, collection, getDocs, onSnapshot, query, serverTimestamp, where } from "@firebase/firestore"
 import db, { auth } from "./firebase"
 import CryptoJS from "crypto-js"
+import { store } from "./store"
+import { SET_USER } from "./user.reducer"
 
 // const Cryptr = require('cryptr')
 // const bcrypt = require('bcrypt')
@@ -79,36 +81,57 @@ async function login(userCred) {
 
     // console.log('userCred:', userCred)
     const usersCol = query(collection(db, 'users'), where("name", "==", userCred.displayName || userCred.name), where('password', '==', userCred.password))
-    const usersSnapshot = await getDocs(usersCol)
+    // const usersSnapshot = await getDocs(usersCol)
+    
+    // TODO : UNSUB ???? I THINK  NOT
+    onSnapshot(usersCol, async (users) => {
+        let signedInUser
+        let userFromDB = users.docs[0]
+        // console.log('usersCol:', usersSnapshot.docs)
+        // let user
 
-    // console.log('usersCol:', usersSnapshot.docs)
-    let user
-    if (usersSnapshot.docs.length) {
-        user = {
-            id: usersSnapshot.docs[0].id,
-            name: usersSnapshot.docs[0].data().name,
-            password: usersSnapshot.docs[0].data().password,
-            imgURL: usersSnapshot.docs[0].data().imgURL
-        }
-    } else {
-        // Signup
+        if (!users.docs.length) {
+            // Signup
+            signedInUser = await signup(userCred)
 
-        user = {
-            id: userCred.id,
-            name: userCred.displayName,
-            password: userCred.password,
-            imgURL: userCred.photoURL
+        } else {
+            // signin
+            signedInUser = signin(userFromDB)
         }
-        await addDoc(collection(db, 'users'), user)
-    }
-    // console.log('user1:', user)
-    // Update cookie
-    // clearCookie('loginToken')
-    // const loginToken = getLoginToken(user)
-    // console.log('loginToken:', loginToken)
-    // saveLocalUser(loginToken)
-    // return user
-    return saveLocalUser(user)
+        //     const user = {
+        //         id: userFromDB.id,
+        //         name: userFromDB.data().name,
+        //         password: userFromDB.data().password,
+        //         imgURL: userFromDB.data().imgURL
+        //         // id: usersSnapshot.docs[0].id,
+        //         // name: usersSnapshot.docs[0].data().name,
+        //         // password: usersSnapshot.docs[0].data().password,
+        //         // imgURL: usersSnapshot.docs[0].data().imgURL
+        //     }
+        //     return saveLocalUser(user)
+        // }
+        // if (usersSnapshot.docs.length) {
+
+        // login
+
+        // } else {
+
+        // }
+        // console.log('user1:', user)
+        // Update cookie
+        // clearCookie('loginToken')
+        // const loginToken = getLoginToken(user)
+        // console.log('loginToken:', loginToken)
+        // saveLocalUser(loginToken)
+        // return user
+
+        store.dispatch({
+            type: SET_USER,
+            user: signedInUser
+        })
+    })
+    // console.log('signedInUser:', signedInUser)
+    // return signedInUser
 
     // unsub.current = onSnapshot(roomsCol, rooms => {
     //     // console.log('rooms:', rooms)
@@ -131,6 +154,28 @@ async function login(userCred) {
     // }
 }
 
+function signin(userFromDB) {
+    const user = {
+        id: userFromDB.id,
+        name: userFromDB.data().name,
+        password: userFromDB.data().password,
+        imgURL: userFromDB.data().imgURL
+        // id: usersSnapshot.docs[0].id,
+        // name: usersSnapshot.docs[0].data().name,
+        // password: usersSnapshot.docs[0].data().password,
+        // imgURL: usersSnapshot.docs[0].data().imgURL
+    }
+    return saveLocalUser(user)
+}
+async function signup(userCred) {
+    const userToSave = {
+        name: userCred.displayName,
+        password: userCred.password,
+        imgURL: userCred.photoURL
+    }
+    const userFromDB = await addDoc(collection(db, 'users'), userToSave)
+    return signin(userFromDB)
+}
 function logout() {
     sessionStorage.clear()
 }
@@ -312,6 +357,8 @@ function logout() {
 
 
 function saveLocalUser(user) {
+    // console.log('here:', user)
+
     // Encrypt password
     user.password = _encryptData(user.password)
 

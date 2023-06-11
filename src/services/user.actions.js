@@ -1,6 +1,6 @@
 // import { userService } from "../services/user.service.js";
 
-import { SET_USER} from "./user.reducer.js";
+import { SET_USER } from "./user.reducer.js";
 // import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from "./user.reducer.js";
 import { store } from "./store.js";
 import { userService } from "./user.service.js";
@@ -28,12 +28,14 @@ import { userService } from "./user.service.js";
 
 export async function login(creds) {
     try {
-        const user = await userService.login(creds)
+        await userService.login(creds)
+
+        // const user = await userService.getLoggedinUser()
         // console.log('user2:', user)
-        store.dispatch({
-            type: SET_USER,
-            user
-        })
+        // store.dispatch({
+        //     type: SET_USER,
+        //     user
+        // })
         // return user
     } catch (err) {
         console.log('Cannot login', err)

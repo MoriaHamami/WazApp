@@ -160,6 +160,7 @@ function ChatFooter({ saveMsg }) {
 
     function sendMsg(ev) {
         ev.preventDefault()
+        if(!input) return
         // console.log('input:', input)
         saveMsg(input)
         setInput('')
@@ -257,7 +258,8 @@ function ChatFooter({ saveMsg }) {
                     placeholder="Type a message"
                     value={input}
                     onChange={ev => setInput(ev.target.value)}
-                    ref={inputRef} />
+                    ref={inputRef}
+                     />
             </form>
             {input ?
                 <IconButton onClick={sendMsg}>

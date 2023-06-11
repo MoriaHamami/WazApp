@@ -68,9 +68,9 @@ html {
     font-size: 18px;
   }
 
-  .sidebar-header {
-    background-color: red !important;
-  }
+  // .sidebar-header {
+  //   background-color: red !important;
+  // }
 }
 
 @include for-laptop-layout {
@@ -78,9 +78,9 @@ html {
     font-size: 16px;
   }
 
-  .sidebar-header {
-    background-color: orange !important;
-  }
+  // .sidebar-header {
+  //   background-color: orange !important;
+  // }
 }
 
 @include for-tablet-layout {
@@ -88,15 +88,15 @@ html {
     font-size: 18px;
   }
 
-  .sidebar-header {
-    background-color: yellow !important;
-  }
+  // .sidebar-header {
+  //   background-color: yellow !important;
+  // }
 }
 
 @include for-mobile-layout {
-  .sidebar-header {
-    background-color: pink !important;
-  }
+  // .sidebar-header {
+  //   background-color: pink !important;
+  // }
 
   html {
     font-size: 30px;

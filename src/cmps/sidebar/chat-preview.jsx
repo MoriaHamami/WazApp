@@ -7,7 +7,7 @@ import { userService } from "../../services/user.service"
 import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service"
 
-function ChatPreview({ addNewChat, createChat, name, id, participants }) {
+function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
     const [unreadMsgsCount, setUnreadMsgsCount] = useState(0)
@@ -74,7 +74,8 @@ function ChatPreview({ addNewChat, createChat, name, id, participants }) {
             <section className={`chat-preview ${id === roomId && 'active'} ${unreadMsgsCount && 'unread'}`}>
                 {/* {console.log('id, roomId:', id, roomId)} */}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
-                <Avatar src={`https://i.pravatar.cc/150?u=${name}`} />
+                <Avatar src={imgURL} />
+                {/* <Avatar src={`https://i.pravatar.cc/150?u=${name}`} /> */}
                 <article className="preview-info">
                     <div className="first-row">
                         {name ? (

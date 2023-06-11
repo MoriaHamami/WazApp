@@ -71,7 +71,7 @@ function Sidebar() {
 
             // TODO: Shorten query with use of "in" and utils func
             const filterBySubstrings = utilService.getAllSubstrings(filterBy)
-            console.log('filterBySubstrings:', filterBySubstrings)
+            // console.log('filterBySubstrings:', filterBySubstrings)
             // roomsCol = query(collection(db, 'rooms'),
 
             // (where("participants", "array-contains", loggedInUser.id)),
@@ -96,6 +96,8 @@ function Sidebar() {
             for (let i = 0; i < rooms.docs.length; i++) {
                 const room = rooms.docs[i]
                 if (room.data().participants.includes(loggedInUser.id)) {
+                    // If a chat is empty
+                    if(room.data().chatType === 'chat' && room.data().lastMsgTime?.seconds === room.data().timestamp?.seconds) continue
                     roomsWithData.push({ id: room.id, data: room.data() })
                 }
             }

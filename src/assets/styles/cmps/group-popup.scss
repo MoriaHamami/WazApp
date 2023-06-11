@@ -58,8 +58,8 @@
             background-color: $light-gray;
             transition: padding ease 0.5s, background-color 0.5s;
         }
-        
-        button:hover{
+
+        button:hover {
             background-color: $white;
             padding: 5px 13px;
         }
@@ -74,76 +74,79 @@
             border: 1px solid rgba(34, 36, 38, 0.15);
             border-radius: 0.28571429rem;
         }
-        input:focus{
+
+        input:focus {
             border-color: #85b7d9;
         }
-        input::placeholder{
+
+        input::placeholder {
             color: #ccc;
             // font-size: 1rem;
         }
     }
 
 
-.invalid-msg {
-    padding: 0;
-    background-color: $light-red;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 0.7rem;
-    text-align: start;
-}
-
-li {
-    list-style-type: none;
-
-    a {
-        text-decoration: underline;
-        color: blue;
+    .invalid-msg {
+        padding: 0;
+        background-color: $light-red;
+        border-radius: 5px;
+        padding: 5px;
+        font-size: 0.7rem;
+        text-align: start;
     }
 
-    a:hover {
-        opacity: 0.7;
-    }
-}
+    li {
+        list-style-type: none;
 
-// a@gmail.com
+        a {
+            text-decoration: underline;
+            color: blue;
+        }
 
-@include for-tablet-layout {
-    .content-container {
-        height: 100%;
-        width: 100%;
-    }
-
-    form {
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-        justify-content: center;
-        padding-inline: 10%;
+        a:hover {
+            opacity: 0.7;
+        }
     }
 
-    // .react-multi-email{
-    //     height: auto;
+    @include for-tablet-layout {
+        .content-container {
+            height: 100%;
+            width: 100%;
+        }
+
+        form {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            padding-inline: 10%;
+        }
+
+        // .react-multi-email{
+        //     height: auto;
+        // }
+
+    }
+
+    // a@gmail.com
+
+    // @include for-mobile-layout {
+    //     .content-container {
+    //         height: 100%;
+    //         width: 100%;
+    //     }
+
+    //     form {
+    //         display: flex;
+    //         height: 100%;
+    //         flex-direction: column;
+    //         justify-content: center;
+    //         padding-inline: 10%;
+    //     }
+
+    //     // .react-multi-email{
+    //     //     height: auto;
+    //     // }
+
     // }
-
-}
-// @include for-mobile-layout {
-//     .content-container {
-//         height: 100%;
-//         width: 100%;
-//     }
-
-//     form {
-//         display: flex;
-//         height: 100%;
-//         flex-direction: column;
-//         justify-content: center;
-//         padding-inline: 10%;
-//     }
-
-//     // .react-multi-email{
-//     //     height: auto;
-//     // }
-
-// }
 }

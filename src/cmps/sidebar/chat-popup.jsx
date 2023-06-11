@@ -28,7 +28,7 @@ function ChatPopup({ createChat, setIsChatPopupShown, loggedInEmail }) {
         // TODO - Dont add chat if there is a chat with same user 
 
         // If user didnt add different member, dont open chat
-        if(loggedInEmail === email) return
+        if (loggedInEmail === email) return
 
         // const decryptedUser = await userService.getLoggedinUser()
         // const loggedInUserEmail = decryptedUser.password
@@ -45,12 +45,12 @@ function ChatPopup({ createChat, setIsChatPopupShown, loggedInEmail }) {
         const participants = [loggedInUser.id]
         usersSnapshot.docs.map(user => {
             // return ({
-                //     email: user.data().password,
-                //     name: user.data().name
-                // })
-                participants.push(user.id)
-                // return user.data().id
-            })
+            //     email: user.data().password,
+            //     name: user.data().name
+            // })
+            participants.push(user.id)
+            // return user.data().id
+        })
         if (!usersSnapshot.docs.length) {
             return setInvalidEmail(email)
         }
@@ -73,8 +73,9 @@ function ChatPopup({ createChat, setIsChatPopupShown, loggedInEmail }) {
                     <input type="text"
                         placeholder="Type contact email"
                         value={email}
-                        onChange={handleChange} />
-
+                        onChange={handleChange}
+                        required
+                    />
                     {invalidEmail && <div className="invalid-msg">
                         {invalidEmail} isn't a member on WazApp <a target="_blank" href={`https://mail.google.com/mail/?view=cm&fs=1&to=${invalidEmail}&su=Let\'s chat!&body=Let\'s chat on WazApp! It\'s a fast, simple, and secure app we can use to message each other for free. Join at https://wazapp-fc40f.web.app/`}>send invite</a>
                     </div>}

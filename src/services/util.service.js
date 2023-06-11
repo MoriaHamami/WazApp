@@ -1,10 +1,29 @@
+
 export const utilService = {
     getAllSubstrings,
     getChatHeaderFormattedDate,
     getChatListFormattedDate,
     getChatFormattedDate,
-    getTime
+    getTime,
+    uploadImg
 }
+
+
+function uploadImg(ev, onImgReady) {
+    const reader = new FileReader()
+    // After we read the file
+    reader.onload = (event) => {
+        let img = new Image() // Create a new html img element
+        img.src = event.target.result // Set the img src to the img file we read
+        // Run the callBack func, to render the img
+        img.onload = () => onImgReady(img)
+    }
+    reader.readAsDataURL(ev.target.files[0]) // Read the file we picked
+}
+
+
+
+
 
 // Function to print all sub strings
 function getAllSubstrings(str) {

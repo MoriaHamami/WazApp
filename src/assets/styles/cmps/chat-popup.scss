@@ -106,23 +106,23 @@
     }
 
 
-}
-@include for-tablet-layout {
-    .content-container{
-        height: 100%;
-        width: 100%;
-    }
-
-    form{
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-        justify-content: center;
-        padding-inline: 10%;
-    }
-
-    .close-btn {
-        position: absolute;
+    @include for-tablet-layout {
+        .content-container{
+            height: 100%;
+            width: 100%;
+        }
+    
+        form{
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            padding-inline: 10%;
+        }
+    
+        .close-btn {
+            position: absolute;
+        }
     }
 }
 // @include for-mobile-layout {
