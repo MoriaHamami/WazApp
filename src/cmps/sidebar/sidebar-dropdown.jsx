@@ -1,6 +1,6 @@
 import { logout } from "../../services/user.actions"
 
-function Dropdown({ setIsOptionsSelected, setIsChatPopupShown, setIsGroupPopupShown }) {
+function SidebarDropdown({ setIsOptionsSelected, setIsChatPopupShown, setIsGroupPopupShown }) {
     return (
         <div className="dropdown" onClick={() => setIsOptionsSelected(prevState => !prevState)}>
             {/* <button onClick="myFunction()" className="dropbtn">Dropdown</button> */}
@@ -13,4 +13,4 @@ function Dropdown({ setIsOptionsSelected, setIsChatPopupShown, setIsGroupPopupSh
     )
 }
 
-export default Dropdown
+export default SidebarDropdown

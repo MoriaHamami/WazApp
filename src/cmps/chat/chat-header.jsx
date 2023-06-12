@@ -6,9 +6,12 @@ import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import UploadImg from "../upload-img";
+import ChatDropdown from "./chat-dropdown";
 
 function ChatHeader({ roomName, roomId, chatType, msgs, loadMsgs, imgURL }) {
 
+    const [isOptionsSelected, setIsOptionsSelected] = useState(false)
+    const [isGroupPopupShown, setIsGroupPopupShown] = useState(false)
     const [isSearchShown, setIsSearchShown] = useState('')
     const rooms = useSelector(storeState => storeState.roomModule.rooms)
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
@@ -62,13 +65,16 @@ function ChatHeader({ roomName, roomId, chatType, msgs, loadMsgs, imgURL }) {
             </div>}
             <div className="chat-icons">
                 {isSearchShown && <input placeholder="Search message in chat" onChange={onSearchMsgs} />}
-                <IconButton onClick={() => setIsSearchShown(prevState => !prevState)}>
+                <IconButton className={isSearchShown ? 'selected' : ''} onClick={() => setIsSearchShown(prevState => !prevState)}>
                     <SearchOutlined />
                 </IconButton>
 
-                <IconButton>
+                <IconButton className={isOptionsSelected ? 'selected' : ''} onClick={()=> setIsOptionsSelected(prevState=>!prevState)}>
                     <MoreVertIcon />
                 </IconButton>
+
+                {isOptionsSelected && <ChatDropdown roomId={roomId} chatType={chatType} setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} />}
+                {/* {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} loggedInEmail={loggedInEmail} />} */}
             </div>
         </header>
     )

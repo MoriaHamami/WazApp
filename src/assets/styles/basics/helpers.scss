@@ -1,3 +1,8 @@
+.selected {
+    background-color: $darker-gray !important;
+
+}
+
 @include for-tablet-layout {
     .not-active {
         display: none !important;

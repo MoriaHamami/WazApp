@@ -3,7 +3,7 @@ import DonutLargeIcon from '@mui/icons-material/DonutLarge';
 import ChatIcon from '@mui/icons-material/Chat';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useSelector } from "react-redux";
-import Dropdown from "./dropdown";
+import SidebarDropdown from "./sidebar-dropdown";
 import { useEffect, useRef, useState } from "react";
 import ChatPopup from "./chat-popup";
 import GroupPopup from "./group-popup";
@@ -137,7 +137,7 @@ function SidebarHeader({ loggedInUser }) {
                     <MoreVertIcon />
                 </IconButton>
             </div>
-            {isOptionsSelected && <Dropdown setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
+            {isOptionsSelected && <SidebarDropdown setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
             {isChatPopupShown && <ChatPopup createChat={createChat} setIsChatPopupShown={setIsChatPopupShown} loggedInEmail={loggedInEmail} />}
             {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} loggedInEmail={loggedInEmail} />}
         </header>

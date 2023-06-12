@@ -79,6 +79,7 @@ export default App;
 
 // VX - CHANGE TIME MARKING
 
+// Change place to upload img 
 // CHANGE GROUP NAME
 // CHANGE PARTICIPANTS IN GROUP
 // DELETE GROUP
@@ -92,7 +93,7 @@ export default App;
 // VV - CHANGE IMG OPTION
 
 // ADD SOUNDS FOR SENT OR INCOME
-// When searching message in chat jump to it instead of showing only it
+// When searching message show list and if selected jump to it (with key id) instead of showing only it
 // dont let user add chat that exists
 // fix filter (chats dont have names)
 
