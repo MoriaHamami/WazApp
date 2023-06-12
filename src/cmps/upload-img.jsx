@@ -37,7 +37,7 @@ function UploadImg({ imgRef, type, id }) {
                 100,
                 0,
                 (uri) => {
-                    console.log(uri);
+                    // console.log(uri);
                     updateImg(uri)
                 },
                 "base64",

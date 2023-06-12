@@ -60,6 +60,7 @@ function Sidebar() {
 
         let roomsCol
         if (filterBy) {
+            console.log('filterBy:', filterBy)
             navigate('/rooms')
             // const substrings = utilService.getAllSubstrings(filterBy)
             // console.log('substrings:', substrings)
@@ -70,7 +71,7 @@ function Sidebar() {
             // console.log('lowercaseStr:', lowercaseStr)
 
             // TODO: Shorten query with use of "in" and utils func
-            const filterBySubstrings = utilService.getAllSubstrings(filterBy)
+            // const filterBySubstrings = utilService.getAllSubstrings(filterBy)
             // console.log('filterBySubstrings:', filterBySubstrings)
             // roomsCol = query(collection(db, 'rooms'),
 
@@ -78,15 +79,17 @@ function Sidebar() {
             // (where("name", "in", filterBySubstrings)))
 
             roomsCol = query(collection(db, 'rooms'),
-                or(
-                    // and(where("participants", "array-contains", loggedInUser.id)),
-                    and(where('name', '>=', filterBy), where('name', '<=', filterBy + '\uf8ff')),
-                    and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
-                    and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff')),
-                    // and(where('participants', 'array-contains-any', filterBySubstrings)),
-                    // and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
-                    // and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff'))
-                ))
+                where("filterOpts", "array-contains", filterBy)
+                // or(
+                //     // and(where("participants", "array-contains", loggedInUser.id)),
+                //     and(where('name', '>=', filterBy), where('name', '<=', filterBy + '\uf8ff')),
+                //     and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
+                //     and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff')),
+                //     // and(where('participants', 'array-contains-any', filterBySubstrings)),
+                //     // and(where('name', '>=', capitalizedStr), where('name', '<=', capitalizedStr + '\uf8ff')),
+                //     // and(where('name', '>=', lowercaseStr), where('name', '<=', lowercaseStr + '\uf8ff'))
+                // ))
+            )
         } else {
             roomsCol = query(collection(db, 'rooms'), orderBy('lastMsgTime', 'desc'))
         }

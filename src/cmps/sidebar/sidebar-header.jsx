@@ -12,6 +12,7 @@ import db from "../../services/firebase";
 import { userService } from "../../services/user.service";
 import { useNavigate } from "react-router-dom";
 import UploadImg from "../upload-img";
+import { utilService } from "../../services/util.service";
 // import UploadImg from "./upload-img";
 // import { userService } from "../../services/user.service";
 
@@ -75,17 +76,25 @@ function SidebarHeader({ loggedInUser }) {
                 lastMsgTime: ts,
                 createdBy: loggedInUser.id,
                 timestamp: ts,
-                imgURL: null
+                imgURL: null,
+                filterOpts: utilService.getAllSubstrings(name)
             })
 
         } else {
+            // TODO: First get participants name (right now gets ids)
+            const participant1 = await userService.getById(participants[0])
+            const participant2 = await userService.getById(participants[1])
+            // TODO: Then change filter to be according to filterOpts
+            const substrs1 = utilService.getAllSubstrings(participant1.data().name)
+            const substrs2 = utilService.getAllSubstrings(participant2.data().name)
             savedChat = await addDoc(roomsCol, {
                 name,
                 participants,
                 chatType,
                 lastMsgTime: ts,
                 createdBy: loggedInUser.id,
-                timestamp: ts
+                timestamp: ts,
+                filterOpts: substrs1.concat(substrs2)
             })
 
         }

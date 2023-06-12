@@ -1,6 +1,6 @@
 // import { storageService } from './async-storage.service'
 // import { httpService } from './http.service'
-import { addDoc, collection, getDocs, onSnapshot, query, serverTimestamp, where } from "@firebase/firestore"
+import { addDoc, collection, doc, getDoc, getDocs, onSnapshot, query, serverTimestamp, where } from "@firebase/firestore"
 import db, { auth } from "./firebase"
 import CryptoJS from "crypto-js"
 import { store } from "./store"
@@ -22,6 +22,7 @@ export const userService = {
     // signup,
     getLoggedinUser,
     saveLocalUser,
+    getById
     // validateToken,
     // getLoginToken
     // getUsers,
@@ -180,6 +181,11 @@ function logout() {
     sessionStorage.clear()
 }
 
+async function getById(id){
+    const userCol = doc(db, 'users', id)
+    return await getDoc(userCol)
+    
+}
 // function buildUserPresence() {
 //     // Fetch the current user's ID from Firebase Authentication.
 //     var uid = auth().currentUser.uid;

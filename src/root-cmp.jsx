@@ -89,19 +89,20 @@ export default App;
 // HARD //////////////////////
 
 // VV - Add scroll in chat footer input
+// VV - CHANGE IMG OPTION
 
 // ADD SOUNDS FOR SENT OR INCOME
-// CHANGE IMG OPTION
 // When searching message in chat jump to it instead of showing only it
-// ADD UNREADMSGS COUNT
 // dont let user add chat that exists
 // fix filter (chats dont have names)
 
+// VV - IMPROVE QUERY ?
+
+// ADD UNREAD chats COUNT to chat header ?
 // INFINITE SCROLL ?
 // CHANGE EVRYTHING TO WORK WITH STORE?
 // ADD VOICE RECORDINGS ?
 // ADD FILE SENDING ?
-// FIX QUERY ?
 // MAKE ONLINE OPTION ?
-// REMOVE LAST SEEN ENTIRELY?
+// REMOVE LAST SEEN ENTIRELY ?
 // CHANGE USER NAME ?

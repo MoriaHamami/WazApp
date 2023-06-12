@@ -1,8 +1,13 @@
 import { SearchOutlined } from "@mui/icons-material"
+import { useEffect } from "react"
 
-function SearchBar({loadRooms}) {
+function SearchBar({ loadRooms }) {
 
-    function onSearchChats(ev){
+    // useEffect(() => {
+    //     return () => loadRooms(null)
+    // }, [])
+
+    function onSearchChats(ev) {
         // ev.preventDefault()y
         // console.log('here:', ev.target.value)
         loadRooms(ev.target.value)
