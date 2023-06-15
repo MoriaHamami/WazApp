@@ -271,7 +271,12 @@ function getChatListFormattedDate(timestamp) {
             weekday: 'long'
         }
     } else {
-        return timestamp.toLocaleString(userLocale)
+        // options = {
+        //     time: false,
+          
+        // }
+        return new Intl.DateTimeFormat(userLocale).format(timestamp)
+        // return timestamp.toLocaleString(userLocale)
     }
 
     return timestamp.toLocaleString(userLocale, options)

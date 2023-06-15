@@ -67,6 +67,7 @@ function Chat({ loggedInUser }) {
                     // room.data().name = reciever.data().name
                     const roomData = room.data()
                     roomData.name = reciever.data().name
+                    roomData.imgURL = reciever.data().imgURL
                     roomData.id = room.id
                     setRoom(roomData)
                 })

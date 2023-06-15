@@ -6,7 +6,7 @@ import SidebarHeader from "./sidebar-header"
 import { useEffect, useRef, useState } from "react"
 import { onSnapshot, addDoc, collection, query, orderBy, serverTimestamp, where, or, and } from "firebase/firestore";
 import db from "../../services/firebase";
-import { useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { utilService } from "../../services/util.service";
 import { useSelector } from "react-redux";
 import { userService } from "../../services/user.service";
@@ -128,14 +128,15 @@ function Sidebar() {
 
 
     return (
-        // isLoading ? <Loader /> : (
+        <>
         < div className={`sidebar ${roomId ? 'not-active' : null}`} >
             {/* {console.log('rooms:', rooms.length)} */}
             < SidebarHeader loggedInUser={loggedInUser} />
             <SearchBar loadRooms={loadRooms} />
             <ChatList rooms={rooms} />
         </div >
-        // )
+        <Outlet/>
+        </>
     )
 }
 

@@ -7,18 +7,18 @@ import { userService } from "../../services/user.service"
 import { useSelector } from "react-redux"
 import { utilService } from "../../services/util.service"
 
-function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL }) {
+function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL, chatType }) {
     // const [seed, setSeed] = useState('')
     const [lastMsg, setLastMsg] = useState("")
     const [unreadMsgsCount, setUnreadMsgsCount] = useState(0)
-    const [chatRecieverName, setChatRecieverName] = useState("")
+    const [chatReciever, setChatReciever] = useState({})
     const unsub = useRef(null)
     const { roomId } = useParams()
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
 
     useEffect(() => {
         loadPreviewData(id)
-        getChatName()
+        getUserInfo()
         return () => {
             unsub.current && unsub.current()
         }
@@ -48,7 +48,8 @@ function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL })
         })
     }
     // console.log('getChatName():', getChatName())
-    async function getChatName() {
+    async function getUserInfo() {
+        if(chatType === 'group') return
         // const loggedInUser = userService.getLoggedinUser()
         // console.log('participants:', participants)
         // if(name) return
@@ -62,9 +63,10 @@ function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL })
         const recieverSnapshot = await getDoc(usersCol)
 
         const chatRecieverName = recieverSnapshot?.data().name
+        const chatRecieverImgURL = recieverSnapshot?.data().imgURL
         // console.log('chatRecieverName:', chatRecieverName)
         // return chatRecieverName
-        setChatRecieverName(chatRecieverName)
+        setChatReciever({ name: chatRecieverName, imgURL: chatRecieverImgURL })
     }
 
 
@@ -74,7 +76,9 @@ function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL })
             <section className={`chat-preview ${id === roomId && 'active'} ${unreadMsgsCount && 'unread'}`}>
                 {/* {console.log('id, roomId:', id, roomId)} */}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${seed}`} /> */}
-                <Avatar src={imgURL} />
+                {imgURL ?
+                    <Avatar src={imgURL} /> :
+                    <Avatar src={chatReciever.imgURL} />}
                 {/* <Avatar src={`https://i.pravatar.cc/150?u=${name}`} /> */}
                 <article className="preview-info">
                     <div className="first-row">
@@ -84,7 +88,7 @@ function ChatPreview({ addNewChat, createChat, name, id, participants, imgURL })
                             </div>
                         ) : (
                             <div className="user-name">
-                                {chatRecieverName}
+                                {chatReciever.name}
                             </div>
                         )}
                         <p className={`timestamp ${unreadMsgsCount && 'unread'}`}>{utilService.getChatListFormattedDate(lastMsg?.timestamp) || null}</p>
