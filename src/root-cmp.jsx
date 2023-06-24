@@ -66,7 +66,7 @@ function App() {
                   <Route path="rooms" element={<Sidebar />}  >
                     <Route index element={<IntroChat />} />
                     <Route path=":roomId" element={<Chat loggedInUser={loggedInUser} />} />
-                    <Route path=":roomsId/info" element={<GroupInfo />} />
+                    <Route path=":roomId/info" element={<GroupInfo loggedInUser={loggedInUser} />} />
                   </Route>
                 </Routes>
               </article>
@@ -93,12 +93,12 @@ export default App;
 // VV - ADD READBY MARK
 // VV - CHANGE TIME MARKING
 // VV - Show image of chats according to other participants
+// VV- CHANGE GROUP NAME
+// VV - CHANGE PARTICIPANTS IN GROUP
+// VV - DELETE GROUP / LEAVE GROUP
+// VV - Change place to upload img 
 
 
-// CHANGE GROUP NAME
-// CHANGE PARTICIPANTS IN GROUP
-// DELETE GROUP / LEAVE GROUP
-// Change place to upload img 
 // CHANGE GROUP FROM LAST SEEN TO PARTICIPANTS
 // CREATE BACKEND FILE
 // ADD TRY AND CATCH TO ALL
@@ -109,10 +109,10 @@ export default App;
 // VV - Add scroll in chat footer input
 // VV - CHANGE IMG OPTION
 // VV - fix filter (chats dont have names)
+// VV - dont let user add chat that exists
 
 // When searching message show list and if selected jump to it (with key id) instead of showing only it
 // ADD SOUNDS FOR SENT OR INCOME
-// dont let user add chat that exists
 
 
 // VV - IMPROVE QUERY ?

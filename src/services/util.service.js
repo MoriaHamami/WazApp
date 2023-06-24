@@ -308,7 +308,7 @@ function getChatHeaderFormattedDate(timestamp) {
     } else if (_isThisWeek(timestamp)) {
         return 'last seen ' + timestamp.toLocaleString(userLocale, { weekday: 'short', hour: "2-digit", minute: "2-digit" })
     } else {
-        return 'last seen ' + timestamp.toLocaleString(userLocale, { month: 'short', hour: "2-digit", minute: "2-digit" })
+        return 'last seen ' + timestamp.toLocaleString(userLocale, { year: 'numeric', month: 'short', day: 'numeric' })
     }
 
 

@@ -42,7 +42,7 @@
   }
   
   /* Links inside the dropdown */
-  .dropdown-content a {
+  .dropdown-content a,.dropdown-content section {
     cursor: pointer;
     color: black;
     text-decoration: none;
@@ -51,9 +51,12 @@
   }
   
   /* Change color of dropdown links on hover */
-  .dropdown-content a:hover {background-color: $light-gray;}
+  .dropdown-content a:hover,.dropdown-content section:hover {background-color: $light-gray;}
   
-  
+  .dropdown-content section{
+    position: relative;
+  }
+
   /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
 //   .show {display:block;}
 
@@ -73,9 +76,16 @@
         margin: 0 8px;
         padding: 10px;
     }
-
+    
     .dropdown-content a:not(:last-child) {
         border-bottom: 1px solid $darker-gray;
+    }
+    
+    .dropdown-content section{
+        margin: 0 8px;
+        padding: 10px;
+        border-bottom: 1px solid $darker-gray;
+
     }
 }
 // @include for-mobile-layout {

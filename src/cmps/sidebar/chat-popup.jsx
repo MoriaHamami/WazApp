@@ -37,7 +37,6 @@ function ChatPopup({ createChat, setIsChatPopupShown, loggedInEmail }) {
         // Check if emails exist in db 
         const usersCol = query(collection(db, 'users'), where("password", "==", email))
 
-        // TODO - CHANGE TO ONSNAPSHOT
         const usersSnapshot = await getDocs(usersCol)
         // console.log('usersSnapshot.docs:', usersSnapshot.docs.map(e => e.data()))
         // console.log('usersSnapshot.docs:', usersSnapshot.docs.length)

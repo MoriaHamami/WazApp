@@ -51,12 +51,11 @@ function ChatHeader({ roomName, roomId, chatType, msgs, loadMsgs, imgURL }) {
                 <ArrowBackIos />
                 {/* {getUnreadChats()} */}
             </IconButton>
-            <div className="img-container">
+            {/* <div className="img-container"> */}
                 <Avatar ref={imgRef} className="profile" src={imgURL} />
-                {/* <Avatar ref={imgRef} className="profile" src={`https://i.pravatar.cc/150?u=${roomName}`} /> */}
-                {chatType === 'group' && <UploadImg imgRef={imgRef} type={'group'} id={roomId} />}
+                {/* {chatType === 'group' && <UploadImg imgRef={imgRef} type={'group'} id={roomId} />} */}
 
-            </div>
+            {/* </div> */}
 
             {!isSearchShown && <div className="chat-info">
                 <div className="user-name">{roomName}</div>

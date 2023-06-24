@@ -1,0 +1,245 @@
+.group-info {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // justify-content: center;
+    // flex-grow: 1;
+    width: calc(100vw - $sidebar-width);
+    overflow: scroll;
+    position: relative;
+    // top: 0;
+    // height: 100vh;
+    padding: 20px;
+
+    .close-btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .img-change {
+        p {
+            margin-top: 10px;
+            color: $blue;
+            font-size: 0.8rem;
+        }
+
+        &:hover p{
+            color: $hover-blue;
+        }
+
+        position: relative;
+        width: max-content;
+        // background-color: red;
+    }
+
+    .group-name {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .participants-count {
+        color: $gray;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        background-color: $white;
+        padding: 10px;
+       
+        width: 100%;
+
+        label{
+            margin-bottom: 10px;
+        }
+
+        .input-container {
+            display: flex;
+        }
+
+        button{
+            margin-inline-start: 5px;
+            border-radius: 0.3rem;
+            background: none;
+            border: 1px solid $darker-gray;
+            cursor: pointer;
+        }
+
+        button:hover{
+            background-color: $light-gray;
+        }
+
+        input {
+            // max-width: 18rem;
+            border-radius: 0.3rem;
+            border: 1px solid $darker-gray;
+            padding: 5px;
+            max-width: calc(100vw - 40px - 3rem);
+        }
+
+
+        ::placeholder{
+            overflow: hidden;
+        }
+
+    }
+
+    .edit-subject{
+        margin-top: 20px;
+        border-radius: 0.8rem;
+    }
+
+    .add-participant{
+        display: flex;
+        align-items: center;
+        background-color: $white;
+        width: 100%;
+        border-radius: 0.8rem 0.8rem 0 0;
+        margin-top: 10px;
+        color: $blue;
+
+    }
+
+    .add-btn{
+        margin: 0.5rem 0.2rem 0.5rem 0.5rem;
+        font-size: 1rem;
+        color: $blue;
+    }
+    
+    .add-participant:hover{
+        cursor: pointer;
+        color: $hover-blue;
+    }
+    
+    .add-participant:hover .add-btn{
+        
+        color: $hover-blue;
+
+    }
+
+    // .add-contact{
+    //     border-radius: 0.8rem 0.8rem 0 0;
+    // }
+
+    .error-msg{
+        font-size: 0.7rem;
+        color: $light-red;
+    }
+
+    .participants-count.bold {
+        color: $black;
+        font-weight: 700;
+        margin-top: 20px;
+        align-self: start;
+    }
+   
+    .participant-list{
+        background-color: $white;
+        padding-bottom: 10px;
+        // margin-top: 20px;
+        border-radius: 0 0 0.8rem 0.8rem;
+        width: 100%;
+
+        .underline{
+            border-bottom: 1px solid $light-gray;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+        }
+
+        .participant-preview:last-child .underline {
+            border-bottom: none;
+        }
+
+        .participant-preview{
+            padding: 5px 0 0 10px;
+            cursor: pointer;
+            display: flex;
+            // justify-content: space-between;
+            align-items: center;
+        }
+        .participant-preview:hover{
+            background-color: $light-gray;
+        }
+
+        .participant-preview p{
+            // padding: 10px;
+            // align-self: start;
+            // padding: 0.8rem 0.4rem;
+        }
+
+        .delete-btn{
+            color: $red;
+            // border-bottom: 1px solid $light-gray;
+        }
+
+        .delete-btn:hover{
+            color: $light-red;
+        }
+    }
+
+    .profile{
+        height: 50vh;
+        width: 50vh;
+        max-height: 200px;
+        max-width: 200px;
+    }
+
+
+
+    .delete-group-btn{
+        cursor: pointer;
+        color: $red;
+        background-color: $white;
+        // background: none;
+        border: none;
+        width: 100%;
+        border-radius: 0.8rem;
+        margin-top: 20px;
+        padding: 10px;
+        text-align: start;
+    }
+
+    .delete-group-btn:hover{
+        color: $light-red;
+    }
+
+    .date{
+        margin-top: 20px;
+        color: $gray;
+        font-size: 0.7rem;
+        align-self: start;
+    }
+
+    @include for-tablet-layout {
+        width: 100%;
+    }
+
+    @include for-mobile-layout {
+        // background-color: red;
+        font-size: 0.9rem;
+        .delete-btn{
+            font-size: 1rem;
+        }
+        .delete-group-btn{
+            font-size: 0.9rem;
+        }
+
+        form button{
+            font-size: 0.8rem;
+        }
+        
+        form input{
+            font-size: 0.8rem;
+        }
+
+        .participants-count{
+            font-size: 0.8rem;
+        }
+    }
+}

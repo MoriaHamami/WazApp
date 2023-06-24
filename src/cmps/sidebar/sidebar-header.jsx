@@ -39,10 +39,6 @@ function SidebarHeader({ loggedInUser }) {
         // const roomsCol = query(collection(db, 'rooms'), ("participants", "array-contains", decryptedLoggedInUser.password))
         if (isGroupPopupShown) setIsGroupPopupShown(false)
 
-
-        // let roomsCol 
-
-        // TODO: Dont open chat with same person
         if (isChatPopupShown) {
             setIsChatPopupShown(false)
 
@@ -122,10 +118,10 @@ function SidebarHeader({ loggedInUser }) {
 
     return (
         <header className="sidebar-header">
-            <div className="img-container">
+            {/* <div className="img-container"> */}
                 <Avatar ref={imgRef} src={loggedInUser?.imgURL} className="profile" />
-                <UploadImg imgRef={imgRef} type={'user'} id={loggedInUser.id} />
-            </div>
+                {/* <UploadImg imgRef={imgRef} type={'user'} id={loggedInUser.id} /> */}
+            {/* </div> */}
             <div className="sidebar-icons">
                 {/* <IconButton>
                     <DonutLargeIcon />
@@ -137,7 +133,7 @@ function SidebarHeader({ loggedInUser }) {
                     <MoreVertIcon />
                 </IconButton>
             </div>
-            {isOptionsSelected && <SidebarDropdown setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
+            {isOptionsSelected && <SidebarDropdown loggedInUserId={loggedInUser.id} setIsOptionsSelected={setIsOptionsSelected} setIsGroupPopupShown={setIsGroupPopupShown} setIsChatPopupShown={setIsChatPopupShown} />}
             {isChatPopupShown && <ChatPopup createChat={createChat} setIsChatPopupShown={setIsChatPopupShown} loggedInEmail={loggedInEmail} />}
             {isGroupPopupShown && <GroupPopup createChat={createChat} setIsGroupPopupShown={setIsGroupPopupShown} loggedInEmail={loggedInEmail} />}
         </header>

@@ -16,9 +16,9 @@
     }
 
     
-    .img-container {
-        position: relative;
-    }
+    // .img-container {
+    //     position: relative;
+    // }
 
     input[type='file'] {
         opacity: 0;
@@ -32,27 +32,27 @@
 
     }
 
-    .profile::after{
-        // background-color: rgba(255, 255, 255, 0);
-        content: 'Upload';
-        font-size: 0.4rem;
-        // color: var(--clr2);
-        position: absolute;
-        // top: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #00000070;
-        color: $light-gray;
-        height: 100%;
-        width: 100%;
-        opacity: 0;
-        transition: opacity 0.5s;
-    }
+    // .profile::after{
+    //     // background-color: rgba(255, 255, 255, 0);
+    //     content: 'Upload';
+    //     font-size: 0.4rem;
+    //     // color: var(--clr2);
+    //     position: absolute;
+    //     // top: 0;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     background-color: #00000070;
+    //     color: $light-gray;
+    //     height: 100%;
+    //     width: 100%;
+    //     opacity: 0;
+    //     transition: opacity 0.5s;
+    // }
     
-    .img-container:hover .profile::after {
-        opacity: 1;
-    }
+    // .img-container:hover .profile::after {
+    //     opacity: 1;
+    // }
 
     .prev-btn {
         display: none;

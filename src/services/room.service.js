@@ -2,12 +2,13 @@
 // const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 // const SECRET_PASS = 'XkhZG4fW2t2W'
 
-import { collection, deleteDoc, doc } from "@firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, updateDoc } from "@firebase/firestore";
 import db from "./firebase";
 
 
 export const roomService = {
-    deleteRoom
+    deleteRoom,
+    deleteParticipant
 }
 
 async function deleteRoom(roomId){
@@ -18,5 +19,20 @@ async function deleteRoom(roomId){
     // await deleteDoc(msgsRef)
     // Delete chat
     await deleteDoc(doc(db, "rooms", roomId))
+}
+
+async function deleteParticipant(roomId, participants, participantId) {
+    // console.log('roomId:', roomId)
+    // console.log('participants:', participants)
+    const roomRef = doc(db, "rooms", roomId)
+    
+    const filteredParticipants = participants.filter(currParticipantId=> participantId !== currParticipantId)
+    // console.log('filteredParticipants:', filteredParticipants)
+    // const roomSnapshot = await getDoc(roomRef)
+    // const participants = roomSnapshot.doc.data().participants
+    await updateDoc(roomRef, {
+        participants: filteredParticipants
+    })
+    // await deleteDoc(doc(db, "rooms", roomId))
 }
 
