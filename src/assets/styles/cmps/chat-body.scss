@@ -16,7 +16,60 @@
     // height: calc(100vh - 290.79px - 290.79px);
 
     // }
-    .chat-msg {
+    &.filtered-list {
+        padding: 0;
+        background-image: none;
+        background-color: $white;
+
+        .search-msg {
+            // content: "Search messages";
+            padding: 0.5rem 1rem;
+            // position: absolute;
+            color: $gray;
+            font-size: 0.7rem;
+        }
+
+        // overflow: hidden;
+        // .chat-msg.reciever{
+        //     background: none;
+        // }
+        // .chat-msg.reciever .timestamp{
+            // position: absolute;
+        // }
+    }
+    
+    .filtered-msg-preview {
+        text-decoration: none !important;
+        cursor: pointer;
+        background-color: $white;
+        
+        .content {
+            overflow-wrap: break-word;
+            
+        }
+        
+        .timestamp {
+            text-align: start;
+            font-size: 0.6rem;
+        }
+        
+        .chat-msg:hover {
+            background-color: $light-gray;
+        }
+        
+        .chat-msg{
+        border-bottom: 1px solid $light-gray;
+
+            padding: 4px 15px;
+            color: $black;
+        }
+        
+    
+
+        
+    }
+
+    .msg-preview .chat-msg {
 
         min-width: 3.5rem;
         position: relative;
@@ -33,13 +86,14 @@
         // box-shadow: 1px -1px 1px 0px rgba(196, 196, 196, 0.25);
         // box-shadow: 0px -1px 1px #b1b1b169;
 
-        
+
         .v-mark {
             position: absolute;
             font-size: 1rem;
             right: 10px;
             color: $gray;
         }
+
         .blue {
             color: $darker-blue;
         }
@@ -69,14 +123,14 @@
     //   border-bottom-left-radius: 10px;
     //     }
 
-    .chat-msg.reciever {
+    .msg-preview .chat-msg.reciever {
         margin-left: auto;
         background-color: $light-green;
         box-shadow: -1px -1px 3px 1px rgba(196, 196, 196, 0.25);
 
-        .timestamp{
+        .timestamp {
             position: relative;
-            right:1.2rem;
+            right: 1.2rem;
         }
     }
 

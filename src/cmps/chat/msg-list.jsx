@@ -172,11 +172,12 @@ function MsgList({ msgs, isScrollAtTop, isScrollingUp, isScrollingDown, chatBody
             {/* <div className="timestamp"></div> */}
             {msgs && msgs.map((msg, idx) => (
                 // <MsgPreview key={idx} ref={el=>msgsRef.current.push(el)} name={msg.name} msg={msg.msg} timestamp={msg.timestamp} prevTimestamp={msgs[idx - 1]?.timestamp} nextTimestamp={msgs[idx + 1]?.timestamp} floatingTimestamp={floatingTimestamp}/>
-                <div key={msg.timestamp?.seconds}>
+                <div key={msg.id}>
                     {/* {console.log('participants:', participants)} */}
                     {/* {console.log('msg.readBy:', msg.readBy)} */}
                     <MsgPreview 
-                        key={msg.timestamp?.seconds}
+                    id={msg.id}
+                        key={msg.id}
                         idx={idx}
                         msgsRef={msgsRef}
                         name={msg.name}

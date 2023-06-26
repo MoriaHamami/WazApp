@@ -3,7 +3,7 @@ import { Avatar, IconButton } from "@mui/material"
 
 function ParticipantPreview({ id, name, imgURL, onDeleteParticipant }) {
     return (
-        <div className="participant-preview">
+        <div className="participant-preview" id={id}>
             <Avatar className="participant-img" src={imgURL} />
             <div className="underline">
                 <p>{name}</p>

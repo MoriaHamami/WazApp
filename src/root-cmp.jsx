@@ -110,9 +110,9 @@ export default App;
 // VV - CHANGE IMG OPTION
 // VV - fix filter (chats dont have names)
 // VV - dont let user add chat that exists
+// XX - ADD SOUNDS FOR SENT OR INCOME
 
-// When searching message show list and if selected jump to it (with key id) instead of showing only it
-// ADD SOUNDS FOR SENT OR INCOME
+// vv - When searching message show list and if selected jump to it (with key id) instead of showing only it
 
 
 // VV - IMPROVE QUERY ?

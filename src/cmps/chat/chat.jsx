@@ -22,6 +22,8 @@ function Chat({ loggedInUser }) {
     const roomsUnsub = useRef(null)
     const recieverUnsub = useRef(null)
     const rooms = useSelector(storeState => storeState.roomModule.rooms)
+    const [filteredMsgs, setFilteredMsgs] = useState([])
+    const [isSearchShown, setIsSearchShown] = useState('')
 
     useEffect(() => {
         // console.log('roomId:', roomId)
@@ -126,7 +128,8 @@ function Chat({ loggedInUser }) {
             let updatedMsgs = []
             for (let i = 0; i < msgs.docs.length; i++) {
                 const msg = msgs.docs[i].data()
-                const msgRef = doc(roomRef, "msgs", msgs.docs[i].id);
+                msg.id = msgs.docs[i].id
+                const msgRef = doc(roomRef, "msgs", msg.id);
 
                 // let msgRef = msgs.docs[i]
                 updateReadBy(msg, updatedMsgs, msgRef)
@@ -217,8 +220,8 @@ function Chat({ loggedInUser }) {
         <IntroChat />
     ) : (
         <article className="chat">
-            <ChatHeader roomName={room.name} roomId={room.id} chatType={room.chatType} imgURL={room.imgURL} msgs={msgs} loadMsgs={loadMsgs} />
-            <ChatBody msgs={msgs} room={room} />
+            <ChatHeader roomName={room.name} roomId={room.id} chatType={room.chatType} imgURL={room.imgURL} msgs={msgs} loadMsgs={loadMsgs} setFilteredMsgs={setFilteredMsgs} isSearchShown={isSearchShown} setIsSearchShown={setIsSearchShown} />
+            <ChatBody msgs={msgs} room={room} filteredMsgs={filteredMsgs} isSearchShown={isSearchShown} setIsSearchShown={setIsSearchShown} />
             <ChatFooter saveMsg={saveMsg} />
         </article >
     )

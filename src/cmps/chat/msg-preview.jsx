@@ -4,7 +4,7 @@ import { utilService } from "../../services/util.service"
 import { useInView } from "react-intersection-observer"
 import { DoneAll } from "@mui/icons-material"
 
-function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTimestamp, floatingTimestamp, readBy, participants, chatType }) {
+function MsgPreview({ timestamp, idx, id, msgsRef, date, name, msg, prevDate, nextTimestamp, floatingTimestamp, readBy, participants, chatType }) {
     const [isDateShown, setIsDateShown] = useState(false)
     // const [isDateNearestHidden, setIsDateNearestHidden] = useState(false)
     const loggedInUser = useSelector(storeState => storeState.userModule.user)
@@ -121,7 +121,7 @@ function MsgPreview({ timestamp, idx, msgsRef, date, name, msg, prevDate, nextTi
                     {/* {utilService.getChatFormattedDate(timestamp)} */}
                 </div> : null}
 
-            <div className="msg-preview" ref={el => msgsRef.current[idx] = el} date={date}>
+            <div className="msg-preview" ref={el => msgsRef.current[idx] = el} date={date} id={id}>
             {/* <div className="msg-preview" ref={el => msgsRef.current.push(el)} date={date}> */}
             {/* <div className="msg-preview" ref={el => msgsRef.current[idx] = el} timestamp={utilService.getChatFormattedDate(timestamp)}> */}
                 <div className={`rect ${name === loggedInUser.name && 'reciever'}`}></div>
